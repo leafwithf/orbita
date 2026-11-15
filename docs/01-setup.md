@@ -147,6 +147,23 @@ group by 1, 2, 3
 having count(*) > 1;
 ```
 
+### Suíte automatizada de RLS e foco
+
+Depois de aplicar a migração em um banco **de desenvolvimento** (nunca em produção, pois ela cria e apaga dois usuários de teste):
+
+```bash
+psql "$DATABASE_URL" -f supabase/tests/rls_and_focus.sql
+```
+
+Cada bloco imprime `PASS: ...` ou aborta com a falha. Para a concorrência do foco, use os UUIDs do espaço e dos projetos criados pela suíte:
+
+```bash
+pgbench -n -f supabase/tests/focus_concurrency.pgbench -c 8 -j 4 -t 150 \
+  -D ws=<workspace> -D p1=<projeto1> -D p2=<projeto2> -D uid=<usuario>
+```
+
+No fim, a consulta de duplicatas da seção anterior deve retornar vazio.
+
 ## 5. Problemas comuns
 
 | Sintoma | Causa provável | Solução |

@@ -1,0 +1,8 @@
+-- Uso: pgbench -n -f focus_concurrency.pgbench -c 8 -j 4 -t 150 -D ws=<uuid> -D p1=<uuid> -D p2=<uuid> -D uid=<uuid>
+-- Oito sessões alternam o foco entre dois projetos do mesmo espaço, sem pausa.
+\set pick random(1, 2)
+BEGIN;
+SET LOCAL ROLE authenticated;
+SELECT set_config('request.jwt.claim.sub', ':uid', true);
+SELECT public.set_primary_focus(':ws'::uuid, 'project', (CASE WHEN :pick = 1 THEN ':p1' ELSE ':p2' END)::uuid);
+COMMIT;

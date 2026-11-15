@@ -53,7 +53,7 @@ O passo a passo completo está em [`docs/01-setup.md`](./docs/01-setup.md). Resu
 4. Cole os templates de e-mail de `supabase/templates/` em Auth → Email Templates.
 5. Rode a aplicação e crie sua conta. O primeiro usuário recebe perfil e espaço pessoal automaticamente por trigger.
 
-> A migração ainda não foi executada neste ambiente. Antes de considerar o login validado, rode-a em um projeto Supabase de desenvolvimento e siga o checklist de verificação do guia.
+> A migração foi validada em um Postgres local com o Supabase simulado (RLS, triggers e foco sob concorrência), mas **ainda não** em um projeto Supabase real. Antes de considerar o login validado, rode-a em um projeto de desenvolvimento e execute `supabase/tests/rls_and_focus.sql`.
 
 ## Scripts
 

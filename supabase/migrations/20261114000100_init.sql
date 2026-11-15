@@ -580,7 +580,8 @@ begin
   values (new.id)
   on conflict (user_id) do nothing;
 
-  v_slug := 'espaco-' || substr(replace(new.id::text, '-', ''), 1, 10);
+  -- UUID completo: único por construção, então o cadastro nunca falha por colisão.
+  v_slug := 'espaco-' || replace(new.id::text, '-', '');
 
   insert into public.workspaces (name, slug, kind, owner_id)
   values ('Meu espaço', v_slug, 'personal', new.id);

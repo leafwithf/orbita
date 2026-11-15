@@ -1,6 +1,6 @@
 # Pendências e próximos passos
 
-- **Atualizado em:** 2026-11-15
+- **Atualizado em:** 2026-11-15 (Etapas 1 e 2 de execução concluídas; ver seção 7)
 - **Etapa atual:** 3 — Fundação (implementada, aceite pendente de validação externa)
 - **Regra:** a etapa só é declarada concluída quando o critério do plano for comprovado, não quando o código estiver escrito.
 
@@ -24,7 +24,7 @@
 
 ### 2.1 Versionamento
 
-- [ ] Repositório git inicializado e primeiro commit.
+- [x] Repositório git inicializado e primeiro commit (`main`).
 - [ ] Remoto no GitHub criado e enviado (`git remote add origin … && git push -u origin main`).
 
 > O zip `orbita-etapa-3-fundacao.zip` é um pacote de conferência, não substitui o versionamento.
@@ -47,17 +47,18 @@ Passos:
 - [ ] Configurar Site URL e Redirect URLs: `/auth/confirm`, `/auth/callback`, `/redefinir-senha`.
 - [ ] Colar os templates de `supabase/templates/` em Auth → Email Templates.
 
-Validações obrigatórias depois da migração:
+Validações obrigatórias depois da migração. Os itens marcados com **(local)** foram comprovados em um Postgres 16 local com o Supabase simulado (ver seção 7); **repita-os no Supabase real** com `supabase/tests/rls_and_focus.sql`:
 
-- [ ] Cadastro cria `profiles`, `user_preferences`, `workspaces` e `workspace_members` (trigger).
+- [x] **(local)** Migração executa sem erro: 22 tabelas, 22 com RLS, 63 policies, 19 triggers.
+- [x] **(local)** Cadastro cria `profiles`, `user_preferences`, `workspaces` e `workspace_members` (trigger).
 - [ ] Confirmação de e-mail abre `/bem-vindo` com sessão SSR.
 - [ ] Onboarding grava nome/fuso e libera a área interna.
 - [ ] Logout encerra a sessão; `/projetos` volta para `/login`.
 - [ ] Recuperação de senha conclui em `/redefinir-senha`.
-- [ ] Consulta com a chave anônima retorna vazio/erro, nunca dados de outro espaço.
-- [ ] Dois usuários de espaços diferentes não se enxergam (RLS).
-- [ ] Duas trocas simultâneas de foco resultam em **uma** linha por `(workspace_id, kind, scope_key)`.
-- [ ] Nenhuma tabela pública sem política além de `audit_logs` (decisão registrada na ADR 0004).
+- [x] **(local)** Consulta com a role `anon` é negada nas 22 tabelas, nunca retorna dados.
+- [x] **(local)** Dois usuários de espaços diferentes não se enxergam (select, update, delete, insert e auto-convite barrados).
+- [x] **(local)** Trocas simultâneas de foco resultam em **uma** linha por `(workspace_id, kind, scope_key)` (1.200 trocas, 8 clientes, 0 falhas).
+- [x] **(local)** Nenhuma tabela pública sem política além de `audit_logs` (decisão registrada na ADR 0004).
 
 ### 2.3 Deploy preview
 
@@ -106,3 +107,20 @@ Validações obrigatórias depois da migração:
 - Verificação jurídica do nome **ÓRBITA**.
 - Registro e disponibilidade de domínio.
 - Contratação de e-mail transacional próprio (o alpha usa o e-mail do Supabase).
+
+## 7. Registro de execução
+
+### Etapa 1 — versionamento e verificação (2026-11-15)
+
+- `git init` em `main` e commit inicial. Sem segredos: só `.env.example` (vazio).
+- Typecheck, lint, 41 testes unitários e build de produção (18 rotas) verdes. Rodado em Node 22; o projeto exige Node 24+.
+- Ajustes de mobile: `orientation: "any"` no manifest e `viewportFit: "cover"` no viewport, para o `env(safe-area-inset-bottom)` da barra inferior funcionar no iPhone.
+- **Pendente:** criar o remoto no GitHub e fazer `git push -u origin main`.
+
+### Etapa 2 — migração, RLS e foco em Postgres local (2026-11-15)
+
+- Ambiente: Postgres 16 local, com `auth.users`, `auth.uid()` e as roles `anon`/`authenticated`/`service_role` **simulados**. Não é o Supabase real: Auth, Storage, PostgREST e e-mail não foram exercitados.
+- Suíte: `supabase/tests/rls_and_focus.sql` (7 blocos, todos PASS, reexecutável) e `supabase/tests/focus_concurrency.pgbench`.
+- **Correção na migração:** o slug do espaço pessoal usava só 10 caracteres do UUID, e uma colisão faria o cadastro falhar. Agora usa o UUID inteiro. A migração nunca havia sido executada em nenhum banco, então a alteração foi feita no próprio arquivo.
+- Confirmado o comportamento já documentado: `owner_id` com `on delete restrict` exige apagar o espaço antes do usuário.
+- **Pendente:** rodar a migração e a suíte no projeto Supabase de desenvolvimento.
