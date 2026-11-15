@@ -124,3 +124,18 @@ Validações obrigatórias depois da migração. Os itens marcados com **(local)
 - **Correção na migração:** o slug do espaço pessoal usava só 10 caracteres do UUID, e uma colisão faria o cadastro falhar. Agora usa o UUID inteiro. A migração nunca havia sido executada em nenhum banco, então a alteração foi feita no próprio arquivo.
 - Confirmado o comportamento já documentado: `owner_id` com `on delete restrict` exige apagar o espaço antes do usuário.
 - **Pendente:** rodar a migração e a suíte no projeto Supabase de desenvolvimento.
+
+### Etapa 3 — fechamento sem credenciais (2026-11-15)
+
+- Repositório já versionado (`main`, 2 commits). Falta só o remoto: `git remote add origin <url>` e `git push -u origin main`.
+- `scripts/db-local.sh` (`npm run verify:db`): sobe um Postgres 16 descartável, aplica o shim do Supabase (`supabase/tests/00_supabase_shim.sql`), todas as migrações e todas as suítes. Linha de base reproduzida: 7/7 PASS.
+- `scripts/verify-supabase.mjs` (`npm run verify:supabase`): roda no Supabase **real** com a anon key. Cobre anon sem acesso, isolamento entre dois usuários, foco concorrente (30 chamadas paralelas), conclusão/histórico, conversão e busca. Requer "Confirm email" desativado no projeto de dev.
+- **Contornos gratuitos adotados:** sem service role (testes só com anon + 2 usuários); preview Netlify via *Import from Git* na interface (sem token); sem domínio próprio (`*.netlify.app`).
+
+### Etapa 4 — parte 1: banco e domínio (2026-11-15)
+
+- Migração `20261115000200_mvp_personal.sql`: `completed_at` coerente por gatilho; histórico automático (created, completed, reopened, status/stage/state_changed, trashed, restored, archived, converted); `convert_idea_to_project` atômica sob RLS; `search_workspace` (sem acento, sem caixa, curingas literais, mínimo 2 caracteres).
+- Suíte `supabase/tests/mvp_personal.sql`: 5/5 PASS no Postgres local.
+- `modules/tasks/kanban.ts`: posição fracionária com rebalanceamento, movimento por teclado, janela de desfazer (5 s), normalização de busca, rótulos de histórico. 10/10 testes e `tsc --strict` OK (executados fora do vitest, ver limitação).
+- **Limitação desta sessão:** sem `node_modules` e sem rede, não foi possível rodar `typecheck`, `lint`, `vitest` e `build` do app Next.js. Rode `npm ci && npm run check` localmente (Node 24+).
+- **Pendente (Etapa 4, parte 2):** telas e server actions de CRUD, Kanban, busca, histórico, desfazer e E2E autenticado.

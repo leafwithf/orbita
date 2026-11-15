@@ -18,7 +18,9 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run typecheck && npm run lint && npm run test"
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "verify:db": "bash scripts/db-local.sh",
+    "verify:supabase": "node --env-file=.env.local scripts/verify-supabase.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.3.0",
