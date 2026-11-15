@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Órbita PWA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">protótipo de produto</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Principal</div>
+      <a class="nav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos <span class="count">6</span></a>
+      <a class="nav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas <span class="count hot">3</span></a>
+      <a class="nav-item" href="backlog.html"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Backlog <span class="count">4</span></a>
+      <div class="nav-label">Conteúdo</div>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos e estudos</a>
+      <a class="nav-item" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Portfólio</a>
+      <div class="nav-label">Equipe</div>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços de trabalho</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="configuracoes.html"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>ana@exemplo.com</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar no projeto</label>
+        <input id="busca" type="search" placeholder="Buscar neste projeto…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <button class="btn-icon btn" type="button" aria-label="Notificações"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content" data-tabs-scope>
+      <div class="row small muted" style="gap:6px">
+        <a href="projetos.html" style="color:var(--text-muted)">Projetos</a>
+        <svg class="i sm" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+        <span aria-current="page">Órbita — plataforma web e PWA</span>
+      </div>
+
+      <div class="row wrap between mt-3" style="align-items:flex-start">
+        <div style="min-width:0">
+          <div class="row wrap" style="gap:6px">
+            <span class="chip chip-brand"><svg class="i sm" aria-hidden="true"><use href="#i-target"/></svg> Foco principal</span>
+            <span class="chip chip-neutral">Desenvolvimento</span>
+            <span class="chip chip-danger">Prioridade alta</span>
+          </div>
+          <h1 class="mt-2">Órbita — plataforma web e PWA</h1>
+          <p class="muted mt-1">Transformar ideias soltas em projetos com um próximo passo claro.</p>
+        </div>
+        <div class="row" style="gap:6px">
+          <button class="btn btn-outline btn-sm" type="button" data-toast-msg="Link do projeto copiado."><svg class="i sm" aria-hidden="true"><use href="#i-link"/></svg> Compartilhar</button>
+          <button class="btn btn-outline btn-sm" type="button" data-toast-msg="Projeto arquivado. Tarefas abertas foram mantidas."><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg> Arquivar</button>
+          <button class="btn btn-primary btn-sm" type="button" data-open="modal-editar"><svg class="i sm" aria-hidden="true"><use href="#i-settings"/></svg> Editar</button>
+        </div>
+      </div>
+
+      <div class="tabs mt-4" role="tablist" aria-label="Seções do projeto" data-tabs>
+        <button class="tab" role="tab" id="tp-visao" aria-selected="true" aria-controls="panel-visao" data-tab="visao">Visão geral</button>
+        <button class="tab" role="tab" id="tp-tarefas" aria-selected="false" aria-controls="panel-tarefas" data-tab="tarefas" tabindex="-1">Tarefas <span class="count" style="margin-left:4px">5</span></button>
+        <button class="tab" role="tab" id="tp-arquivos" aria-selected="false" aria-controls="panel-arquivos" data-tab="arquivos" tabindex="-1">Arquivos</button>
+        <button class="tab" role="tab" id="tp-notas" aria-selected="false" aria-controls="panel-notas" data-tab="notas" tabindex="-1">Notas e decisões</button>
+        <button class="tab" role="tab" id="tp-historico" aria-selected="false" aria-controls="panel-historico" data-tab="historico" tabindex="-1">Histórico</button>
+      </div>
+
+      <!-- Visão geral -->
+      <div data-panel="visao" role="tabpanel" aria-labelledby="tp-visao" id="panel-visao">
+        <div class="grid-2 mt-4">
+          <div class="col">
+            <section class="card card-pad">
+              <div class="row"><h2 style="font-size:14px">Objetivo e problema</h2></div>
+              <p class="small mt-2" style="margin-bottom:0">Uma pessoa organiza ideias, projetos, tarefas e cursos em um só lugar, com clareza sobre o que fazer agora. Resolve a dispersão entre várias ferramentas e a falta de um “próximo passo” visível.</p>
+            </section>
+
+            <section class="hero">
+              <div class="hero-top">
+                <span class="hero-icon"><svg class="i lg" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+                <div class="grow">
+                  <div class="tiny muted" style="font-weight:600;letter-spacing:.06em;text-transform:uppercase">Próximo passo</div>
+                  <h2 class="mt-1" style="font-size:16px">Publicar a versão de teste na Netlify</h2>
+                  <p class="small muted mt-1">Revisar no celular, testar instalação da PWA e convidar uma pessoa para validar o fluxo de convite.</p>
+                </div>
+              </div>
+              <div class="row wrap mt-3" style="gap:8px">
+                <button class="btn btn-primary btn-sm" type="button" data-toast-msg="Tarefa marcada como concluída."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg> Concluir passo</button>
+                <button class="btn btn-outline btn-sm" type="button" data-toast-msg="Próximo passo editado.">Editar próximo passo</button>
+                <span class="tiny muted" style="margin-left:auto">Sugerido a partir da etapa e das tarefas</span>
+              </div>
+            </section>
+
+            <section class="card" aria-labelledby="ct-titulo">
+              <div class="row" style="padding:16px"><h2 id="ct-titulo" style="font-size:14px">Checklist do projeto</h2><span class="chip chip-neutral">3 de 5</span><a class="btn btn-ghost btn-sm" href="tarefas.html" style="margin-left:auto">Abrir tarefas</a></div>
+              <hr class="divider">
+              <div class="task-list">
+                <div class="task-row"><button class="round-check checked" type="button" aria-label="Reabrir: Definir escopo do MVP"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title done">Definir escopo do MVP</span></div></div>
+                <div class="task-row"><button class="round-check checked" type="button" aria-label="Reabrir: Validar regra de foco único"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title done">Validar regra de foco único</span></div></div>
+                <div class="task-row"><button class="round-check checked" type="button" aria-label="Reabrir: Aprovar design system"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title done">Aprovar design system</span></div></div>
+                <div class="task-row"><button class="round-check" type="button" aria-label="Concluir: Publicar versão de teste" data-toast-msg="Tarefa concluída."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title">Publicar versão de teste</span><span class="task-meta"><span class="chip chip-warning">Hoje</span><span class="chip chip-danger">Alta</span></span></div><span class="avatar sm">AC</span></div>
+                <div class="task-row"><button class="round-check" type="button" aria-label="Concluir: Testar convite por link" data-toast-msg="Tarefa concluída."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title">Testar convite por link</span><span class="task-meta"><span class="chip chip-neutral">Sem prazo</span></span></div><span class="avatar sm teal">MC</span></div>
+              </div>
+            </section>
+
+            <section class="card card-pad">
+              <div class="row"><h2 style="font-size:14px">Riscos e bloqueios</h2><button class="btn btn-ghost btn-sm" type="button" style="margin-left:auto" data-toast-msg="Novo risco registrado."><svg class="i sm" aria-hidden="true"><use href="#i-plus"/></svg> Adicionar</button></div>
+              <div class="col mt-3" style="gap:10px">
+                <div class="row" style="align-items:flex-start;gap:8px"><span class="chip chip-warning" style="flex:none">Risco</span><div class="small grow">Adaptador Next.js na Netlify pode exigir ajustes de runtime.</div><span class="tiny muted">Ana</span></div>
+                <div class="row" style="align-items:flex-start;gap:8px"><span class="chip chip-danger" style="flex:none">Bloqueio</span><div class="small grow">Bucket de storage do ambiente de teste ainda não criado.</div><span class="tiny muted">Ana</span></div>
+                <div class="row" style="align-items:flex-start;gap:8px"><span class="chip chip-success" style="flex:none">Resolvido</span><div class="small grow">Contraste do tema escuro corrigido no Kanban.</div><span class="tiny muted">Marcos</span></div>
+              </div>
+            </section>
+          </div>
+
+          <div class="col">
+            <section class="card card-pad">
+              <h2 style="font-size:14px">Progresso</h2>
+              <div class="progress mt-3" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" aria-label="Progresso do projeto"><span style="width:62%"></span></div>
+              <div class="progress-label"><span>8 de 13 tarefas concluídas</span><span class="strong" style="color:var(--text)">62%</span></div>
+              <p class="tiny muted mt-2" style="margin-bottom:0">Cálculo por peso das tarefas. Tarefas arquivadas não contam.</p>
+              <div class="row mt-3" style="gap:6px"><span class="chip chip-neutral">Etapa 5 de 9</span><span class="chip chip-neutral">Desenvolvimento</span></div>
+            </section>
+
+            <section class="card card-pad">
+              <div class="row"><h2 style="font-size:14px">Detalhes</h2><button class="btn btn-ghost btn-sm" type="button" style="margin-left:auto">Editar</button></div>
+              <dl class="col mt-3" style="gap:10px;margin:0">
+                <div class="row"><dt class="small muted grow">Responsável</dt><dd class="row" style="margin:0;gap:6px"><span class="avatar sm">AC</span><span class="small">Ana Costa</span></dd></div>
+                <div class="row"><dt class="small muted grow">Colaboradores</dt><dd class="row" style="margin:0;gap:-4px"><div class="avatars"><span class="avatar sm teal">MC</span><span class="avatar sm violet">RA</span></div><button class="btn-icon btn sm" type="button" aria-label="Adicionar colaborador"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></button></dd></div>
+                <div class="row"><dt class="small muted grow">Início</dt><dd class="small num" style="margin:0">02 de outubro</dd></div>
+                <div class="row"><dt class="small muted grow">Prazo</dt><dd class="small num" style="margin:0">12 de dezembro</dd></div>
+                <div class="row"><dt class="small muted grow">Etiquetas</dt><dd class="row wrap" style="margin:0;gap:4px"><span class="chip">produto</span><span class="chip">pwa</span><span class="chip">supabase</span></dd></div>
+              </dl>
+            </section>
+
+            <section class="card card-pad">
+              <h2 style="font-size:14px">Etapas do ciclo</h2>
+              <ol class="col mt-3" style="gap:6px;margin:0;padding-left:18px">
+                <li class="small muted">Ideia</li>
+                <li class="small muted">Validação</li>
+                <li class="small muted">Escopo</li>
+                <li class="small muted">MVP</li>
+                <li class="small strong">Desenvolvimento <span class="chip chip-brand" style="margin-left:4px">Agora</span></li>
+                <li class="small muted">Teste</li>
+                <li class="small muted">Publicação</li>
+                <li class="small muted">Portfólio</li>
+                <li class="small muted">Próximo projeto</li>
+              </ol>
+            </section>
+
+            <section class="card card-pad">
+              <div class="row"><h2 style="font-size:14px">Anexos recentes</h2><a class="btn btn-ghost btn-sm" href="arquivos.html" style="margin-left:auto">Ver todos</a></div>
+              <div class="col mt-3" style="gap:8px">
+                <a class="row" href="arquivos.html" style="text-decoration:none;color:inherit"><span class="file-ic" style="width:30px;height:30px"><svg class="i sm" aria-hidden="true"><use href="#i-file"/></svg></span><span class="small grow truncate">briefing-v2.pdf</span><span class="tiny muted num">1,4 MB</span></a>
+                <a class="row" href="arquivos.html" style="text-decoration:none;color:inherit"><span class="file-ic" style="width:30px;height:30px"><svg class="i sm" aria-hidden="true"><use href="#i-image"/></svg></span><span class="small grow truncate">capa-projeto.png</span><span class="tiny muted num">840 KB</span></a>
+              </div>
+              <button class="btn btn-outline btn-block btn-sm mt-3" type="button" data-toast-msg="Seletor de arquivos aberto."><svg class="i sm" aria-hidden="true"><use href="#i-upload"/></svg> Enviar arquivo</button>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarefas -->
+      <div data-panel="tarefas" role="tabpanel" aria-labelledby="tp-tarefas" id="panel-tarefas" hidden>
+        <div class="row wrap mt-4" style="gap:6px">
+          <button class="chip chip-brand" type="button">Todas</button><button class="chip" type="button">A fazer</button><button class="chip" type="button">Em andamento</button><button class="chip" type="button">Aguardando</button><button class="chip" type="button">Concluídas</button>
+          <a class="btn btn-primary btn-sm" href="criar.html#tarefa" style="margin-left:auto"><svg class="i sm" aria-hidden="true"><use href="#i-plus"/></svg> Adicionar tarefa</a>
+        </div>
+        <div class="card mt-4">
+          <div class="task-list">
+            <div class="task-row"><button class="round-check" type="button" aria-label="Concluir: Publicar versão de teste" data-toast-msg="Tarefa concluída."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title">Publicar versão de teste na Netlify</span><span class="task-meta"><span class="chip chip-brand">Próximo passo</span><span class="chip chip-warning">Hoje</span><span class="chip chip-danger">Alta</span></span></div><span class="avatar sm">AC</span><button class="btn-icon btn sm" type="button" aria-label="Ações"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button></div>
+            <div class="task-row"><button class="round-check" type="button" aria-label="Concluir: Testar convite por link" data-toast-msg="Tarefa concluída."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title">Testar convite por link</span><span class="task-meta"><span class="chip chip-neutral">Sem prazo</span><span class="chip chip-neutral">Normal</span><span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-check-square"/></svg> 2 de 4</span></span></div><span class="avatar sm teal">MC</span><button class="btn-icon btn sm" type="button" aria-label="Ações"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button></div>
+            <div class="task-row"><button class="round-check" type="button" aria-label="Concluir: Documentar fluxo de upload" data-toast-msg="Tarefa concluída."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title">Documentar fluxo de upload</span><span class="task-meta"><span class="chip chip-neutral">18 nov</span><span class="chip chip-neutral">Normal</span><span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-paperclip"/></svg> 1</span></span></div><span class="avatar sm">AC</span><button class="btn-icon btn sm" type="button" aria-label="Ações"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button></div>
+            <div class="task-row"><button class="round-check checked" type="button" aria-label="Reabrir: Validar regra de foco único"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button><div class="task-main"><span class="task-title done">Validar regra de foco único</span><span class="task-meta"><span class="chip chip-success">Concluída · 12 nov</span></span></div><span class="avatar sm">AC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arquivos -->
+      <div data-panel="arquivos" role="tabpanel" aria-labelledby="tp-arquivos" id="panel-arquivos" hidden>
+        <div class="card card-pad mt-4">
+          <div class="dropzone" role="button" tabindex="0" data-toast-msg="Seletor de arquivos aberto.">
+            <span class="ic"><svg class="i lg" aria-hidden="true"><use href="#i-upload"/></svg></span>
+            <div class="strong">Enviar arquivo para este projeto</div>
+            <div class="small muted">Arraste ou escolha. Até 25 MB. Também funciona pela câmera no celular.</div>
+          </div>
+          <div class="file-row mt-3">
+            <span class="file-ic"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <div class="file-main"><div class="file-line"><span class="file-name">briefing-v2.pdf</span><span class="file-sub num">1,4 MB</span></div><div class="tiny muted">Rafa Alves · há 1 dia</div></div>
+            <button class="btn-icon btn sm" type="button" aria-label="Baixar"><svg class="i" aria-hidden="true"><use href="#i-upload"/></svg></button>
+          </div>
+          <div class="file-row">
+            <span class="file-ic"><svg class="i" aria-hidden="true"><use href="#i-image"/></svg></span>
+            <div class="file-main"><div class="file-line"><span class="file-name">capa-projeto.png</span><span class="file-sub num">840 KB</span></div><div class="tiny muted">Você · há 3 dias</div></div>
+            <button class="btn-icon btn sm" type="button" aria-label="Pré-visualizar"><svg class="i" aria-hidden="true"><use href="#i-eye"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notas -->
+      <div data-panel="notas" role="tabpanel" aria-labelledby="tp-notas" id="panel-notas" hidden>
+        <div class="grid-2 mt-4">
+          <div class="card card-pad">
+            <div class="row"><h2 style="font-size:14px">Anotações</h2><button class="btn btn-outline btn-sm" type="button" style="margin-left:auto">Nova nota</button></div>
+            <div class="col mt-3" style="gap:14px">
+              <div><div class="tiny muted">12 nov · você</div><p class="small mt-1">Decidimos manter um único foco por workspace no MVP. A troca exige confirmação e fica no histórico.</p></div>
+              <hr class="divider">
+              <div><div class="tiny muted">08 nov · Marcos</div><p class="small mt-1">Upload vai direto para o storage com URL assinada. O servidor só grava metadados depois de validar tamanho e tipo real.</p></div>
+              <hr class="divider">
+              <div><div class="tiny muted">02 nov · você</div><p class="small mt-1">Netlify no preview; spike de compatibilidade antes de fechar a escolha de runtime.</p></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card card-pad">
+              <h2 style="font-size:14px">Decisões</h2>
+              <div class="col mt-3" style="gap:10px">
+                <label class="check"><input type="checkbox" checked><span class="txt"><strong>Foco único por workspace</strong><span>Aprovado em 12 nov</span></span></label>
+                <label class="check"><input type="checkbox" checked><span class="txt"><strong>Upload direto ao storage</strong><span>Aprovado em 08 nov</span></span></label>
+                <label class="check"><input type="checkbox"><span class="txt"><strong>Portfólio público indexável</strong><span>Aguardando fase 6</span></span></label>
+              </div>
+            </div>
+            <div class="card card-pad">
+              <h2 style="font-size:14px">Comentários</h2>
+              <div class="row mt-3" style="align-items:flex-start;gap:8px"><span class="avatar sm teal">MC</span><div class="grow"><div class="small"><strong>Marcos</strong> <span class="tiny muted">há 2 h</span></div><p class="small muted mt-1">Testei no iPhone: o botão de câmera aparece no Safari e a barra de progresso funciona.</p></div></div>
+              <div class="row mt-3" style="gap:8px"><span class="avatar sm">AC</span><input class="input" placeholder="Escrever comentário…" aria-label="Novo comentário"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Histórico -->
+      <div data-panel="historico" role="tabpanel" aria-labelledby="tp-historico" id="panel-historico" hidden>
+        <div class="card card-pad mt-4">
+          <div class="row wrap" style="gap:6px"><h2 style="font-size:14px">Histórico de alterações</h2><span class="chip chip-neutral">42 eventos</span>
+            <select class="select" style="width:auto;height:32px;margin-left:auto" aria-label="Filtrar histórico"><option>Todos os tipos</option><option>Mudanças de etapa</option><option>Arquivos</option><option>Permissões</option></select>
+          </div>
+          <div class="col mt-4" style="gap:0">
+            <div class="row" style="align-items:flex-start;gap:10px;padding-bottom:14px"><span class="avatar sm">AC</span><div class="grow"><div class="small"><strong>Você</strong> definiu este projeto como foco principal</div><div class="tiny muted">14 nov, 09h02 · foco anterior: Portfólio 2026</div></div></div>
+            <div class="row" style="align-items:flex-start;gap:10px;padding-bottom:14px"><span class="avatar sm teal">MC</span><div class="grow"><div class="small"><strong>Marcos</strong> moveu a etapa para <em>Desenvolvimento</em></div><div class="tiny muted">12 nov, 17h40 · de “MVP”</div></div></div>
+            <div class="row" style="align-items:flex-start;gap:10px;padding-bottom:14px"><span class="avatar sm violet">RA</span><div class="grow"><div class="small"><strong>Rafa</strong> anexou <em>briefing-v2.pdf</em></div><div class="tiny muted">11 nov, 10h12 · 1,4 MB</div></div></div>
+            <div class="row" style="align-items:flex-start;gap:10px;padding-bottom:14px"><span class="avatar sm">AC</span><div class="grow"><div class="small"><strong>Você</strong> alterou o prazo para 12 de dezembro</div><div class="tiny muted">08 nov, 14h05 · antes: 30 de novembro</div></div></div>
+            <div class="row" style="align-items:flex-start;gap:10px"><span class="avatar sm">AC</span><div class="grow"><div class="small"><strong>Você</strong> criou o projeto</div><div class="tiny muted">02 out, 11h20 · a partir da ideia “Organizar projetos e estudos”</div></div></div>
+          </div>
+          <div class="row mt-4"><button class="btn btn-outline btn-sm" type="button">Carregar mais</button><span class="tiny muted" style="margin-left:auto">Página 1 de 9</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal: editar projeto -->
+<div data-modal id="modal-editar" hidden role="dialog" aria-modal="true" aria-labelledby="me-title">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="grow"><h3 id="me-title">Editar projeto</h3><p class="small muted mt-1">Alterações ficam registradas no histórico.</p></div>
+      <button class="btn-icon btn" type="button" data-close aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label class="label" for="e-nome">Nome</label><input class="input" id="e-nome" value="Órbita — plataforma web e PWA" data-autofocus></div>
+      <div class="row wrap" style="gap:8px">
+        <div class="field grow" style="min-width:160px"><label class="label" for="e-etapa">Etapa</label><select class="select" id="e-etapa"><option>Desenvolvimento</option><option>Teste</option><option>Publicação</option></select></div>
+        <div class="field grow" style="min-width:160px"><label class="label" for="e-status">Status</label><select class="select" id="e-status"><option>Em andamento</option><option>Pausado</option><option>Em revisão</option></select></div>
+      </div>
+      <div class="field"><label class="label" for="e-prazo">Prazo</label><input class="input" id="e-prazo" type="date" value="2026-12-12"></div>
+      <div class="field"><label class="label" for="e-prox">Próximo passo</label><input class="input" id="e-prox" value="Publicar a versão de teste na Netlify"><span class="hint">Aparece na visão geral e em “Meu foco”.</span></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" type="button" data-close>Cancelar</button><span class="spacer"></span>
+      <button class="btn btn-primary" type="button" data-close data-toast-msg="Projeto atualizado. Alterações registradas no histórico.">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação principal no celular">
+  <a class="bnav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Mais</a>
+</nav>
+<a class="fab" href="criar.html" aria-label="Criar novo item"><svg class="i lg" aria-hidden="true"><use href="#i-plus"/></svg></a>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

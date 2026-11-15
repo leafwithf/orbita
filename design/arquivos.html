@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Arquivos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">protótipo de produto</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Principal</div>
+      <a class="nav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos <span class="count">6</span></a>
+      <a class="nav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas <span class="count hot">3</span></a>
+      <a class="nav-item" href="backlog.html"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Backlog <span class="count">4</span></a>
+      <div class="nav-label">Conteúdo</div>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos e estudos</a>
+      <a class="nav-item" href="arquivos.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Portfólio</a>
+      <div class="nav-label">Equipe</div>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços de trabalho</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="configuracoes.html"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>ana@exemplo.com</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar em todo o workspace</label>
+        <input id="busca" type="search" placeholder="Buscar arquivos…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <button class="btn-icon btn" type="button" aria-label="Notificações"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="row wrap between" style="align-items:flex-end">
+        <div>
+          <h1>Arquivos</h1>
+          <p class="muted mt-1">18 arquivos · 312 MB de 1 GB usados</p>
+        </div>
+        <button class="btn btn-primary" type="button" data-toast-msg="Seletor de arquivos aberto (demonstração)."><svg class="i" aria-hidden="true"><use href="#i-upload"/></svg> Enviar arquivo</button>
+      </div>
+
+      <div class="grid-2 mt-5">
+        <div class="col">
+          <section class="card" aria-labelledby="enviar-titulo">
+            <div class="card-pad" style="padding-bottom:12px">
+              <h2 id="enviar-titulo" style="font-size:15px">Enviar</h2>
+              <p class="small muted mt-1">Arraste arquivos ou escolha de onde enviar. Até 25 MB por arquivo.</p>
+            </div>
+            <div class="card-pad" style="padding-top:0">
+              <div class="dropzone" role="button" tabindex="0" aria-label="Arraste arquivos aqui ou pressione Enter para selecionar" data-toast-msg="Seletor de arquivos aberto (demonstração).">
+                <span class="ic"><svg class="i lg" aria-hidden="true"><use href="#i-upload"/></svg></span>
+                <div class="strong">Arraste arquivos para cá</div>
+                <div class="small muted">ou <span style="color:var(--brand);font-weight:600">escolha no computador</span></div>
+                <div class="row wrap mt-2" style="gap:6px;justify-content:center">
+                  <span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-image"/></svg> JPG, PNG, WEBP</span>
+                  <span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-file"/></svg> PDF, DOCX</span>
+                  <span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-file"/></svg> ZIP até 25 MB</span>
+                </div>
+              </div>
+
+              <div class="mt-3" style="border:1px solid var(--border);border-radius:12px;padding:12px">
+                <div class="tiny strong muted" style="letter-spacing:.06em;text-transform:uppercase">No celular</div>
+                <div class="grid-3 mt-2" style="gap:8px">
+                  <button class="btn btn-outline" type="button" style="height:64px;flex-direction:column;gap:4px;font-size:12px"><svg class="i lg" aria-hidden="true"><use href="#i-camera"/></svg> Tirar foto</button>
+                  <button class="btn btn-outline" type="button" style="height:64px;flex-direction:column;gap:4px;font-size:12px"><svg class="i lg" aria-hidden="true"><use href="#i-image"/></svg> Galeria</button>
+                  <button class="btn btn-outline" type="button" style="height:64px;flex-direction:column;gap:4px;font-size:12px"><svg class="i lg" aria-hidden="true"><use href="#i-folder"/></svg> Arquivos</button>
+                </div>
+                <p class="tiny muted mt-2" style="margin-bottom:0">O navegador oferece câmera e galeria quando o dispositivo suporta. Se não, aparece “Arquivos”.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="fila-titulo">
+            <div class="row" style="padding:16px 16px 10px"><h2 id="fila-titulo" style="font-size:15px">Enviando agora</h2><span class="chip chip-brand">1 de 3</span></div>
+            <hr class="divider">
+            <div class="file-row">
+              <span class="file-ic" style="background:var(--brand-050);color:var(--brand)"><svg class="i" aria-hidden="true"><use href="#i-image"/></svg></span>
+              <div class="file-main">
+                <div class="file-line"><span class="file-name">foto-produto-01.jpg</span><span class="file-sub num">6,2 MB de 9,8 MB</span></div>
+                <div class="progress slim" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="63" aria-label="Enviando foto-produto-01.jpg"><span style="width:63%"></span></div>
+                <div class="tiny muted">Enviando direto para o armazenamento · 63%</div>
+              </div>
+              <button class="btn btn-outline btn-sm" type="button" data-toast-msg="Envio cancelado. O arquivo parcial foi descartado.">Cancelar</button>
+            </div>
+            <div class="file-row">
+              <span class="file-ic" style="background:var(--danger-050);color:var(--danger-700)"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg></span>
+              <div class="file-main">
+                <div class="file-line"><span class="file-name">catalogo-final.pdf</span></div>
+                <div class="tiny" style="color:var(--danger-700)">Falhou: conexão interrompida. Nenhum dado foi perdido.</div>
+              </div>
+              <button class="btn btn-outline btn-sm" type="button" data-toast-msg="Tentando novamente de onde parou…">Tentar de novo</button>
+            </div>
+            <div class="file-row">
+              <span class="file-ic"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>
+              <div class="file-main">
+                <div class="file-line"><span class="file-name">briefing-v2.pdf</span><span class="file-sub num">1,4 MB</span></div>
+                <div class="tiny" style="color:var(--success-700);display:flex;align-items:center;gap:4px"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg> Enviado e verificado</div>
+              </div>
+              <span class="chip chip-neutral">Órbita</span>
+            </div>
+            <div class="file-row" style="background:var(--danger-050)">
+              <span class="file-ic" style="background:var(--surface);color:var(--danger-700)"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span>
+              <div class="file-main">
+                <div class="file-line"><span class="file-name">planilha.zip</span><span class="file-sub num">38 MB</span></div>
+                <div class="tiny" style="color:var(--danger-700)">Rejeitado no servidor: excede o limite de 25 MB. <a href="#">Ver limites</a></div>
+              </div>
+              <button class="btn btn-ghost btn-sm" type="button" data-toast-msg="Arquivo removido da fila.">Remover</button>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="todos-titulo">
+            <div class="row" style="padding:16px">
+              <h2 id="todos-titulo" style="font-size:15px">Todos os arquivos</h2>
+              <div class="row" style="margin-left:auto;gap:6px">
+                <button class="chip" type="button">Todos</button>
+                <button class="chip chip-brand" type="button">Órbita</button>
+                <button class="chip" type="button">Portfólio</button>
+                <button class="chip" type="button">Loja</button>
+              </div>
+            </div>
+            <hr class="divider">
+            <div class="file-row">
+              <span class="file-ic" style="color:#B4532A;background:#FCEFE7"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>
+              <div class="file-main">
+                <div class="file-line"><span class="file-name">briefing-v2.pdf</span><span class="file-sub num">1,4 MB</span></div>
+                <div class="tiny muted">Anexado a Órbita · enviado por Rafa Alves · há 1 dia</div>
+              </div>
+              <button class="btn-icon btn sm" type="button" aria-label="Pré-visualizar briefing-v2.pdf"><svg class="i" aria-hidden="true"><use href="#i-eye"/></svg></button>
+              <button class="btn-icon btn sm" type="button" aria-label="Mais ações de briefing-v2.pdf"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="file-row">
+              <span class="file-ic" style="color:var(--brand);background:var(--brand-050)"><svg class="i" aria-hidden="true"><use href="#i-image"/></svg></span>
+              <div class="file-main">
+                <div class="file-line"><span class="file-name">capa-projeto.png</span><span class="file-sub num">840 KB</span></div>
+                <div class="tiny muted">Capa de Órbita · enviado por você · há 3 dias</div>
+              </div>
+              <button class="btn-icon btn sm" type="button" aria-label="Pré-visualizar capa-projeto.png"><svg class="i" aria-hidden="true"><use href="#i-eye"/></svg></button>
+              <button class="btn-icon btn sm" type="button" aria-label="Mais ações de capa-projeto.png"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="file-row">
+              <span class="file-ic"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>
+              <div class="file-main">
+                <div class="file-line"><span class="file-name">roteiro-onboarding.docx</span><span class="file-sub num">96 KB</span></div>
+                <div class="tiny muted">Anexado a tarefa · enviado por você · há 5 dias</div>
+              </div>
+              <button class="btn-icon btn sm" type="button" aria-label="Baixar roteiro-onboarding.docx"><svg class="i" aria-hidden="true"><use href="#i-upload"/></svg></button>
+              <button class="btn-icon btn sm" type="button" aria-label="Mais ações de roteiro-onboarding.docx"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="modal-foot"><span class="tiny muted">Arquivos excluídos ficam na lixeira por 30 dias.</span><a class="btn btn-ghost btn-sm" href="#" style="margin-left:auto">Abrir lixeira</a></div>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="card card-pad">
+            <div class="row"><h2 style="font-size:14px">Espaço usado</h2><span class="chip chip-neutral" style="margin-left:auto">31%</span></div>
+            <div class="progress mt-3" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="31" aria-label="Armazenamento usado"><span style="width:31%;background:var(--brand)"></span></div>
+            <div class="progress-label"><span>312 MB de 1 GB</span><span>688 MB livres</span></div>
+            <div class="col mt-3" style="gap:8px">
+              <div class="row small"><span class="grow muted">Imagens</span><span class="num strong">184 MB</span></div>
+              <div class="row small"><span class="grow muted">Documentos</span><span class="num strong">96 MB</span></div>
+              <div class="row small"><span class="grow muted">Outros</span><span class="num strong">32 MB</span></div>
+            </div>
+          </section>
+
+          <section class="card card-pad">
+            <div class="row"><span class="hero-icon" style="width:32px;height:32px;border-radius:9px;background:var(--success)"><svg class="i sm" aria-hidden="true"><use href="#i-shield"/></svg></span><h2 style="font-size:14px">Como seus arquivos ficam protegidos</h2></div>
+            <ul class="small muted mt-3" style="padding-left:18px;margin:0;display:grid;gap:8px">
+              <li>Buckets privados: ninguém acessa sem permissão no workspace.</li>
+              <li>Links de download expiram em 5 minutos.</li>
+              <li>O servidor confere o tipo real do arquivo, não só a extensão.</li>
+              <li>Arquivos de portfólio público ficam em área separada.</li>
+            </ul>
+          </section>
+
+          <section class="card card-pad">
+            <h2 style="font-size:14px">Pastas</h2>
+            <div class="col mt-3" style="gap:2px">
+              <a class="row" href="#" style="text-decoration:none;color:inherit;padding:7px 6px;border-radius:8px"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg><span class="small grow">Órbita</span><span class="tiny muted">9</span></a>
+              <a class="row" href="#" style="text-decoration:none;color:inherit;padding:7px 6px;border-radius:8px"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg><span class="small grow">Portfólio 2026</span><span class="tiny muted">4</span></a>
+              <a class="row" href="#" style="text-decoration:none;color:inherit;padding:7px 6px;border-radius:8px"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg><span class="small grow">Loja de cerâmica</span><span class="tiny muted">3</span></a>
+              <a class="row" href="#" style="text-decoration:none;color:inherit;padding:7px 6px;border-radius:8px"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg><span class="small grow">Cursos</span><span class="tiny muted">2</span></a>
+            </div>
+            <p class="tiny muted mt-2" style="margin-bottom:0">Máximo de 3 níveis de pasta. Para mais organização, use etiquetas e busca.</p>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação principal no celular">
+  <a class="bnav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Mais</a>
+</nav>
+<a class="fab" href="criar.html" aria-label="Criar novo item"><svg class="i lg" aria-hidden="true"><use href="#i-plus"/></svg></a>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Ideias e backlog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">protótipo de produto</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Principal</div>
+      <a class="nav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos <span class="count">6</span></a>
+      <a class="nav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas <span class="count hot">3</span></a>
+      <a class="nav-item" href="backlog.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Backlog <span class="count">4</span></a>
+      <div class="nav-label">Conteúdo</div>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos e estudos</a>
+      <a class="nav-item" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Portfólio</a>
+      <div class="nav-label">Equipe</div>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços de trabalho</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="configuracoes.html"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>ana@exemplo.com</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar ideias</label>
+        <input id="busca" type="search" placeholder="Buscar ideias…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <button class="btn-icon btn" type="button" aria-label="Notificações"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="row wrap between" style="align-items:flex-end">
+        <div>
+          <h1>Ideias e backlog</h1>
+          <p class="muted mt-1">Onde as ideias esperam sem competir com o foco principal.</p>
+        </div>
+        <a class="btn btn-outline" href="criar.html#ideia"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg> Captura completa</a>
+      </div>
+
+      <section class="card card-pad mt-4" aria-labelledby="captura-titulo" style="border-color:#BFD4FA;background:linear-gradient(180deg,var(--surface),var(--brand-050))">
+        <label class="label" id="captura-titulo" for="captura" style="font-size:13px">Anotar ideia agora</label>
+        <div class="row mt-2" style="gap:8px">
+          <input class="input" id="captura" placeholder="Ex.: newsletter com bastidores dos projetos" style="height:46px;font-size:15px;background:var(--surface)">
+          <button class="btn btn-primary" type="button" style="height:46px" data-toast-msg="Ideia salva no backlog.">Salvar ideia</button>
+        </div>
+        <div class="row wrap mt-2" style="gap:6px">
+          <span class="tiny muted">Categoria:</span>
+          <button class="chip chip-brand" type="button" aria-pressed="true">Produto</button>
+          <button class="chip" type="button">Conteúdo</button>
+          <button class="chip" type="button">Estudo</button>
+          <button class="chip" type="button">Pessoal</button>
+          <span class="tiny muted" style="margin-left:auto">Só o título é obrigatório</span>
+        </div>
+      </section>
+
+      <div class="row wrap mt-4" style="gap:6px" role="group" aria-label="Filtrar ideias por estado">
+        <button class="chip chip-brand" type="button">Todas · 12</button>
+        <button class="chip" type="button">Novas · 4</button>
+        <button class="chip" type="button">Em avaliação · 2</button>
+        <button class="chip" type="button">Validadas · 3</button>
+        <button class="chip" type="button">Não priorizadas · 2</button>
+        <button class="chip" type="button">Convertidas · 1</button>
+        <span class="grow"></span>
+        <select class="select" style="width:auto;height:34px" aria-label="Ordenar ideias"><option>Ordenar: mais recentes</option><option>Ordenar: potencial</option><option>Ordenar: categoria</option></select>
+      </div>
+
+      <div class="row wrap mt-4" style="gap:12px;align-items:stretch">
+        <article class="card pcard grow" style="min-width:280px;max-width:420px">
+          <div class="pcard-head"><div class="grow"><span class="chip chip-brand">Nova</span><h3 class="mt-2">Newsletter de bastidores</h3></div>
+            <button class="btn-icon btn sm" type="button" aria-label="Ações da ideia"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button></div>
+          <p class="obj">Escrever duas vezes por mês sobre o processo real de construir projetos, incluindo erros.</p>
+          <div class="row wrap" style="gap:6px"><span class="chip chip-neutral">Conteúdo</span><span class="chip chip-neutral">Potencial médio</span></div>
+          <div class="pcard-foot"><span class="tiny muted">Criada hoje · você</span><span class="tiny muted" style="margin-left:auto">2 notas</span></div>
+          <div class="row" style="gap:6px">
+            <button class="btn btn-outline btn-sm grow" type="button" data-toast-msg="Ideia marcada como em avaliação.">Avaliar</button>
+            <button class="btn btn-ghost btn-sm" type="button" data-open="modal-converter">Converter</button>
+          </div>
+        </article>
+
+        <article class="card pcard grow" style="min-width:280px;max-width:420px">
+          <div class="pcard-head"><div class="grow"><span class="chip chip-warning">Em avaliação</span><h3 class="mt-2">Curso de cerâmica para iniciantes</h3></div>
+            <button class="btn-icon btn sm" type="button" aria-label="Ações da ideia"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button></div>
+          <p class="obj">Trilha curta em vídeo, do barro à primeira peça. Validar se existe público antes de gravar.</p>
+          <div class="row wrap" style="gap:6px"><span class="chip chip-neutral">Estudo</span><span class="chip chip-neutral">Potencial alto</span></div>
+          <div class="pcard-foot"><span class="tiny muted">Criada há 5 dias · você</span><span class="tiny muted" style="margin-left:auto">1 anexo</span></div>
+          <div class="row" style="gap:6px">
+            <button class="btn btn-outline btn-sm grow" type="button" data-toast-msg="Ideia validada e movida para “Validadas”.">Validar</button>
+            <button class="btn btn-ghost btn-sm" type="button" data-open="modal-converter">Converter</button>
+          </div>
+        </article>
+
+        <article class="card pcard grow" style="min-width:280px;max-width:420px">
+          <div class="pcard-head"><div class="grow"><span class="chip chip-success">Validada</span><h3 class="mt-2">Loja de cerâmica</h3></div>
+            <button class="btn-icon btn sm" type="button" aria-label="Ações da ideia"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button></div>
+          <p class="obj">Vender peças autorais online, começando com 30 unidades e frete calculado.</p>
+          <div class="row wrap" style="gap:6px"><span class="chip chip-neutral">Produto</span><span class="chip chip-neutral">Potencial alto</span></div>
+          <div class="pcard-foot"><span class="tiny muted">Criada há 3 semanas · você</span><span class="tiny muted" style="margin-left:auto">4 notas</span></div>
+          <div class="row" style="gap:6px">
+            <a class="btn btn-primary btn-sm grow" href="projeto.html">Virou projeto <svg class="i sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </div>
+        </article>
+      </div>
+
+      <section class="card mt-5" aria-labelledby="naoprio-titulo">
+        <div class="row" style="padding:16px"><h2 id="naoprio-titulo" style="font-size:15px">Não priorizadas</h2><span class="chip chip-neutral">2</span><span class="tiny muted" style="margin-left:auto">Guardadas, não excluídas</span></div>
+        <hr class="divider">
+        <div class="task-list">
+          <div class="task-row">
+            <span class="file-ic"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
+            <div class="task-main"><span class="task-title">Podcast de processos</span><span class="task-meta"><span class="proj">Conteúdo</span><span class="sep"></span><span class="chip chip-neutral">Potencial baixo</span><span class="tiny muted">Avaliada em 12 out</span></span></div>
+            <button class="btn btn-ghost btn-sm" type="button" data-toast-msg="Ideia devolvida para “Em avaliação”.">Reavaliar</button>
+          </div>
+          <div class="task-row">
+            <span class="file-ic"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
+            <div class="task-main"><span class="task-title">App nativo de hábitos</span><span class="task-meta"><span class="proj">Produto</span><span class="sep"></span><span class="chip chip-neutral">Potencial baixo</span><span class="tiny muted">Avaliada em 3 out</span></span></div>
+            <button class="btn btn-ghost btn-sm" type="button" data-toast-msg="Ideia devolvida para “Em avaliação”.">Reavaliar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-5" aria-labelledby="convertidas-titulo">
+        <div class="section-head"><h2 id="convertidas-titulo" style="font-size:15px">Convertidas em projeto</h2><span class="hint">Origem preservada</span></div>
+        <div class="card card-pad">
+          <div class="row wrap" style="gap:12px">
+            <span class="file-ic" style="background:var(--success-050);color:var(--success-700)"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <div class="grow">
+              <div class="strong small">Site da consultoria</div>
+              <div class="tiny muted mt-1">Convertida em 14 de outubro · 6 notas e 3 anexos preservados</div>
+            </div>
+            <span class="chip chip-success">Publicada</span>
+            <a class="btn btn-outline btn-sm" href="portfolio.html">Ver portfólio</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- Modal: converter ideia em projeto -->
+<div data-modal id="modal-converter" hidden role="dialog" aria-modal="true" aria-labelledby="mcv-title">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="grow"><h3 id="mcv-title">Converter ideia em projeto</h3><p class="small muted mt-1">Nada precisa ser digitado de novo.</p></div>
+      <button class="btn-icon btn" type="button" data-close aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label class="label" for="cv-nome">Nome do projeto</label>
+        <input class="input" id="cv-nome" value="Curso de cerâmica para iniciantes" data-autofocus>
+      </div>
+      <div class="field">
+        <label class="label" for="cv-objetivo">Objetivo</label>
+        <input class="input" id="cv-objetivo" value="Validar o interesse antes de gravar o primeiro módulo">
+      </div>
+      <div class="row wrap" style="gap:8px">
+        <div class="field grow" style="min-width:160px"><label class="label" for="cv-etapa">Etapa inicial</label>
+          <select class="select" id="cv-etapa"><option>Validação</option><option>Escopo</option><option>MVP</option></select></div>
+        <div class="field grow" style="min-width:160px"><label class="label" for="cv-prio">Prioridade</label>
+          <select class="select" id="cv-prio"><option>Normal</option><option>Baixa</option><option>Alta</option></select></div>
+      </div>
+      <div class="row" style="align-items:flex-start;gap:9px;background:var(--brand-050);border-radius:10px;padding:12px">
+        <svg class="i sm" aria-hidden="true" style="color:var(--brand-700);margin-top:2px"><use href="#i-inbox"/></svg>
+        <div class="tiny" style="color:var(--brand-700)"><strong>O que será preservado:</strong> 4 notas, 1 anexo, categoria, data de criação e o vínculo com a ideia original.</div>
+      </div>
+      <label class="check">
+        <input type="checkbox">
+        <span class="txt"><strong>Definir como projeto principal</strong><span>O foco atual volta ao backlog. Nada é apagado.</span></span>
+      </label>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" type="button" data-close>Cancelar</button>
+      <span class="spacer"></span>
+      <a class="btn btn-primary" href="projeto.html" data-toast-msg="Projeto criado a partir da ideia. Notas e anexos preservados.">Criar projeto <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação principal no celular">
+  <a class="bnav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Mais</a>
+</nav>
+<a class="fab" href="criar.html#ideia" aria-label="Capturar ideia"><svg class="i lg" aria-hidden="true"><use href="#i-plus"/></svg></a>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

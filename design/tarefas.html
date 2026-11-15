@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Tarefas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">protótipo de produto</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Principal</div>
+      <a class="nav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos <span class="count">6</span></a>
+      <a class="nav-item" href="tarefas.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas <span class="count hot">3</span></a>
+      <a class="nav-item" href="backlog.html"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Backlog <span class="count">4</span></a>
+      <div class="nav-label">Conteúdo</div>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos e estudos</a>
+      <a class="nav-item" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Portfólio</a>
+      <div class="nav-label">Equipe</div>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços de trabalho</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="configuracoes.html"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>ana@exemplo.com</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar tarefas</label>
+        <input id="busca" type="search" placeholder="Buscar tarefas…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <button class="btn-icon btn" type="button" aria-label="Notificações"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="row wrap between" style="align-items:flex-end">
+        <div>
+          <h1>Tarefas</h1>
+          <p class="muted mt-1">12 abertas · 3 para hoje · 1 atrasada</p>
+        </div>
+        <div class="row">
+          <div class="row" role="group" aria-label="Visualização" style="gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px">
+            <button class="btn btn-sm" type="button" data-view-btn="agenda" aria-pressed="true" data-view-label="Lista" style="background:var(--bg)"><svg class="i sm" aria-hidden="true"><use href="#i-list"/></svg> Lista</button>
+            <button class="btn btn-sm btn-ghost" type="button" data-view-btn="quadro" aria-pressed="false" data-view-label="Kanban"><svg class="i sm" aria-hidden="true"><use href="#i-columns"/></svg> Kanban</button>
+          </div>
+          <a class="btn btn-primary" href="criar.html#tarefa"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Nova tarefa</a>
+        </div>
+      </div>
+
+      <div class="row wrap mt-4" style="gap:6px" role="group" aria-label="Filtros rápidos" data-chip-group>
+        <button class="chip chip-brand" type="button" aria-pressed="true">Hoje · 4</button>
+        <button class="chip chip-danger" type="button">Atrasadas · 1</button>
+        <button class="chip" type="button">Próximas · 3</button>
+        <button class="chip" type="button">Sem prazo · 4</button>
+        <button class="chip" type="button">Concluídas · 7</button>
+        <span class="grow"></span>
+        <button class="btn btn-outline btn-sm" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-filter"/></svg> Filtros</button>
+        <button class="btn btn-outline btn-sm" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-users"/></svg> Responsável</button>
+        <button class="btn btn-outline btn-sm" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg> Projeto</button>
+      </div>
+
+      <!-- Lista -->
+      <section data-view="agenda" class="mt-4" aria-label="Tarefas agrupadas por prazo">
+        <div class="card">
+          <div class="row" style="padding:14px 16px">
+            <h2 style="font-size:14px;color:var(--danger-700)"><svg class="i sm" aria-hidden="true" style="vertical-align:-3px"><use href="#i-alert"/></svg> Atrasadas</h2>
+            <span class="chip chip-danger">1</span>
+          </div>
+          <div class="task-list" style="border-top:1px solid var(--border)">
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Testar upload de 20 MB pelo celular" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main">
+                <span class="task-title">Testar upload de 20 MB pelo celular</span>
+                <span class="task-meta"><span class="proj">Órbita · Arquivos</span><span class="sep"></span><span class="chip chip-danger">Atrasada · ontem</span><span class="chip chip-danger">Urgente</span><span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-paperclip"/></svg> 2</span></span>
+              </div>
+              <span class="avatar sm">AC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="row" style="padding:14px 16px"><h2 style="font-size:14px">Hoje</h2><span class="chip chip-warning">3</span><span class="tiny muted" style="margin-left:auto">Sábado, 14 de novembro</span></div>
+          <div class="task-list" style="border-top:1px solid var(--border)">
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Publicar versão de teste na Netlify" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main">
+                <span class="task-title">Publicar versão de teste na Netlify</span>
+                <span class="task-meta"><span class="proj">Órbita</span><span class="sep"></span><span class="chip chip-brand">Próximo passo</span><span class="chip chip-neutral">Alta</span></span>
+              </div>
+              <span class="avatar sm">AC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Revisar textos do onboarding" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main">
+                <span class="task-title">Revisar textos do onboarding</span>
+                <span class="task-meta"><span class="proj">Órbita</span><span class="sep"></span><span class="chip chip-warning">Vence hoje</span><span class="chip chip-danger">Alta</span></span>
+              </div>
+              <span class="avatar sm">AC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Ajustar contraste do Kanban" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos."><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main">
+                <span class="task-title">Ajustar contraste do Kanban no tema escuro</span>
+                <span class="task-meta"><span class="proj">Órbita</span><span class="sep"></span><span class="chip chip-warning">Vence hoje</span><span class="chip chip-neutral">Normal</span></span>
+              </div>
+              <span class="avatar sm teal">MC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="row" style="padding:14px 16px"><h2 style="font-size:14px">Próximas</h2><span class="chip chip-neutral">3</span></div>
+          <div class="task-list" style="border-top:1px solid var(--border)">
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Escrever estudo de caso do site da consultoria"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main">
+                <span class="task-title">Escrever estudo de caso do site da consultoria</span>
+                <span class="task-meta"><span class="proj">Portfólio 2026</span><span class="sep"></span><span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-calendar"/></svg> 18 nov</span></span>
+              </div>
+              <span class="avatar sm">AC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Comprar embalagens para o envio"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main">
+                <span class="task-title">Comprar embalagens para o envio</span>
+                <span class="task-meta"><span class="proj">Loja de cerâmica</span><span class="sep"></span><span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-calendar"/></svg> 21 nov</span><span class="chip chip-neutral">Sem responsável</span></span>
+              </div>
+              <span class="avatar sm" style="background:var(--bg);color:var(--text-faint);border-style:dashed">+</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Revisar módulo 3 do curso"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main">
+                <span class="task-title">Revisar módulo 3 do curso</span>
+                <span class="task-meta"><span class="proj">Estudo · UX Writing</span><span class="sep"></span><span class="chip chip-neutral"><svg class="i sm" aria-hidden="true"><use href="#i-calendar"/></svg> 30 nov</span></span>
+              </div>
+              <span class="avatar sm">AC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="row" style="padding:14px 16px"><h2 style="font-size:14px">Sem prazo</h2><span class="chip chip-neutral">4</span><span class="tiny muted" style="margin-left:auto">Não entram nos alertas de atraso</span></div>
+          <div class="task-list" style="border-top:1px solid var(--border)">
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Escrever roteiro do vídeo de apresentação"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main"><span class="task-title">Escrever roteiro do vídeo de apresentação</span><span class="task-meta"><span class="proj">Sem projeto</span><span class="chip chip-neutral">Baixa</span></span></div>
+              <span class="avatar sm">AC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+            <div class="task-row">
+              <button class="round-check" type="button" aria-label="Concluir: Pesquisar fornecedores de cerâmica"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <div class="task-main"><span class="task-title">Pesquisar fornecedores de cerâmica</span><span class="task-meta"><span class="proj">Loja de cerâmica</span><span class="chip chip-neutral">Normal</span></span></div>
+              <span class="avatar sm">AC</span>
+              <button class="btn-icon btn sm" type="button" aria-label="Ações da tarefa"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <section class="card card-pad mt-4" aria-labelledby="concluidas-titulo">
+          <details>
+            <summary style="cursor:pointer;display:flex;align-items:center;gap:8px">
+              <h2 id="concluidas-titulo" style="font-size:14px">Concluídas hoje</h2><span class="chip chip-success">2</span>
+              <span class="tiny muted" style="margin-left:auto">Mostrar</span>
+            </summary>
+            <div class="task-list mt-3">
+              <div class="task-row">
+                <button class="round-check checked" type="button" aria-label="Reabrir: Configurar domínio"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+                <div class="task-main"><span class="task-title done">Configurar domínio</span><span class="task-meta"><span class="proj">Órbita</span><span class="chip chip-success">09h10</span></span></div>
+              </div>
+              <div class="task-row">
+                <button class="round-check checked" type="button" aria-label="Reabrir: Definir paleta de cores"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg></button>
+                <div class="task-main"><span class="task-title done">Definir paleta de cores</span><span class="task-meta"><span class="proj">Órbita</span><span class="chip chip-success">08h42</span></span></div>
+              </div>
+            </div>
+          </details>
+        </section>
+      </section>
+
+      <!-- Kanban de tarefas -->
+      <section data-view="quadro" class="mt-4" hidden aria-label="Tarefas em Kanban">
+        <p class="small muted" style="margin-bottom:10px">Arraste para mudar o status. Toda mudança pode ser desfeita por 5 segundos.</p>
+        <div class="kanban">
+          <div class="kcol" data-drop data-col-name="A fazer">
+            <div class="kcol-head"><h3>A fazer</h3><span class="chip" data-count>3</span><button class="btn-icon btn sm" type="button" aria-label="Adicionar tarefa em A fazer"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+            <div data-cards>
+              <article class="kcard" draggable="true" tabindex="0">
+                <div class="title">Revisar textos do onboarding</div>
+                <div class="proj"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg> Órbita</div>
+                <div class="foot"><span class="chip chip-warning"><svg class="i sm" aria-hidden="true"><use href="#i-clock"/></svg> Hoje</span><span class="chip chip-danger">Alta</span><span class="avatar sm right">AC</span></div>
+              </article>
+              <article class="kcard" draggable="true" tabindex="0">
+                <div class="title">Comprar embalagens para o envio</div>
+                <div class="proj"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg> Loja de cerâmica</div>
+                <div class="foot"><span class="chip chip-neutral">21 nov</span><span class="avatar sm right" style="background:var(--bg);color:var(--text-faint);border-style:dashed">+</span></div>
+              </article>
+              <article class="kcard" draggable="true" tabindex="0">
+                <div class="title">Escrever roteiro do vídeo</div>
+                <div class="proj"><svg class="i sm" aria-hidden="true"><use href="#i-inbox"/></svg> Sem projeto</div>
+                <div class="foot"><span class="chip chip-neutral">Sem prazo</span><span class="avatar sm right">AC</span></div>
+              </article>
+            </div>
+          </div>
+          <div class="kcol" data-drop data-col-name="Em andamento">
+            <div class="kcol-head"><h3>Em andamento</h3><span class="chip chip-brand" data-count>2</span><button class="btn-icon btn sm" type="button" aria-label="Adicionar tarefa em Em andamento"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+            <div data-cards>
+              <article class="kcard" draggable="true" tabindex="0">
+                <div class="title">Publicar versão de teste na Netlify</div>
+                <div class="proj"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg> Órbita</div>
+                <div class="foot"><span class="chip chip-brand">Próximo passo</span><span class="avatar sm right">AC</span></div>
+              </article>
+              <article class="kcard" draggable="true" tabindex="0">
+                <div class="title">Ajustar contraste do Kanban</div>
+                <div class="proj"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg> Órbita</div>
+                <div class="foot"><span class="chip chip-warning">Hoje</span><span class="avatar sm teal right">MC</span></div>
+              </article>
+            </div>
+          </div>
+          <div class="kcol" data-drop data-col-name="Aguardando">
+            <div class="kcol-head"><h3>Aguardando</h3><span class="chip" data-count>1</span><button class="btn-icon btn sm" type="button" aria-label="Adicionar tarefa em Aguardando"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+            <div data-cards>
+              <article class="kcard" draggable="true" tabindex="0">
+                <div class="title">Testar upload de 20 MB pelo celular</div>
+                <div class="proj"><svg class="i sm" aria-hidden="true"><use href="#i-folder"/></svg> Órbita · Arquivos</div>
+                <div class="foot"><span class="chip chip-danger"><svg class="i sm" aria-hidden="true"><use href="#i-alert"/></svg> Atrasada</span><span class="avatar sm right">AC</span></div>
+              </article>
+            </div>
+          </div>
+          <div class="kcol" data-drop data-col-name="Concluída">
+            <div class="kcol-head"><h3>Concluída</h3><span class="chip chip-success" data-count>2</span><button class="btn-icon btn sm" type="button" aria-label="Adicionar tarefa em Concluída"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+            <div data-cards>
+              <article class="kcard" draggable="true" tabindex="0" style="opacity:.85">
+                <div class="title" style="text-decoration:line-through;color:var(--text-faint)">Configurar domínio</div>
+                <div class="foot"><span class="chip chip-success"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg> 09h10</span></div>
+              </article>
+              <article class="kcard" draggable="true" tabindex="0" style="opacity:.85">
+                <div class="title" style="text-decoration:line-through;color:var(--text-faint)">Definir paleta de cores</div>
+                <div class="foot"><span class="chip chip-success"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg> 08h42</span></div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação principal no celular">
+  <a class="bnav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Mais</a>
+</nav>
+<a class="fab" href="criar.html#tarefa" aria-label="Nova tarefa"><svg class="i lg" aria-hidden="true"><use href="#i-plus"/></svg></a>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

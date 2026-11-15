@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Visão geral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">protótipo de produto</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Principal</div>
+      <a class="nav-item" href="dashboard.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos <span class="count">6</span></a>
+      <a class="nav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas <span class="count hot">3</span></a>
+      <a class="nav-item" href="backlog.html"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Backlog <span class="count">4</span></a>
+      <div class="nav-label">Conteúdo</div>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos e estudos</a>
+      <a class="nav-item" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Portfólio</a>
+      <div class="nav-label">Equipe</div>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços de trabalho</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="configuracoes.html"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>ana@exemplo.com</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar em todo o workspace</label>
+        <input id="busca" type="search" placeholder="Buscar projetos, tarefas, arquivos…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <span class="today">Sábado, 14 de novembro</span>
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema">
+          <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <button class="btn-icon btn" type="button" aria-label="3 notificações não lidas" style="position:relative">
+          <svg class="i" aria-hidden="true"><use href="#i-bell"/></svg>
+          <span style="position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:99px;background:var(--danger);border:2px solid var(--surface)"></span>
+        </button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="row wrap between" style="align-items:flex-end">
+        <div>
+          <h1>Visão geral</h1>
+          <p class="muted mt-1">Você tem <strong>3 tarefas para hoje</strong> e 1 atrasada.</p>
+        </div>
+        <div class="row">
+          <a class="btn btn-outline btn-sm" href="tarefas.html"><svg class="i sm" aria-hidden="true"><use href="#i-filter"/></svg> Filtrar tarefas</a>
+          <a class="btn btn-primary btn-sm" href="criar.html#tarefa"><svg class="i sm" aria-hidden="true"><use href="#i-plus"/></svg> Nova tarefa</a>
+        </div>
+      </div>
+
+      <div class="grid-2 mt-5">
+        <!-- Coluna principal -->
+        <div class="col">
+          <section class="hero" aria-labelledby="foco-titulo">
+            <div class="hero-top">
+              <span class="hero-icon"><svg class="i lg" aria-hidden="true"><use href="#i-target"/></svg></span>
+              <div class="grow">
+                <div class="row wrap" style="gap:6px">
+                  <span class="chip chip-brand"><svg class="i sm" aria-hidden="true"><use href="#i-target"/></svg> Projeto principal</span>
+                  <span class="chip chip-neutral">Etapa 5 de 9 · Desenvolvimento</span>
+                </div>
+                <h2 class="mt-2" id="foco-titulo">Órbita — plataforma web e PWA</h2>
+                <p class="muted small mt-1">Transformar ideias soltas em projetos com um próximo passo claro.</p>
+              </div>
+              <button class="btn btn-ghost btn-sm" type="button" data-toast-msg="Troca de foco exige confirmação — veja o protótipo em Meu foco.">Trocar foco</button>
+            </div>
+
+            <div class="mt-4">
+              <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" aria-label="Progresso do projeto">
+                <span style="width:62%"></span>
+              </div>
+              <div class="progress-label"><span>8 de 13 tarefas concluídas</span><span class="strong" style="color:var(--text)">62%</span></div>
+            </div>
+
+            <div class="next-step">
+              <svg class="i arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+              <div class="grow">
+                <div class="tiny muted" style="letter-spacing:.06em;text-transform:uppercase;font-weight:600">Próximo passo</div>
+                <div class="strong small">Publicar a versão de teste na Netlify e revisar no celular</div>
+              </div>
+              <a class="btn btn-outline btn-sm" href="projeto.html">Abrir projeto</a>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="hoje-titulo">
+            <div class="row" style="padding:16px 16px 12px">
+              <h2 id="hoje-titulo" style="font-size:15px">Hoje</h2>
+              <span class="chip chip-neutral">3 tarefas</span>
+              <a class="btn btn-ghost btn-sm" href="tarefas.html" style="margin-left:auto">Ver todas <svg class="i sm" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+            </div>
+            <hr class="divider">
+            <div class="task-list">
+              <div class="task-row">
+                <button class="round-check" type="button" aria-label="Concluir: Revisar textos do onboarding" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos.">
+                  <svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg>
+                </button>
+                <div class="task-main">
+                  <span class="task-title">Revisar textos do onboarding</span>
+                  <span class="task-meta"><span class="proj">Órbita</span><span class="sep"></span><span class="chip chip-warning"><svg class="i sm" aria-hidden="true"><use href="#i-clock"/></svg> Vence hoje</span><span class="chip chip-danger">Alta</span></span>
+                </div>
+                <span class="avatar sm">AC</span>
+              </div>
+              <div class="task-row">
+                <button class="round-check" type="button" aria-label="Concluir: Ajustar contraste do Kanban no tema escuro" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos.">
+                  <svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg>
+                </button>
+                <div class="task-main">
+                  <span class="task-title">Ajustar contraste do Kanban no tema escuro</span>
+                  <span class="task-meta"><span class="proj">Órbita</span><span class="sep"></span><span class="task-meta"><span class="chip chip-warning"><svg class="i sm" aria-hidden="true"><use href="#i-clock"/></svg> Vence hoje</span></span><span class="chip chip-neutral">Normal</span></span>
+                </div>
+                <span class="avatar sm teal">MC</span>
+              </div>
+              <div class="task-row">
+                <button class="round-check" type="button" aria-label="Concluir: Testar upload de 20 MB pelo celular" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos.">
+                  <svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg>
+                </button>
+                <div class="task-main">
+                  <span class="task-title">Testar upload de 20 MB pelo celular</span>
+                  <span class="task-meta"><span class="proj">Órbita · Arquivos</span><span class="sep"></span><span class="chip chip-danger"><svg class="i sm" aria-hidden="true"><use href="#i-alert"/></svg> Atrasada · ontem</span><span class="chip chip-danger">Urgente</span></span>
+                </div>
+                <span class="avatar sm">AC</span>
+              </div>
+              <div class="task-row">
+                <button class="round-check" type="button" aria-label="Concluir: Escrever roteiro do vídeo de apresentação" data-toast-msg="Tarefa concluída. Você pode desfazer por 5 segundos.">
+                  <svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg>
+                </button>
+                <div class="task-main">
+                  <span class="task-title">Escrever roteiro do vídeo de apresentação</span>
+                  <span class="task-meta"><span class="proj">Sem projeto</span><span class="sep"></span><span class="chip chip-neutral">Sem prazo</span><span class="chip chip-neutral">Baixa</span></span>
+                </div>
+                <span class="avatar sm">AC</span>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="semana-titulo">
+            <div class="section-head" style="margin-bottom:10px">
+              <h2 id="semana-titulo" style="font-size:15px">Sua semana</h2>
+              <span class="hint">Desde segunda-feira</span>
+            </div>
+            <div class="stats">
+              <div class="stat"><span class="v" style="color:var(--success-700)">7</span><span class="k"><svg class="i sm" aria-hidden="true"><use href="#i-check"/></svg> Concluídas</span></div>
+              <div class="stat"><span class="v">4</span><span class="k"><svg class="i sm" aria-hidden="true"><use href="#i-plus"/></svg> Criadas</span></div>
+              <div class="stat"><span class="v" style="color:var(--danger-700)">2</span><span class="k"><svg class="i sm" aria-hidden="true"><use href="#i-alert"/></svg> Atrasadas</span></div>
+            </div>
+          </section>
+
+          <section aria-labelledby="projetos-titulo">
+            <div class="section-head">
+              <h2 id="projetos-titulo" style="font-size:15px">Projetos em andamento</h2>
+              <a class="btn btn-ghost btn-sm" href="projetos.html" style="margin-left:auto">Ver todos <svg class="i sm" aria-hidden="true"><use href="#i-chevron-right"/></svg></a>
+            </div>
+            <div class="grid-3">
+              <a class="card pcard stage-dev" href="projeto.html" style="text-decoration:none;color:inherit">
+                <div class="pcard-head"><h3 class="grow">Órbita — PWA</h3></div>
+                <p class="obj">Plataforma de gestão de ideias e entregas.</p>
+                <div class="progress slim"><span style="width:62%"></span></div>
+                <div class="progress-label"><span>8 de 13</span><span>62%</span></div>
+              </a>
+              <a class="card pcard stage-scope" href="projetos.html" style="text-decoration:none;color:inherit">
+                <div class="pcard-head"><h3 class="grow">Portfólio 2026</h3></div>
+                <p class="obj">Página com os três melhores trabalhos do ano.</p>
+                <div class="progress slim"><span style="width:25%"></span></div>
+                <div class="progress-label"><span>2 de 8</span><span>25%</span></div>
+              </a>
+              <a class="card pcard stage-idea" href="projetos.html" style="text-decoration:none;color:inherit">
+                <div class="pcard-head"><h3 class="grow">Loja de cerâmica</h3></div>
+                <p class="obj">Validar demanda antes de investir em estoque.</p>
+                <div class="progress slim"><span style="width:0%"></span></div>
+                <div class="progress-label"><span>Sem tarefas</span><span>Etapa 2 de 9</span></div>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Coluna lateral -->
+        <div class="col">
+          <section class="card card-pad" aria-labelledby="curso-titulo">
+            <div class="row" style="gap:10px">
+              <span class="hero-icon" style="width:36px;height:36px;border-radius:10px;background:var(--success)"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg></span>
+              <div class="grow">
+                <div class="tiny muted" style="font-weight:600;letter-spacing:.06em;text-transform:uppercase">Curso principal</div>
+                <h2 id="curso-titulo" style="font-size:14px">Fundamentos de UX Writing</h2>
+              </div>
+            </div>
+            <p class="muted small mt-3">Coursera · 12 módulos · prazo 30 de novembro</p>
+            <div class="mt-3">
+              <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45" aria-label="Progresso do curso"><span style="width:45%"></span></div>
+              <div class="progress-label"><span>5 de 12 módulos</span><span class="strong" style="color:var(--text)">45%</span></div>
+            </div>
+            <div class="next-step mt-3" style="border-style:solid">
+              <svg class="i arrow" aria-hidden="true"><use href="#i-play"/></svg>
+              <div class="grow"><div class="tiny muted">Próxima aula</div><div class="strong small">Módulo 3 · Microcopy de erro</div></div>
+            </div>
+            <a class="btn btn-outline btn-block mt-3" href="cursos.html">Continuar curso</a>
+          </section>
+
+          <section class="card card-pad" aria-labelledby="prazos-titulo">
+            <div class="row"><h2 id="prazos-titulo" style="font-size:14px">Próximos prazos</h2><a class="btn btn-ghost btn-sm" href="tarefas.html" style="margin-left:auto">Ver</a></div>
+            <div class="col mt-3" style="gap:12px">
+              <div class="row" style="align-items:flex-start">
+                <span class="chip chip-neutral num" style="flex:none">18 nov</span>
+                <div class="grow"><div class="small strong">Revisar escopo do portfólio</div><div class="tiny muted">Portfólio 2026</div></div>
+              </div>
+              <div class="row" style="align-items:flex-start">
+                <span class="chip chip-warning num" style="flex:none">21 nov</span>
+                <div class="grow"><div class="small strong">Entregar protótipo navegável</div><div class="tiny muted">Órbita · marco do MVP</div></div>
+              </div>
+              <div class="row" style="align-items:flex-start">
+                <span class="chip chip-neutral num" style="flex:none">30 nov</span>
+                <div class="grow"><div class="small strong">Concluir módulo 3 do curso</div><div class="tiny muted">Fundamentos de UX Writing</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card card-pad" aria-labelledby="ativ-titulo">
+            <div class="row"><h2 id="ativ-titulo" style="font-size:14px">Atividade recente</h2><a class="btn btn-ghost btn-sm" href="projeto.html#historico" style="margin-left:auto">Histórico</a></div>
+            <div class="col mt-3" style="gap:14px">
+              <div class="row" style="align-items:flex-start;gap:9px">
+                <span class="avatar sm teal">MC</span>
+                <div class="grow small"><strong>Marcos</strong> concluiu “Ajustar contraste do Kanban”<div class="tiny muted">há 2 horas</div></div>
+              </div>
+              <div class="row" style="align-items:flex-start;gap:9px">
+                <span class="avatar sm">AC</span>
+                <div class="grow small"><strong>Você</strong> moveu Órbita para <em>Desenvolvimento</em><div class="tiny muted">ontem, 17h40</div></div>
+              </div>
+              <div class="row" style="align-items:flex-start;gap:9px">
+                <span class="avatar sm violet">RA</span>
+                <div class="grow small"><strong>Rafa</strong> anexou <em>briefing-v2.pdf</em><div class="tiny muted">ontem, 10h12</div></div>
+              </div>
+              <div class="row" style="align-items:flex-start;gap:9px">
+                <span class="avatar sm">AC</span>
+                <div class="grow small"><strong>Você</strong> definiu o projeto principal<div class="tiny muted">segunda, 09h02</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card card-pad" aria-labelledby="atalhos-titulo">
+            <h2 id="atalhos-titulo" style="font-size:14px">Atalhos</h2>
+            <div class="col mt-3" style="gap:8px">
+              <a class="btn btn-outline btn-block" style="justify-content:flex-start" href="criar.html#ideia"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg> Registrar ideia</a>
+              <a class="btn btn-outline btn-block" style="justify-content:flex-start" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-upload"/></svg> Enviar arquivo</a>
+              <a class="btn btn-outline btn-block" style="justify-content:flex-start" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Convidar pessoa</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação principal no celular">
+  <a class="bnav-item" href="dashboard.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Mais</a>
+</nav>
+<a class="fab" href="criar.html" aria-label="Criar novo item"><svg class="i lg" aria-hidden="true"><use href="#i-plus"/></svg></a>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

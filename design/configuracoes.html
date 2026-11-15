@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Configurações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">protótipo de produto</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Principal</div>
+      <a class="nav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos <span class="count">6</span></a>
+      <a class="nav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas <span class="count hot">3</span></a>
+      <a class="nav-item" href="backlog.html"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Backlog <span class="count">4</span></a>
+      <div class="nav-label">Conteúdo</div>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos e estudos</a>
+      <a class="nav-item" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Portfólio</a>
+      <div class="nav-label">Equipe</div>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços de trabalho</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="configuracoes.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>ana@exemplo.com</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar configurações</label>
+        <input id="busca" type="search" placeholder="Buscar configurações…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <button class="btn-icon btn" type="button" aria-label="Notificações"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content" data-tabs-scope>
+      <h1>Configurações</h1>
+      <p class="muted mt-1">Conta, aparência, notificações e seus dados.</p>
+
+      <div class="tabs mt-5" role="tablist" aria-label="Seções de configuração" data-tabs>
+        <button class="tab" role="tab" aria-selected="true" data-tab="perfil">Perfil</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="aparencia">Aparência</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="notificacoes">Notificações</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="privacidade">Privacidade e dados</button>
+      </div>
+
+      <div data-panel="perfil" class="grid-2 mt-4">
+        <section class="card card-pad">
+          <h2 style="font-size:15px">Seus dados</h2>
+          <div class="row mt-4" style="gap:14px">
+            <span class="avatar" style="width:56px;height:56px;font-size:18px">AC</span>
+            <div><button class="btn btn-outline btn-sm" type="button" data-toast-msg="Seletor de imagem aberto.">Trocar foto</button><div class="tiny muted mt-1">JPG ou PNG, até 2 MB.</div></div>
+          </div>
+          <div class="field mt-4"><label class="label" for="c-nome">Nome</label><input class="input" id="c-nome" value="Ana Costa"></div>
+          <div class="field"><label class="label" for="c-email">E-mail</label><input class="input" id="c-email" value="ana@exemplo.com" readonly><span class="hint">Para trocar o e-mail, confirme a identidade em dois passos.</span></div>
+          <div class="field"><label class="label" for="c-fuso">Fuso horário</label><select class="select" id="c-fuso"><option>(GMT-3) São Paulo</option><option>(GMT-4) Manaus</option><option>(GMT+0) Londres</option></select><span class="hint">Prazos são datas: não mudam de dia conforme o fuso.</span></div>
+          <div class="row mt-4"><button class="btn btn-primary" type="button" data-toast-msg="Perfil salvo.">Salvar alterações</button></div>
+        </section>
+        <section class="col">
+          <div class="card card-pad">
+            <h2 style="font-size:14px">Segurança</h2>
+            <div class="col mt-3" style="gap:10px">
+              <div class="row"><div class="grow"><div class="small strong">Senha</div><div class="tiny muted">Alterada há 3 meses</div></div><button class="btn btn-outline btn-sm" type="button">Alterar</button></div>
+              <div class="row"><div class="grow"><div class="small strong">Verificação em duas etapas</div><div class="tiny muted">Recomendado para contas com convites</div></div><span class="chip chip-warning">Ativar</span></div>
+              <div class="row"><div class="grow"><div class="small strong">Sessões ativas</div><div class="tiny muted">2 dispositivos</div></div><button class="btn btn-outline btn-sm" type="button">Ver</button></div>
+            </div>
+          </div>
+          <div class="card card-pad">
+            <h2 style="font-size:14px">Acessibilidade</h2>
+            <label class="check mt-2"><input type="checkbox" checked><span class="txt"><strong>Reduzir animações</strong><span>Segue a preferência do sistema quando ativado.</span></span></label>
+            <label class="check mt-2"><input type="checkbox"><span class="txt"><strong>Aumentar texto da interface</strong><span>Aplica 115% em toda a aplicação.</span></span></label>
+            <label class="check mt-2"><input type="checkbox"><span class="txt"><strong>Alvos de toque ampliados</strong><span>Aumenta botões e ícones para 48 px. O padrão já usa 44 px.</span></span></label>
+          </div>
+        </section>
+      </div>
+
+      <div data-panel="aparencia" class="card card-pad mt-4" hidden>
+        <h2 style="font-size:15px">Tema</h2>
+        <p class="small muted mt-1">A interface funciona nos dois temas com o mesmo contraste mínimo.</p>
+        <div class="grid-3 mt-3">
+          <button class="card card-pad" type="button" style="text-align:left;cursor:pointer;border-color:var(--brand)"><div class="row"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg><span class="strong small">Claro</span><span class="chip chip-brand" style="margin-left:auto">Atual</span></div><div class="mt-3" style="height:52px;border-radius:8px;background:#F6F8FC;border:1px solid #E4E9F2"></div></button>
+          <button class="card card-pad" type="button" style="text-align:left;cursor:pointer"><div class="row"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg><span class="strong small">Escuro</span></div><div class="mt-3" style="height:52px;border-radius:8px;background:#101827;border:1px solid #253149"></div></button>
+          <button class="card card-pad" type="button" style="text-align:left;cursor:pointer"><div class="row"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg><span class="strong small">Seguir o sistema</span></div><div class="mt-3" style="height:52px;border-radius:8px;background:linear-gradient(90deg,#F6F8FC 50%,#101827 50%);border:1px solid var(--border)"></div></button>
+        </div>
+        <p class="small muted mt-4">Dica: o botão de tema na barra lateral e no topo altera o protótipo agora.</p>
+      </div>
+
+      <div data-panel="notificacoes" class="card card-pad mt-4" hidden>
+        <div class="row"><h2 style="font-size:15px">Notificações</h2><span class="chip chip-neutral">Internas no MVP</span></div>
+        <p class="small muted mt-1">Sem excesso: você escolhe o que interrompe.</p>
+        <div class="col mt-4" style="gap:14px">
+          <label class="check"><input type="checkbox" checked><span class="txt"><strong>Prazo vence hoje</strong><span>Um resumo pela manhã, não um alerta por tarefa.</span></span></label>
+          <label class="check"><input type="checkbox" checked><span class="txt"><strong>Tarefa atrasada</strong><span>Aparece no painel; e-mail só se ficar 2 dias atrasada.</span></span></label>
+          <label class="check"><input type="checkbox" checked><span class="txt"><strong>Convites e novos membros</strong><span>Quando alguém aceita ou entra no workspace.</span></span></label>
+          <label class="check"><input type="checkbox"><span class="txt"><strong>Comentários e menções</strong><span>Menções chegam na fase 4 do produto.</span></span></label>
+          <label class="check"><input type="checkbox" checked><span class="txt"><strong>Resumo semanal</strong><span>Segunda-feira, com o que foi concluído e o que vem.</span></span></label>
+        </div>
+      </div>
+
+      <div data-panel="privacidade" class="grid-2 mt-4" hidden>
+        <section class="card card-pad">
+          <h2 style="font-size:15px">Seus dados</h2>
+          <p class="small muted mt-2">Você pode levar tudo com você. Exportação inclui projetos, tarefas, notas, histórico e links para os arquivos.</p>
+          <div class="row wrap mt-3" style="gap:8px">
+            <button class="btn btn-outline" type="button" data-toast-msg="Exportação iniciada. Você recebe um link quando estiver pronta."><svg class="i" aria-hidden="true"><use href="#i-upload"/></svg> Exportar meus dados</button>
+            <span class="tiny muted">Formato JSON + pasta de arquivos.</span>
+          </div>
+          <hr class="divider mt-4">
+          <h3 class="mt-4" style="font-size:13px">Lixeira</h3>
+          <p class="small muted mt-1">Itens excluídos ficam recuperáveis por 30 dias.</p>
+          <button class="btn btn-ghost btn-sm mt-2" type="button">Abrir lixeira</button>
+        </section>
+        <section class="col">
+          <div class="card card-pad">
+            <h2 style="font-size:15px">Privacidade</h2>
+            <ul class="small muted mt-2" style="padding-left:18px;margin:0;display:grid;gap:8px">
+              <li>Coletamos só o necessário para operar sua conta.</li>
+              <li>Sem cookies de marketing nesta versão.</li>
+              <li>Seus dados não são usados para treinar modelos.</li>
+              <li>Você pode pedir exclusão a qualquer momento.</li>
+            </ul>
+            <div class="row mt-3" style="gap:8px"><a class="btn btn-ghost btn-sm" href="#">Política de privacidade</a><a class="btn btn-ghost btn-sm" href="#">Termos de uso</a></div>
+          </div>
+          <div class="card card-pad" style="border-color:#F5C9C5">
+            <h2 style="font-size:14px;color:var(--danger-700)">Zona de risco</h2>
+            <p class="small muted mt-2">Excluir a conta remove seus workspaces pessoais após 30 dias. Workspaces compartilhados precisam de outro proprietário.</p>
+            <button class="btn btn-danger-ghost btn-sm mt-2" type="button" data-toast-msg="Confirmação enviada por e-mail. A exclusão leva 30 dias.">Solicitar exclusão da conta</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação principal no celular">
+  <a class="bnav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Mais</a>
+</nav>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

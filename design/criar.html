@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Criar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">protótipo de produto</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Principal</div>
+      <a class="nav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos <span class="count">6</span></a>
+      <a class="nav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas <span class="count hot">3</span></a>
+      <a class="nav-item" href="backlog.html"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Backlog <span class="count">4</span></a>
+      <div class="nav-label">Conteúdo</div>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos e estudos</a>
+      <a class="nav-item" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Portfólio</a>
+      <div class="nav-label">Equipe</div>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços de trabalho</a>
+    </nav>
+    <div class="sidebar-foot">
+      <a class="nav-item" href="configuracoes.html"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>ana@exemplo.com</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar em todo o workspace</label>
+        <input id="busca" type="search" placeholder="Buscar projetos, tarefas, arquivos…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <button class="btn-icon btn" type="button" aria-label="Notificações"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content" data-tabs-scope>
+      <h1>Criar</h1>
+      <p class="muted mt-1">Três caminhos rápidos. Nenhum campo além do essencial é obrigatório.</p>
+
+      <div class="tabs mt-5" role="tablist" aria-label="Tipo de item" data-tabs>
+        <button class="tab" role="tab" id="tab-projeto" aria-selected="true" aria-controls="panel-projeto" data-tab="projeto">Novo projeto</button>
+        <button class="tab" role="tab" id="tab-tarefa" aria-selected="false" aria-controls="panel-tarefa" data-tab="tarefa" tabindex="-1">Nova tarefa</button>
+        <button class="tab" role="tab" id="tab-ideia" aria-selected="false" aria-controls="panel-ideia" data-tab="ideia" tabindex="-1">Nova ideia</button>
+      </div>
+
+      <!-- Projeto -->
+      <div data-panel="projeto" role="tabpanel" aria-labelledby="tab-projeto" id="panel-projeto">
+        <div class="backdrop-demo mt-4">
+          <div class="modal" style="max-width:620px">
+            <div class="modal-head">
+              <div class="grow"><h3>Novo projeto</h3><p class="small muted mt-1">Comece pelo objetivo. Você pode completar o resto depois.</p></div>
+              <a class="btn-icon btn" href="projetos.html" aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a>
+            </div>
+            <div class="stepper" aria-label="Etapa 1 de 3">
+              <span class="step active"><span class="n">1</span> Objetivo</span><span class="step-line"></span>
+              <span class="step"><span class="n">2</span> Detalhes</span><span class="step-line"></span>
+              <span class="step"><span class="n">3</span> Próximo passo</span>
+            </div>
+            <div class="modal-body">
+              <div class="field">
+                <label class="label" for="p-nome">Nome do projeto <span class="opt">obrigatório</span></label>
+                <input class="input" id="p-nome" value="Loja de cerâmica" aria-describedby="p-nome-hint">
+                <span class="hint" id="p-nome-hint">Um nome curto que você reconheça daqui a três meses.</span>
+              </div>
+              <div class="field">
+                <label class="label" for="p-objetivo">Qual é o objetivo?</label>
+                <input class="input" id="p-objetivo" value="Vender as primeiras 30 peças online" aria-describedby="p-obj-hint">
+                <span class="hint" id="p-obj-hint">Uma frase basta. Exemplo: “Publicar meu portfólio até dezembro”.</span>
+              </div>
+              <div class="field">
+                <label class="label" for="p-modelo">Começar com um modelo <span class="opt">opcional</span></label>
+                <select class="select" id="p-modelo">
+                  <option>Em branco</option>
+                  <option>Site ou aplicativo</option>
+                  <option>Conteúdo e escrita</option>
+                  <option>Curso próprio</option>
+                </select>
+                <span class="hint">Modelos criam etapas e tarefas sugeridas. Nada é fixo: você pode mudar tudo.</span>
+              </div>
+              <fieldset style="border:0;padding:0;margin:0">
+                <legend class="label" style="margin-bottom:8px">Prioridade</legend>
+                <div class="row wrap" style="gap:6px" data-chip-group>
+                  <button class="chip" type="button">Baixa</button>
+                  <button class="chip chip-brand" type="button" aria-pressed="true">Normal</button>
+                  <button class="chip" type="button">Alta</button>
+                  <button class="chip" type="button">Urgente</button>
+                </div>
+              </fieldset>
+              <label class="check">
+                <input type="checkbox" id="p-principal">
+                <span class="txt">
+                  <strong>Definir como projeto principal</strong>
+                  <span>Você já tem “Órbita — PWA” como foco. Ao marcar, ele volta ao backlog e a troca fica no histórico. Nada é apagado.</span>
+                </span>
+              </label>
+            </div>
+            <div class="modal-foot">
+              <button class="btn btn-ghost" type="button" disabled>Voltar</button>
+              <span class="spacer"></span>
+              <a class="btn btn-outline" href="projetos.html">Cancelar</a>
+              <a class="btn btn-primary" href="projeto.html">Continuar <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <p class="small muted mt-3" style="text-align:center">No celular, o formulário ocupa a tela inteira e o botão principal fica fixo no rodapé, acima do teclado.</p>
+      </div>
+
+      <!-- Tarefa -->
+      <div data-panel="tarefa" role="tabpanel" aria-labelledby="tab-tarefa" id="panel-tarefa" hidden>
+        <div class="backdrop-demo mt-4">
+          <div class="modal" style="max-width:520px">
+            <div class="modal-head">
+              <div class="grow"><h3>Nova tarefa</h3><p class="small muted mt-1">Só o título é obrigatório. Enter cria e mantém o foco para a próxima.</p></div>
+              <a class="btn-icon btn" href="tarefas.html" aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a>
+            </div>
+            <div class="modal-body">
+              <div class="field">
+                <label class="label sr-only" for="t-titulo">Título da tarefa</label>
+                <input class="input" id="t-titulo" placeholder="O que precisa ser feito?" value="Comprar embalagens para o envio" style="height:46px;font-size:15px" aria-describedby="t-hint">
+                <span class="hint" id="t-hint">Dica: comece com um verbo. “Revisar”, “Ligar”, “Publicar”.</span>
+              </div>
+              <div class="row wrap" style="gap:8px">
+                <div class="field grow" style="min-width:200px">
+                  <label class="label" for="t-projeto">Projeto</label>
+                  <select class="select" id="t-projeto"><option>Loja de cerâmica</option><option>Sem projeto</option><option>Órbita — PWA</option><option>Portfólio 2026</option></select>
+                </div>
+                <div class="field" style="min-width:150px">
+                  <label class="label" for="t-responsavel">Responsável</label>
+                  <select class="select" id="t-responsavel"><option>Ana Costa (você)</option><option>Marcos Lima</option><option>Rafa Alves</option></select>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" id="t-prazo-label">Prazo</span>
+                <div class="row wrap" style="gap:6px" role="group" aria-labelledby="t-prazo-label">
+                  <button class="chip chip-brand" type="button" aria-pressed="true"><svg class="i sm" aria-hidden="true"><use href="#i-clock"/></svg> Hoje</button>
+                  <button class="chip" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-calendar"/></svg> Amanhã</button>
+                  <button class="chip" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-calendar"/></svg> Escolher data</button>
+                  <button class="chip" type="button">Sem prazo</button>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" id="t-prio-label">Prioridade</span>
+                <div class="row wrap" style="gap:6px" role="group" aria-labelledby="t-prio-label">
+                  <button class="chip" type="button">Baixa</button>
+                  <button class="chip chip-brand" type="button" aria-pressed="true">Normal</button>
+                  <button class="chip" type="button">Alta</button>
+                  <button class="chip" type="button">Urgente</button>
+                </div>
+              </div>
+              <details>
+                <summary class="small strong" style="cursor:pointer;color:var(--brand)">Mais detalhes (opcional)</summary>
+                <div class="mt-3">
+                  <label class="label" for="t-desc">Descrição</label>
+                  <textarea class="textarea" id="t-desc" placeholder="Contexto, links, critérios de conclusão…"></textarea>
+                  <div class="row wrap mt-3" style="gap:8px">
+                    <button class="btn btn-outline btn-sm" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-paperclip"/></svg> Anexar</button>
+                    <button class="btn btn-outline btn-sm" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-check-square"/></svg> Checklist</button>
+                    <button class="btn btn-outline btn-sm" type="button"><svg class="i sm" aria-hidden="true"><use href="#i-clock"/></svg> Lembrete</button>
+                  </div>
+                </div>
+              </details>
+            </div>
+            <div class="modal-foot">
+              <span class="tiny muted"><span class="kbd">Esc</span> fecha · <span class="kbd">Enter</span> cria</span>
+              <span class="spacer"></span>
+              <a class="btn btn-ghost" href="tarefas.html">Cancelar</a>
+              <a class="btn btn-primary" href="tarefas.html" data-toast-msg="Tarefa criada. Enter mantém o campo aberto para a próxima.">Criar tarefa</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ideia -->
+      <div data-panel="ideia" role="tabpanel" aria-labelledby="tab-ideia" id="panel-ideia" hidden>
+        <div class="backdrop-demo mt-4">
+          <div class="modal" style="max-width:520px">
+            <div class="modal-head">
+              <div class="grow"><h3>Capturar ideia</h3><p class="small muted mt-1">Caixa de entrada para quando a ideia aparece. Avalie depois.</p></div>
+              <a class="btn-icon btn" href="backlog.html" aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></a>
+            </div>
+            <div class="modal-body">
+              <div class="field">
+                <label class="label" for="i-titulo">Qual é a ideia?</label>
+                <input class="input" id="i-titulo" placeholder="Ex.: curso sobre cerâmica para iniciantes" style="height:46px;font-size:15px">
+              </div>
+              <div class="field">
+                <label class="label" for="i-nota">Nota rápida <span class="opt">opcional</span></label>
+                <textarea class="textarea" id="i-nota" placeholder="Por que isso importa? Para quem?"></textarea>
+              </div>
+              <div class="field">
+                <span class="label" id="i-cat">Categoria <span class="opt">opcional</span></span>
+                <div class="row wrap" style="gap:6px" role="group" aria-labelledby="i-cat">
+                  <button class="chip chip-brand" type="button" aria-pressed="true">Produto</button>
+                  <button class="chip" type="button">Conteúdo</button>
+                  <button class="chip" type="button">Estudo</button>
+                  <button class="chip" type="button">Pessoal</button>
+                </div>
+              </div>
+              <div class="row" style="align-items:flex-start;gap:8px;background:var(--brand-050);border-radius:10px;padding:10px">
+                <svg class="i sm" aria-hidden="true" style="color:var(--brand-700);margin-top:2px"><use href="#i-inbox"/></svg>
+                <p class="tiny" style="margin:0;color:var(--brand-700)">Ideias ficam no backlog e não competem com o foco principal. Você pode convertê-las em projeto sem redigitar nada.</p>
+              </div>
+            </div>
+            <div class="modal-foot">
+              <span class="spacer"></span>
+              <a class="btn btn-ghost" href="backlog.html">Cancelar</a>
+              <a class="btn btn-primary" href="backlog.html" data-toast-msg="Ideia salva no backlog. Você pode avaliar quando quiser."><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Salvar ideia</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação principal no celular">
+  <a class="bnav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Mais</a>
+</nav>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

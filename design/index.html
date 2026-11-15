@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÓRBITA — Etapa 2: Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Navegação principal">
+    <a class="brand" href="index.html" aria-label="ÓRBITA — índice do protótipo">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      <span><span class="brand-name">ÓRBITA</span><br><span class="brand-sub">etapa 2 · design</span></span>
+    </a>
+    <button class="ws-switch" type="button" aria-label="Trocar espaço de trabalho: Pessoal">
+      <span class="ws-badge">P</span>
+      <span class="meta"><strong>Pessoal</strong><small>Workspace pessoal</small></span>
+      <svg class="i sm" aria-hidden="true" style="margin-left:auto"><use href="#i-chevron-down"/></svg>
+    </button>
+    <a class="btn btn-primary btn-block mt-3" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+    <nav class="nav" aria-label="Seções">
+      <div class="nav-label">Telas</div>
+      <a class="nav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Visão geral</a>
+      <a class="nav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Meu foco</a>
+      <a class="nav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+      <a class="nav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+      <a class="nav-item" href="backlog.html"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg> Ideias e backlog</a>
+      <a class="nav-item" href="criar.html"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Criar</a>
+      <a class="nav-item" href="arquivos.html"><svg class="i" aria-hidden="true"><use href="#i-paperclip"/></svg> Arquivos e upload</a>
+      <a class="nav-item" href="espacos.html"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg> Espaços e convites</a>
+      <div class="nav-label">Extras</div>
+      <a class="nav-item" href="projeto.html"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg> Projeto (detalhe)</a>
+      <a class="nav-item" href="cursos.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Cursos</a>
+      <a class="nav-item" href="portfolio.html"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg> Portfólio</a>
+      <a class="nav-item" href="configuracoes.html"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Configurações</a>
+      <a class="nav-item" href="mobile.html"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg> Mobile</a>
+    </nav>
+    <div class="sidebar-foot">
+      <button class="nav-item" type="button" data-theme-action style="width:100%;text-align:left;background:none;border:0;cursor:pointer">
+        <svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> <span data-theme-label>Tema escuro</span>
+      </button>
+      <div class="user-card">
+        <span class="avatar">AC</span>
+        <span class="meta"><strong>Ana Costa</strong><span>protótipo · não é o app</span></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand mobile-only" href="index.html" aria-label="ÓRBITA" style="padding:0">
+        <span class="brand-mark" style="width:30px;height:30px;border-radius:9px"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+      </a>
+      <div class="search">
+        <svg class="i sm" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="busca">Buscar telas</label>
+        <input id="busca" type="search" placeholder="Buscar telas do protótipo…">
+        <span class="kbd" aria-hidden="true">⌘K</span>
+      </div>
+      <div class="topbar-right">
+        <span class="chip chip-warning"><svg class="i sm" aria-hidden="true"><use href="#i-clock"/></svg> Aguardando aprovação</span>
+        <button class="btn-icon btn" type="button" data-theme-action aria-label="Alternar tema"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <span class="avatar">AC</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="hub-hero">
+        <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-orbit"/></svg></span>
+        <h1>Etapa 2 — Design</h1>
+        <p>Protótipo navegável da ÓRBITA: design system, telas desktop, comportamento responsivo e os fluxos críticos. HTML e CSS estáticos — sem build, sem dependências e sem código de aplicação.</p>
+        <div class="row wrap mt-3" style="gap:6px">
+          <span class="chip chip-brand">13 telas</span>
+          <span class="chip chip-neutral">Tema claro e escuro</span>
+          <span class="chip chip-neutral">Teclado e toque</span>
+          <span class="chip chip-neutral">Sem backend</span>
+        </div>
+      </section>
+
+      <section aria-labelledby="telas-titulo">
+        <div class="section-head"><h2 id="telas-titulo">Telas</h2><span class="hint">Comece pela visão geral e siga o fluxo de criação</span></div>
+        <div class="grid-3">
+          <a class="card screen-card" href="dashboard.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w45"></div><div class="hero"></div><div class="tiles"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile brand"></div></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Visão geral</h3><div class="tiny muted">Foco, próximo passo, tarefas de hoje e semana</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="foco.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w70"></div><div class="hero"></div><div class="bar"></div><div class="bar w70"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Meu foco</h3><div class="tiny muted">Fila do dia e confirmação de troca de foco</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="projetos.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w45"></div><div class="tiles"><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Projetos</h3><div class="tiny muted">Cartões, lista e Kanban com arrastar</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="tarefas.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w45"></div><div class="bar"></div><div class="bar"></div><div class="bar w70"></div><div class="bar"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Tarefas</h3><div class="tiny muted">Atrasadas, hoje, próximas, sem prazo</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="criar.html">
+            <div class="thumb"><div class="mock" style="grid-template-columns:1fr"><div class="body" style="align-content:center"><div class="bar w70"></div><div class="bar" style="height:26px"></div><div class="bar" style="height:26px"></div><div class="bar w45"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Criar</h3><div class="tiny muted">Projeto em 3 passos, tarefa rápida, ideia</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="backlog.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w70"></div><div class="bar brand"></div><div class="tiles"><div class="tile"></div><div class="tile"></div></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Ideias e backlog</h3><div class="tiny muted">Captura rápida e conversão em projeto</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="arquivos.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w45"></div><div class="tile" style="height:38px;border-style:dashed"></div><div class="bar"></div><div class="bar w70"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Arquivos e upload</h3><div class="tiny muted">Progresso, erro, retry e limites</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="espacos.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w45"></div><div class="tiles"><div class="tile"></div><div class="tile"></div></div><div class="bar"></div><div class="bar w70"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Espaços e convites</h3><div class="tiny muted">Papéis, link com validade, revogação</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="projeto.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w70"></div><div class="bar"></div><div class="hero"></div><div class="bar w45"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Projeto (detalhe)</h3><div class="tiny muted">Abas, riscos, etapas, histórico</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="cursos.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w70"></div><div class="hero"></div><div class="bar"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Cursos</h3><div class="tiny muted">Curso principal e fila de estudos</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="portfolio.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w45"></div><div class="tile"></div><div class="tile brand"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Portfólio</h3><div class="tiny muted">Privado, link não listado, revogação</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="configuracoes.html">
+            <div class="thumb"><div class="mock"><div class="sb"></div><div class="body"><div class="bar w45"></div><div class="bar"></div><div class="bar w70"></div><div class="tile brand"></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Configurações</h3><div class="tiny muted">Perfil, tema, privacidade e LGPD</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+          <a class="card screen-card" href="mobile.html">
+            <div class="thumb"><div class="mock" style="grid-template-columns:1fr;place-items:center"><div style="width:52px;height:96px;border-radius:10px;background:#101827;padding:5px"><div style="width:100%;height:100%;border-radius:7px;background:var(--bg);display:grid;gap:3px;padding:4px;align-content:start"><div class="bar" style="height:6px"></div><div class="bar brand" style="height:14px"></div><div class="bar" style="height:6px"></div></div></div></div></div>
+            <div class="row"><div class="grow"><h3>Mobile</h3><div class="tiny muted">Navegação inferior, FAB, telas reais</div></div><svg class="i sm faint" aria-hidden="true"><use href="#i-chevron-right"/></svg></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="mt-5" aria-labelledby="marca-titulo">
+        <div class="section-head"><h2 id="marca-titulo">Marca e tokens</h2><span class="hint">Mesmos valores do documento, testados em contraste</span></div>
+        <div class="grid-2" style="gap:20px">
+          <div class="card card-pad">
+            <h3>Paleta</h3>
+            <div class="swatches mt-3">
+              <div class="swatch"><div class="c" style="background:#14213D"></div><div class="l"><strong>Azul-noite</strong>#14213D</div></div>
+              <div class="swatch"><div class="c" style="background:#2F6FE0"></div><div class="l"><strong>Azul-vivo</strong>#2F6FE0</div></div>
+              <div class="swatch"><div class="c" style="background:#189B85"></div><div class="l"><strong>Verde-água</strong>#189B85</div></div>
+              <div class="swatch"><div class="c" style="background:#F2B84B"></div><div class="l"><strong>Âmbar</strong>#F2B84B</div></div>
+              <div class="swatch"><div class="c" style="background:#F6F8FC"></div><div class="l"><strong>Fundo claro</strong>#F6F8FC</div></div>
+              <div class="swatch"><div class="c" style="background:#182230"></div><div class="l"><strong>Texto</strong>#182230</div></div>
+              <div class="swatch"><div class="c" style="background:#C93D34"></div><div class="l"><strong>Perigo</strong>#C93D34</div></div>
+              <div class="swatch"><div class="c" style="background:#101827"></div><div class="l"><strong>Fundo escuro</strong>#101827</div></div>
+            </div>
+            <p class="tiny muted mt-3" style="margin-bottom:0">Perigo e “texto sobre âmbar” foram ajustados para contraste AA. Status nunca depende só da cor: sempre ícone + rótulo.</p>
+          </div>
+          <div class="col">
+            <div class="card card-pad">
+              <h3>Tipografia</h3>
+              <div class="mt-2">
+                <div class="type-row"><span class="tag">24 / 650</span><span style="font-size:24px;font-weight:650;letter-spacing:-.02em">Título de página</span></div>
+                <div class="type-row"><span class="tag">18 / 600</span><span style="font-size:18px;font-weight:600">Título de seção</span></div>
+                <div class="type-row"><span class="tag">14 / 600</span><span style="font-size:14px;font-weight:600">Título de cartão</span></div>
+                <div class="type-row"><span class="tag">14 / 400</span><span style="font-size:14px">Texto de interface e listas</span></div>
+                <div class="type-row"><span class="tag">12 / 400</span><span style="font-size:12px;color:var(--text-muted)">Texto auxiliar e metadados</span></div>
+              </div>
+              <p class="tiny muted mt-3" style="margin-bottom:0">Inter com fallback para a fonte do sistema. Números tabulares em prazos e progresso.</p>
+            </div>
+            <div class="card card-pad">
+              <h3>Componentes</h3>
+              <div class="row wrap mt-3" style="gap:8px">
+                <button class="btn btn-primary btn-sm" type="button">Primário</button>
+                <button class="btn btn-outline btn-sm" type="button">Secundário</button>
+                <button class="btn btn-ghost btn-sm" type="button">Discreto</button>
+                <span class="chip chip-brand">Marca</span>
+                <span class="chip chip-success">Concluído</span>
+                <span class="chip chip-warning">Atenção</span>
+                <span class="chip chip-danger">Atrasado</span>
+                <span class="chip chip-neutral">Neutro</span>
+              </div>
+              <div class="progress mt-3"><span style="width:62%"></span></div>
+              <div class="progress-label"><span>8 de 13 tarefas</span><span>62%</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-5" aria-labelledby="revisar-titulo">
+        <div class="section-head"><h2 id="revisar-titulo">Para aprovar</h2><span class="hint">O que eu preciso saber de você</span></div>
+        <div class="grid-3">
+          <div class="card card-pad">
+            <span class="chip chip-brand">1</span>
+            <h3 class="mt-2">Hierarquia</h3>
+            <p class="small muted mt-1">A visão geral responde “onde estou”, “o que fazer” e “qual o próximo passo” sem precisar de menu?</p>
+          </div>
+          <div class="card card-pad">
+            <span class="chip chip-brand">2</span>
+            <h3 class="mt-2">Linguagem</h3>
+            <p class="small muted mt-1">“Meu foco”, “Próximo passo” e “Voltar ao backlog” funcionam para alguém que nunca usou Kanban?</p>
+          </div>
+          <div class="card card-pad">
+            <span class="chip chip-brand">3</span>
+            <h3 class="mt-2">Densidade</h3>
+            <p class="small muted mt-1">A quantidade de informação por tela está confortável no desktop e no celular?</p>
+          </div>
+          <div class="card card-pad">
+            <span class="chip chip-brand">4</span>
+            <h3 class="mt-2">Troca de foco</h3>
+            <p class="small muted mt-1">A confirmação deixa claro que nada é apagado e que a mudança fica no histórico?</p>
+          </div>
+          <div class="card card-pad">
+            <span class="chip chip-brand">5</span>
+            <h3 class="mt-2">Upload</h3>
+            <p class="small muted mt-1">Os estados de progresso, erro, retry e limite de 25 MB estão compreensíveis?</p>
+          </div>
+          <div class="card card-pad">
+            <span class="chip chip-brand">6</span>
+            <h3 class="mt-2">Convites</h3>
+            <p class="small muted mt-1">Fica claro que o convite só vale depois do aceite e que o link expira?</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card card-pad mt-5">
+        <div class="row wrap" style="gap:12px">
+          <span class="hero-icon" style="width:36px;height:36px;border-radius:10px;background:var(--warning);color:var(--night)"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg></span>
+          <div class="grow"><h3>Limites deste protótipo</h3><p class="small muted mt-1">Dados são exemplos fixos. Interações existem para demonstrar comportamento; nada é salvo. Sem autenticação, banco ou storage. A Etapa 3 começa somente depois da aprovação visual.</p></div>
+          <a class="btn btn-ghost" href="README.md">Especificação <svg class="i" aria-hidden="true"><use href="#i-file"/></svg></a>
+          <a class="btn btn-primary" href="dashboard.html">Começar pela visão geral <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<nav class="bottomnav" aria-label="Navegação do protótipo">
+  <a class="bnav-item" href="dashboard.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> Início</a>
+  <a class="bnav-item" href="foco.html"><svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Foco</a>
+  <a class="bnav-item" href="projetos.html"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg> Projetos</a>
+  <a class="bnav-item" href="tarefas.html"><svg class="i" aria-hidden="true"><use href="#i-check-square"/></svg> Tarefas</a>
+  <a class="bnav-item" href="index.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg> Índice</a>
+</nav>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

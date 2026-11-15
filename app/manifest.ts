@@ -1,0 +1,68 @@
+import type { MetadataRoute } from "next";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    id: "/",
+    name: "ÓRBITA — suas ideias, projetos e tarefas",
+    short_name: "ÓRBITA",
+    description:
+      "Um foco por vez: projetos, tarefas, cursos e arquivos em um só lugar. Sem jargão, sem ruído.",
+    start_url: "/",
+    scope: "/",
+    display: "standalone",
+    orientation: "any",
+    lang: "pt-BR",
+    dir: "ltr",
+    background_color: "#f6f8fc",
+    theme_color: "#2f6fe0",
+    categories: ["productivity", "education", "organization"],
+    icons: [
+      {
+        src: "/icons/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-maskable-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+    ],
+    shortcuts: [
+      {
+        name: "Nova tarefa",
+        short_name: "Tarefa",
+        description: "Criar uma tarefa rapidamente",
+        url: "/criar?tipo=tarefa",
+        icons: [
+          {
+            src: "/icons/icon-192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
+      },
+      {
+        name: "Registrar ideia",
+        short_name: "Ideia",
+        description: "Guardar uma ideia no backlog",
+        url: "/criar?tipo=ideia",
+        icons: [
+          {
+            src: "/icons/icon-192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
+      },
+    ],
+  };
+}
