@@ -97,6 +97,13 @@ export default async function TasksPage({
         title="Tarefas"
         description="Atrasada, vence hoje ou sem prazo: cada tarefa mostra o estado por extenso, nunca só por cor."
         actions={
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/tarefas/quadro"
+              className="inline-flex h-10 items-center gap-2 rounded-md border border-border-strong bg-surface px-3.5 text-[13px] font-semibold text-ink no-underline hover:bg-surface-2 hover:no-underline"
+            >
+              Ver como quadro
+            </Link>
           <Link
             href="/criar?tipo=tarefa"
             className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
@@ -104,6 +111,7 @@ export default async function TasksPage({
             <Plus className="size-4" aria-hidden="true" />
             Nova tarefa
           </Link>
+          </div>
         }
       />
 

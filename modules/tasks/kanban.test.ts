@@ -74,5 +74,6 @@ describe("busca e histórico", () => {
   it("descreve eventos", () => {
     expect(describeActivity("completed", "Escrever copy")).toBe("Você concluiu “Escrever copy”");
     expect(describeActivity("desconhecido")).toBe("Você atualizou um item");
+    expect(describeActivity("created", "X", "Alguém")).toBe("Alguém criou “X”");
   });
 });

@@ -78,7 +78,11 @@ const ACTIVITY_LABELS: Record<string, string> = {
   focus_changed: "mudou o foco para",
 };
 
-export function describeActivity(verb: string, title?: string | null): string {
+export function describeActivity(
+  verb: string,
+  title?: string | null,
+  actor = "Você",
+): string {
   const label = ACTIVITY_LABELS[verb] ?? "atualizou";
-  return title ? `Você ${label} “${title}”` : `Você ${label} um item`;
+  return title ? `${actor} ${label} “${title}”` : `${actor} ${label} um item`;
 }

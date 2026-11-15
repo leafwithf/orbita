@@ -104,3 +104,64 @@ export async function getTaskById({
   if (error || !data) return null;
   return toTask(data, today);
 }
+
+export type KanbanTask = {
+  id: string;
+  title: string;
+  status: "todo" | "in_progress" | "done";
+  position: number;
+  priority: string;
+  dueDate: string | null;
+  dueState: DueDateState;
+  projectTitle: string | null;
+};
+
+/** Quadro: abertas + concluídas nos últimos 14 dias, já ordenadas por posição. */
+export async function listKanbanTasks({
+  workspaceId,
+  today,
+  projectId,
+}: {
+  workspaceId: string;
+  today: string;
+  projectId?: string;
+}): Promise<KanbanTask[]> {
+  const supabase = await createClient();
+  const since = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
+  let query = supabase
+    .from("tasks")
+    .select("id, title, status, position, priority, due_date, projects(title)")
+    .eq("workspace_id", workspaceId)
+    .is("deleted_at", null)
+    .is("archived_at", null)
+    .or(`status.neq.done,completed_at.gte.${since}`);
+
+  if (projectId) query = query.eq("project_id", projectId);
+
+  const { data, error } = await query
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: true })
+    .limit(300);
+
+  if (error) return [];
+  return (
+    (data ?? []) as unknown as {
+      id: string;
+      title: string;
+      status: KanbanTask["status"];
+      position: number | string;
+      priority: string;
+      due_date: string | null;
+      projects: { title: string } | null;
+    }[]
+  ).map((row) => ({
+    id: row.id,
+    title: row.title,
+    status: row.status,
+    position: Number(row.position),
+    priority: row.priority,
+    dueDate: row.due_date,
+    dueState: classifyDueDate(row.due_date, today),
+    projectTitle: row.projects?.title ?? null,
+  }));
+}

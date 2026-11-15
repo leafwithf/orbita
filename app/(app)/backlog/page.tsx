@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Lightbulb, Plus, Sparkles } from "lucide-react";
 
 import { EmptyState } from "@/components/patterns/empty-state";
+import { IdeaActions } from "@/components/ideas/idea-actions";
 import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
 import { StatusChip } from "@/components/patterns/status-chip";
@@ -107,6 +108,7 @@ export default async function BacklogPage() {
                       <ArrowRight className="size-3" aria-hidden="true" />
                     </Link>
                   ) : null}
+                  <IdeaActions ideaId={idea.id} title={idea.title} state={idea.state} />
                 </li>
               ))}
             </ul>
@@ -125,14 +127,10 @@ export default async function BacklogPage() {
                 sentido, marque o potencial e escreva o que falta saber.
               </li>
               <li>
-                <strong className="text-ink">3. Decida.</strong> Uma ideia
-                validada vira projeto preservando o texto e os anexos.
+                <strong className="text-ink">3. Decida.</strong> Use “Converter em
+                projeto” para criar o projeto com o título e o texto da ideia.
               </li>
             </ol>
-            <p className="mt-3 border-t border-border pt-3 text-[11.5px] leading-relaxed text-faint">
-              A conversão em projeto com preservação de notas chega na próxima
-              etapa do MVP.
-            </p>
           </SectionCard>
 
           <SectionCard title="Fora do foco ≠ esquecido">

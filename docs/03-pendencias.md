@@ -138,4 +138,12 @@ Validações obrigatórias depois da migração. Os itens marcados com **(local)
 - Suíte `supabase/tests/mvp_personal.sql`: 5/5 PASS no Postgres local.
 - `modules/tasks/kanban.ts`: posição fracionária com rebalanceamento, movimento por teclado, janela de desfazer (5 s), normalização de busca, rótulos de histórico. 10/10 testes e `tsc --strict` OK (executados fora do vitest, ver limitação).
 - **Limitação desta sessão:** sem `node_modules` e sem rede, não foi possível rodar `typecheck`, `lint`, `vitest` e `build` do app Next.js. Rode `npm ci && npm run check` localmente (Node 24+).
-- **Pendente (Etapa 4, parte 2):** telas e server actions de CRUD, Kanban, busca, histórico, desfazer e E2E autenticado.
+### Etapa 4 — parte 2: telas e ações (2026-11-15) — NÃO COMPILADO
+
+- Novas rotas: `/tarefas/quadro` (Kanban), `/busca`, `/historico`, `/lixeira`; no backlog, "Converter em projeto", mudança de estado e exclusão com desfazer.
+- Kanban acessível: movimento por botões com rótulo (teclado, leitor de tela, celular, alvos de 44 px), região `aria-live` anunciando a nova posição, desfazer de conclusão (toast de 6 s) e de exclusão (8 s). **Sem arrastar com o mouse** por decisão: os botões cobrem a exigência de teclado e o toque.
+- Ações do servidor: `lib/actions/mvp.ts` (mover, reordenar coluna, converter, estado da ideia, lixeira/restaurar). Dados: `lib/data/{activity,search}.ts` e `listKanbanTasks`.
+- E2E autenticado: `tests/e2e/authenticated.spec.ts` (fluxos A–D = onboarding, ideia, projeto, foco; mais quadro, busca, histórico, lixeira). Roda só com `E2E_EMAIL` e `E2E_PASSWORD`; caso contrário é ignorado.
+- **Verificação feita:** checagem de tipos dos arquivos novos com pacotes externos simulados (sem erros além do ruído da simulação). **Não verificado:** `npm run check`, `build` e o E2E. Os seletores do fluxo D (foco) foram inferidos do código e podem precisar de ajuste.
+- **Primeiro comando ao receber este zip:** `npm ci && npm run check && npm run build`. Se algo falhar, cole a saída aqui.
+- **Fora desta etapa / pendente:** edição de campos de projetos, tarefas e cursos além do que já existia; arquivar pela interface; limpeza automática da lixeira (30 dias, Etapa 5); busca com índice (suficiente no volume do MVP pessoal).

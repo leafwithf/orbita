@@ -4,10 +4,13 @@ import {
   FolderOpen,
   Globe2,
   GraduationCap,
+  History,
   Home,
   Lightbulb,
   ListChecks,
+  Search,
   Settings,
+  Trash2,
   Users,
   type LucideIcon,
 } from "lucide-react";
@@ -31,6 +34,9 @@ export const PRIMARY_NAV: NavItem[] = [
 
 export const SECONDARY_NAV: NavItem[] = [
   { href: "/backlog", label: "Ideias e backlog", icon: Lightbulb },
+  { href: "/busca", label: "Busca", icon: Search },
+  { href: "/historico", label: "Histórico", icon: History },
+  { href: "/lixeira", label: "Lixeira", icon: Trash2 },
   { href: "/espacos", label: "Espaços e pessoas", icon: Users },
 ];
 
