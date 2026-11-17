@@ -10,7 +10,7 @@ import { IDEA_STATES } from "@/modules/ideas/domain";
 import { rebalancePositions } from "@/modules/tasks/kanban";
 
 const STATUSES = ["todo", "in_progress", "done"] as const;
-const TRASHABLE = ["projects", "tasks", "ideas", "courses"] as const;
+const TRASHABLE = ["projects", "tasks", "ideas", "courses", "files"] as const;
 
 const fail = (message: string): FormActionState => ({ status: "error", message });
 const ok: FormActionState = { status: "success" };
@@ -135,8 +135,9 @@ async function setDeleted(
   if (!parsed.success) return fail("Item inválido.");
 
   const supabase = await createClient();
+  const table = parsed.data.kind === "files" ? "files_metadata" : parsed.data.kind;
   const { error } = await supabase
-    .from(parsed.data.kind)
+    .from(table)
     .update({ deleted_at: deleted ? new Date().toISOString() : null })
     .eq("id", parsed.data.id);
 
@@ -164,4 +165,21 @@ export async function restoreItemFormAction(formData: FormData): Promise<void> {
   const kind = formData.get("kind");
   const id = formData.get("id");
   await setDeleted(String(kind ?? ""), String(id ?? ""), false);
+}
+
+/** Cancelamento/falha de um envio: o registro pendente sai da cota imediatamente. */
+export async function abortUploadAction(fileId: string): Promise<FormActionState> {
+  await requireUser();
+  if (!z.uuid().safeParse(fileId).success) return fail("Arquivo inválido.");
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("files_metadata")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", fileId)
+    .eq("status", "pending");
+
+  if (error) return fail("Não foi possível cancelar o envio.");
+  refresh();
+  return ok;
 }

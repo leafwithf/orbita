@@ -15,5 +15,12 @@ export PGDATABASE=orbita_test
 P="$PGBIN/psql -v ON_ERROR_STOP=1 -q"
 $RUN "$P -h $DIR -p $PORT -d orbita_test -f supabase/tests/00_supabase_shim.sql"
 for f in supabase/migrations/*.sql; do echo ">> $f"; $RUN "$P -h $DIR -p $PORT -d orbita_test -f $f"; done
-for f in supabase/tests/*.sql; do case $f in *00_supabase_shim*) continue;; esac; echo ">> $f"; $RUN "$P -h $DIR -p $PORT -d orbita_test -f $PWD/$f" 2>&1 | grep -E "PASS|ERROR|FAIL" || true; done
-echo "OK: migrações e suítes SQL concluídas"
+FAIL=0
+for f in supabase/tests/*.sql; do
+  case $f in *00_supabase_shim*) continue;; esac
+  echo ">> $f"
+  if OUT=$($RUN "$P -h $DIR -p $PORT -d orbita_test -f $PWD/$f" 2>&1); then RC=0; else RC=1; fi
+  echo "$OUT" | grep -E "PASS|ERROR|FAIL" || true
+  [ "$RC" = 0 ] || { echo "FALHOU: $f"; FAIL=1; }
+done
+[ "$FAIL" = 0 ] && echo "OK: migrações e suítes SQL concluídas" || { echo "ERRO: há suítes com falha"; exit 1; }

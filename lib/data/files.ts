@@ -18,7 +18,9 @@ export type FileUsage = {
   count: number;
 };
 
-export const WORKSPACE_STORAGE_LIMIT_BYTES = 1024 * 1024 * 1024;
+import { WORKSPACE_LIMIT_BYTES } from "@/modules/files/domain";
+
+export const WORKSPACE_STORAGE_LIMIT_BYTES = WORKSPACE_LIMIT_BYTES;
 
 export async function listFiles(
   workspaceId: string,
@@ -28,7 +30,7 @@ export async function listFiles(
     .from("files_metadata")
     .select("id, file_name, mime, size_bytes, status, entity_type, created_at")
     .eq("workspace_id", workspaceId)
-    .in("status", ["pending", "ready"])
+    .in("status", ["pending", "ready", "quarantined"])
     .is("deleted_at", null)
     .order("created_at", { ascending: false })
     .limit(200);
@@ -61,7 +63,9 @@ export async function listFiles(
       createdAt: row.created_at,
     })),
     usage: {
-      usedBytes: rows.reduce((sum, row) => sum + row.size_bytes, 0),
+      usedBytes: rows
+        .filter((row) => row.status !== "quarantined")
+        .reduce((sum, row) => sum + Number(row.size_bytes), 0),
       limitBytes: WORKSPACE_STORAGE_LIMIT_BYTES,
       count: rows.length,
     },

@@ -16,6 +16,7 @@ const KIND_LABELS = {
   tasks: "Tarefa",
   ideas: "Ideia",
   courses: "Curso",
+  files: "Arquivo",
 } as const;
 
 export default async function TrashPage() {
@@ -36,14 +37,14 @@ export default async function TrashPage() {
     <div className="grid gap-6">
       <PageHeader
         title="Lixeira"
-        description="Itens excluídos ficam aqui e podem ser restaurados. A limpeza automática em 30 dias chega junto com os arquivos (Etapa 5)."
+        description="Itens excluídos ficam aqui e podem ser restaurados. Itens com mais de 30 dias são removidos de vez pela limpeza diária."
       />
 
       {items.length === 0 ? (
         <EmptyState
           icon={Trash2}
           title="A lixeira está vazia"
-          description="Quando você excluir uma tarefa ou ideia, ela aparece aqui."
+          description="Quando você excluir uma tarefa, ideia ou arquivo, ela aparece aqui."
         />
       ) : (
         <SectionCard title={`${items.length} ${items.length === 1 ? "item" : "itens"}`} bodyClassName="p-0 sm:p-0">

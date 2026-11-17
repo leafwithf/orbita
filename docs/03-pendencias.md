@@ -147,3 +147,25 @@ Validações obrigatórias depois da migração. Os itens marcados com **(local)
 - **Verificação feita:** checagem de tipos dos arquivos novos com pacotes externos simulados (sem erros além do ruído da simulação). **Não verificado:** `npm run check`, `build` e o E2E. Os seletores do fluxo D (foco) foram inferidos do código e podem precisar de ajuste.
 - **Primeiro comando ao receber este zip:** `npm ci && npm run check && npm run build`. Se algo falhar, cole a saída aqui.
 - **Fora desta etapa / pendente:** edição de campos de projetos, tarefas e cursos além do que já existia; arquivar pela interface; limpeza automática da lixeira (30 dias, Etapa 5); busca com índice (suficiente no volume do MVP pessoal).
+
+### Etapa 5 — arquivos + PWA (2026-11-17) — banco verificado; aplicação NÃO COMPILADA
+
+**Banco (verificado no Postgres local, 9 novos PASS em `supabase/tests/files.sql`):**
+- Migração `20261115000300_files.sql`: cota de 1 GiB por espaço com trava por espaço (pendentes contam); `begin_file_upload` (25 MB, nomes e extensões bloqueadas, RLS do chamador); `finalize_file_upload` (pending → ready | quarantined, uma única vez, com evento); expurgo em duas fases `list_expired_files` / `delete_purged_files` (lixeira > 30 dias, pendentes > 24 h), só `service_role`; bucket privado `workspace-files` e políticas de Storage (leitura por espaço; inserção só em registro pendente do próprio usuário; sem update/delete para usuários).
+- `scripts/db-local.sh` agora **falha de verdade** se qualquer suíte falhar (antes um `|| true` escondia erros); o shim ganhou Storage simulado e privilégios do `service_role`.
+
+**Domínio (verificado, 16 testes + `tsc --strict`):** `modules/files/domain.ts` — lista de permissão de tipos, extensão × tipo, assinatura real (PNG, JPEG, GIF, WebP, PDF, ZIP/OOXML; texto por UTF-8), decisão de quarentena, cota, formatação. Um teste garante que a lista de extensões bloqueadas é idêntica à da migração.
+
+**Aplicação (escrita, não compilada):**
+- `POST /api/files/sign` (valida, reserva cota, devolve URL assinada de upload de 10 min), `POST /api/files/{id}/complete` (lê o objeto, confere tamanho e assinatura, calcula SHA-256, finaliza), `GET /api/files/{id}/url` (redireciona para URL de leitura de 5 min; só imagem/PDF abrem inline), `POST /api/cron/purge-files` (protegida por `CRON_SECRET`).
+- Uploader com progresso real (XHR), cancelar, tentar de novo, vários arquivos, arrastar e soltar; ações de visualizar/baixar/excluir; lixeira passa a incluir arquivos; cota com alerta aos 80%.
+- E2E (gated por credenciais): imagem válida, arquivo disfarçado, tipo inválido, > 25 MB, 20 MB.
+- PWA: manifest, ícones, service worker e `/offline` já existiam; o SW ignora requisições de outras origens (URLs assinadas não são cacheadas). Checklist manual em `docs/04-pwa-checklist.md`.
+
+**Ativar a limpeza diária (grátis):** defina `CRON_SECRET` (`openssl rand -hex 32`) e `SUPABASE_SERVICE_ROLE_KEY` **só** no ambiente do servidor (Netlify), e agende `POST https://SEU-SITE/api/cron/purge-files` com `Authorization: Bearer <CRON_SECRET>` uma vez por dia (ex.: cron-job.org, gratuito).
+
+**Riscos/limites conhecidos:**
+- O PUT do XHR replica o formato do `uploadToSignedUrl` do supabase-js (FormData com `cacheControl` e campo vazio). É a parte mais provável de precisar de ajuste no primeiro teste real; se falhar, trocar por `supabase.storage.from(...).uploadToSignedUrl` (sem barra de progresso).
+- Restaurar um arquivo da lixeira não reconfere a cota.
+- Objeto enviado cujo `complete` nunca chega fica pendente e é removido pela limpeza em 24 h.
+- Varredura antimalware continua fora do escopo (Fase 3 do plano).

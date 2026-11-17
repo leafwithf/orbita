@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { FileText, FolderOpen, Image as ImageIcon, Info, Upload } from "lucide-react";
+
+import { FileActions } from "@/components/files/file-actions";
+import { FileUploader } from "@/components/files/file-uploader";
 
 import { EmptyState } from "@/components/patterns/empty-state";
 import { PageHeader } from "@/components/patterns/page-header";
@@ -9,15 +11,10 @@ import { StatusChip } from "@/components/patterns/status-chip";
 import { getAppContext } from "@/lib/data/context";
 import { listFiles } from "@/lib/data/files";
 import { formatDatePtBr } from "@/lib/dates";
+import { cn } from "@/lib/utils";
+import { formatBytes, quotaState } from "@/modules/files/domain";
 
 export const metadata: Metadata = { title: "Arquivos" };
-
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
-}
 
 export default async function FilesPage() {
   const context = await getAppContext();
@@ -32,10 +29,8 @@ export default async function FilesPage() {
   }
 
   const { files, usage } = await listFiles(context.workspace.id);
-  const percent = Math.min(
-    100,
-    Math.round((usage.usedBytes / usage.limitBytes) * 100),
-  );
+  const quota = quotaState(usage.usedBytes, usage.limitBytes);
+  const percent = quota.percent;
 
   return (
     <div className="grid gap-6">
@@ -49,13 +44,16 @@ export default async function FilesPage() {
         <div className="grid min-w-0 content-start gap-5">
           <SectionCard
             title="Biblioteca do espaço"
-            description="Enviar arquivos será liberado assim que o storage estiver conectado neste ambiente."
+            description="Envie do computador ou do celular. O arquivo vai direto para o armazenamento e só aparece como pronto depois de conferido."
           >
+            <div className="mb-4">
+              <FileUploader workspaceId={context.workspace.id} />
+            </div>
             {files.length === 0 ? (
               <EmptyState
                 icon={FolderOpen}
                 title="Nenhum arquivo enviado"
-                description="Quando o envio estiver ativo, você poderá anexar arquivos de até 25 MB direto do celular. O limite do espaço é de 1 GB."
+                description="Escolha um arquivo acima. O limite é de 25 MB por arquivo e 1 GB por espaço."
                 compact
               />
             ) : (
@@ -82,6 +80,12 @@ export default async function FilesPage() {
                           {file.context ? ` · ${file.context}` : ""}
                         </p>
                       </div>
+                      <FileActions
+                        fileId={file.id}
+                        fileName={file.fileName}
+                        mime={file.mime}
+                        ready={file.status === "ready"}
+                      />
                       <StatusChip
                         label={
                           file.status === "ready"
@@ -141,31 +145,23 @@ export default async function FilesPage() {
               className="mt-3 h-2 overflow-hidden rounded-full bg-border"
             >
               <div
-                className="h-full rounded-full bg-brand"
+                className={cn(
+                  "h-full rounded-full",
+                  quota.level === "ok" ? "bg-brand" : quota.level === "warning" ? "bg-warning" : "bg-danger",
+                )}
                 style={{ width: `${percent}%` }}
               />
             </div>
             <p className="mt-2 text-[11.5px] leading-relaxed text-faint">
-              {percent}% usado · limite por arquivo de 25 MB.
-            </p>
-            <p className="mt-3 rounded-md border border-border bg-surface-2 px-3 py-2 text-[11.5px] leading-relaxed text-muted">
-              O envio ainda não está ativo nesta base. A cota e as validações já
-              estão preparadas no banco.
+              {quota.level === "full"
+                ? "Espaço cheio: exclua arquivos para enviar novos."
+                : quota.level === "warning"
+                  ? `Atenção: restam ${formatBytes(quota.remainingBytes)}.`
+                  : `${percent}% usado`}{" "}
+              · limite por arquivo de 25 MB.
             </p>
           </SectionCard>
 
-          <SectionCard title="Precisa de um arquivo agora?">
-            <p className="text-[12.5px] leading-relaxed text-muted">
-              Enquanto o upload não está disponível, use as notas do projeto para
-              registrar links e referências externas.
-            </p>
-            <Link
-              href="/projetos"
-              className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-md border border-border-strong bg-surface px-3 text-[12.5px] font-semibold text-ink no-underline hover:bg-surface-2 hover:no-underline"
-            >
-              Abrir projetos
-            </Link>
-          </SectionCard>
         </aside>
       </div>
     </div>

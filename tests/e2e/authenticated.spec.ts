@@ -109,3 +109,60 @@ test("Etapa 4 · busca sem acento, histórico e lixeira com restauração", asyn
   await page.goto("/tarefas/quadro");
   await expect(page.getByText(title)).toBeVisible();
 });
+
+// ---------------------------------------------------------------------------
+// Etapa 5 · arquivos
+// ---------------------------------------------------------------------------
+const PNG_1X1 = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+  "base64",
+);
+const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+test("Etapa 5 · envia imagem válida e ela fica pronta, com visualização e exclusão", async ({ page }) => {
+  const name = `imagem-${run}.png`;
+  await page.goto("/arquivos");
+  await page.locator("#file-input").setInputFiles({ name, mimeType: "image/png", buffer: PNG_1X1 });
+
+  const row = page.getByRole("listitem").filter({ hasText: name });
+  await expect(row.getByText("Pronto")).toBeVisible({ timeout: 30_000 });
+  await expect(row.getByRole("link", { name: `Visualizar ${name}` })).toBeVisible();
+
+  await row.getByRole("button", { name: `Excluir ${name}` }).click();
+  await expect(page.getByRole("button", { name: `Excluir ${name}` })).toHaveCount(0);
+});
+
+test("Etapa 5 · arquivo disfarçado (texto com extensão .png) vai para análise", async ({ page }) => {
+  const name = `falso-${run}.png`;
+  await page.goto("/arquivos");
+  await page.locator("#file-input").setInputFiles({
+    name,
+    mimeType: "image/png",
+    buffer: Buffer.from("isto não é uma imagem de verdade"),
+  });
+  await expect(page.getByText(/ficou em análise|Em análise/).first()).toBeVisible({ timeout: 30_000 });
+});
+
+test("Etapa 5 · tipo inválido e arquivo acima de 25 MB são recusados antes do envio", async ({ page }) => {
+  await page.goto("/arquivos");
+  await page.locator("#file-input").setInputFiles({ name: "programa.exe", mimeType: "application/x-msdownload", buffer: Buffer.from("MZ") });
+  await expect(page.getByText("Este tipo de arquivo não é permitido por segurança.")).toBeVisible();
+
+  await page.locator("#file-input").setInputFiles({
+    name: `grande-${run}.pdf`,
+    mimeType: "application/pdf",
+    buffer: Buffer.alloc(25 * 1024 * 1024 + 1),
+  });
+  await expect(page.getByText("O arquivo passa de 25 MB.")).toBeVisible();
+});
+
+test("Etapa 5 · upload de 20 MB (use --project=mobile-chromium)", async ({ page }) => {
+  test.slow();
+  const name = `20mb-${run}.png`;
+  const buffer = Buffer.concat([PNG_SIGNATURE, Buffer.alloc(20 * 1024 * 1024 - PNG_SIGNATURE.length)]);
+  await page.goto("/arquivos");
+  await page.locator("#file-input").setInputFiles({ name, mimeType: "image/png", buffer });
+  const row = page.getByRole("listitem").filter({ hasText: name });
+  await expect(row.getByText("Pronto")).toBeVisible({ timeout: 180_000 });
+  await row.getByRole("button", { name: `Excluir ${name}` }).click();
+});

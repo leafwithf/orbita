@@ -41,26 +41,28 @@ export async function searchWorkspace(
 }
 
 export type TrashedItem = {
-  kind: "projects" | "tasks" | "ideas" | "courses";
+  kind: "projects" | "tasks" | "ideas" | "courses" | "files";
   id: string;
   title: string;
   deletedAt: string;
 };
 
-const TRASH_TABLES = ["projects", "tasks", "ideas", "courses"] as const;
+const TRASH_TABLES = ["projects", "tasks", "ideas", "courses", "files"] as const;
 
 export async function listTrash(workspaceId: string): Promise<TrashedItem[]> {
   const supabase = await createClient();
   const lists = await Promise.all(
     TRASH_TABLES.map(async (kind) => {
+      const table = kind === "files" ? "files_metadata" : kind;
+      const columns = kind === "files" ? "id, title:file_name, deleted_at" : "id, title, deleted_at";
       const { data } = await supabase
-        .from(kind)
-        .select("id, title, deleted_at")
+        .from(table)
+        .select(columns)
         .eq("workspace_id", workspaceId)
         .not("deleted_at", "is", null)
         .order("deleted_at", { ascending: false })
         .limit(50);
-      return ((data ?? []) as { id: string; title: string; deleted_at: string }[]).map(
+      return ((data ?? []) as unknown as { id: string; title: string; deleted_at: string }[]).map(
         (row): TrashedItem => ({
           kind,
           id: row.id,
