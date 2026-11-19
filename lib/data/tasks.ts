@@ -165,3 +165,66 @@ export async function listKanbanTasks({
     projectTitle: row.projects?.title ?? null,
   }));
 }
+
+export type TaskDetail = {
+  id: string;
+  title: string;
+  description: string | null;
+  status: "todo" | "in_progress" | "done";
+  priority: string;
+  dueDate: string | null;
+  dueState: DueDateState;
+  projectId: string | null;
+  projectTitle: string | null;
+  assigneeId: string | null;
+  createdBy: string | null;
+};
+
+export async function getTaskDetail({
+  workspaceId,
+  taskId,
+  today,
+}: {
+  workspaceId: string;
+  taskId: string;
+  today: string;
+}): Promise<TaskDetail | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("tasks")
+    .select(
+      "id, title, description, status, priority, due_date, project_id, assignee_id, created_by, projects(title)",
+    )
+    .eq("workspace_id", workspaceId)
+    .eq("id", taskId)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  const row = data as unknown as {
+    id: string;
+    title: string;
+    description: string | null;
+    status: TaskDetail["status"];
+    priority: string;
+    due_date: string | null;
+    project_id: string | null;
+    assignee_id: string | null;
+    created_by: string | null;
+    projects: { title: string } | null;
+  };
+
+  return {
+    id: row.id,
+    title: row.title,
+    description: row.description,
+    status: row.status,
+    priority: row.priority,
+    dueDate: row.due_date,
+    dueState: classifyDueDate(row.due_date, today),
+    projectId: row.project_id,
+    projectTitle: row.projects?.title ?? null,
+    assigneeId: row.assignee_id,
+    createdBy: row.created_by,
+  };
+}

@@ -86,7 +86,7 @@ export function TaskRowLink({
 }) {
   return (
     <Link
-      href={task.projectId ? `/projetos/${task.projectId}` : "/tarefas"}
+      href={`/tarefas/${task.id}`}
       className={cn(
         "block rounded-md no-underline transition-colors hover:bg-surface-2",
         className,

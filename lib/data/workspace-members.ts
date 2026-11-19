@@ -6,44 +6,38 @@ import type { WorkspaceRole } from "@/modules/workspaces/domain";
 export type WorkspaceMember = {
   userId: string;
   name: string;
+  /** Só aparece para proprietário e administradores (decidido no banco). */
   email: string | null;
   role: WorkspaceRole;
   status: "active" | "suspended";
   joinedAt: string;
 };
 
-/**
- * `profiles` is readable for people who share a workspace (RLS), so member
- * names resolve without service-role access. Email is intentionally not
- * exposed by profiles; Etapa 6 adds a safe directory view.
- */
 export async function listWorkspaceMembers(
   workspaceId: string,
 ): Promise<WorkspaceMember[]> {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("workspace_members")
-    .select("user_id, role, status, created_at, profiles(full_name)")
-    .eq("workspace_id", workspaceId)
-    .order("created_at", { ascending: true })
-    .limit(100);
+  const { data, error } = await supabase.rpc("list_workspace_members", {
+    p_workspace: workspaceId,
+  });
 
   if (error) return [];
 
   return (
-    (data ?? []) as unknown as {
+    (data ?? []) as {
       user_id: string;
+      full_name: string | null;
+      email: string | null;
       role: WorkspaceRole;
       status: "active" | "suspended";
-      created_at: string;
-      profiles: { full_name: string } | null;
+      joined_at: string;
     }[]
   ).map((row) => ({
     userId: row.user_id,
-    name: row.profiles?.full_name || "Pessoa do espaço",
-    email: null,
+    name: row.full_name || "Pessoa do espaço",
+    email: row.email,
     role: row.role,
     status: row.status,
-    joinedAt: row.created_at,
+    joinedAt: row.joined_at,
   }));
 }

@@ -9,7 +9,7 @@ import type {
   SidebarViewer,
   SidebarWorkspace,
 } from "@/components/layout/sidebar";
-import { Topbar } from "@/components/layout/topbar";
+import { Topbar, type TopbarWorkspace } from "@/components/layout/topbar";
 import {
   Sheet,
   SheetClose,
@@ -20,10 +20,16 @@ import {
 export function AppShell({
   viewer,
   workspace,
+  unread = 0,
+  workspaces = [],
+  activeWorkspaceId = null,
   children,
 }: {
   viewer: SidebarViewer;
   workspace: SidebarWorkspace;
+  unread?: number;
+  workspaces?: TopbarWorkspace[];
+  activeWorkspaceId?: string | null;
   children: ReactNode;
 }) {
   const [navOpen, setNavOpen] = useState(false);
@@ -67,6 +73,9 @@ export function AppShell({
           <Topbar
             viewer={viewer}
             workspace={workspace}
+            unread={unread}
+            workspaces={workspaces}
+            activeWorkspaceId={activeWorkspaceId}
             onOpenNav={() => setNavOpen(true)}
           />
           <main

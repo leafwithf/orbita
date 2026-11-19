@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Bell, Menu } from "lucide-react";
 
 import { LogoMark } from "@/components/brand/logo";
 import { currentPageLabel } from "@/components/layout/nav-items";
@@ -18,15 +18,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOutAction } from "@/lib/auth/actions";
+import { switchWorkspaceAction } from "@/lib/actions/collab";
+import { unreadBadge } from "@/modules/collab/domain";
 import type { SidebarViewer, SidebarWorkspace } from "@/components/layout/sidebar";
+
+export type TopbarWorkspace = {
+  id: string;
+  name: string;
+  kind: string;
+};
 
 export function Topbar({
   viewer,
   workspace,
+  unread = 0,
+  workspaces = [],
+  activeWorkspaceId = null,
   onOpenNav,
 }: {
   viewer: SidebarViewer;
   workspace: SidebarWorkspace;
+  unread?: number;
+  workspaces?: TopbarWorkspace[];
+  activeWorkspaceId?: string | null;
   onOpenNav: () => void;
 }) {
   const pathname = usePathname();
@@ -63,6 +77,26 @@ export function Topbar({
       </div>
 
       <div className="ml-auto flex items-center gap-1">
+        <Link
+          href="/notificacoes"
+          className="relative inline-flex size-11 items-center justify-center rounded-md text-muted no-underline transition-colors hover:bg-accent hover:text-ink hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          aria-label={
+            unread > 0
+              ? `Notificações, ${unread} não lida${unread > 1 ? "s" : ""}`
+              : "Notificações"
+          }
+        >
+          <Bell className="size-5" aria-hidden="true" />
+          {unread > 0 ? (
+            <span
+              aria-hidden="true"
+              className="absolute top-1.5 right-1 grid min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] leading-4 font-bold text-white"
+            >
+              {unreadBadge(unread)}
+            </span>
+          ) : null}
+        </Link>
+
         <ThemeToggle className="size-11 text-muted hover:text-ink" />
 
         <DropdownMenu>
@@ -84,6 +118,31 @@ export function Topbar({
                 {viewer.email}
               </span>
             </DropdownMenuLabel>
+            {workspaces.length > 1 ? (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel className="text-[11px] font-semibold text-muted">
+                  Trocar de espaço
+                </DropdownMenuLabel>
+                {workspaces.map((item) => (
+                  <form key={item.id} action={switchWorkspaceAction}>
+                    <input type="hidden" name="workspaceId" value={item.id} />
+                    <DropdownMenuItem asChild>
+                      <button
+                        type="submit"
+                        className="min-h-10 w-full cursor-pointer justify-between"
+                        aria-current={item.id === activeWorkspaceId ? "true" : undefined}
+                      >
+                        <span className="truncate">{item.name}</span>
+                        {item.id === activeWorkspaceId ? (
+                          <span className="text-[11px] text-brand">atual</span>
+                        ) : null}
+                      </button>
+                    </DropdownMenuItem>
+                  </form>
+                ))}
+              </>
+            ) : null}
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href="/configuracoes" className="min-h-10 cursor-pointer">

@@ -169,3 +169,23 @@ Validações obrigatórias depois da migração. Os itens marcados com **(local)
 - Restaurar um arquivo da lixeira não reconfere a cota.
 - Objeto enviado cujo `complete` nunca chega fica pendente e é removido pela limpeza em 24 h.
 - Varredura antimalware continua fora do escopo (Fase 3 do plano).
+
+
+### Etapa 6 — colaboração (2026-11-18) — banco verificado; aplicação NÃO COMPILADA
+
+**Banco (verificado no Postgres local: 41 PASS no total, 18 novos em `supabase/tests/collaboration.sql` + concorrência com pgbench):**
+- Migração `20261117000400_collaboration.sql`: espaços de equipe/cliente (`create_workspace`), convites (token de 32 bytes, só o hash SHA-256 no banco, validade de 7 dias, uso único, e-mail opcional, máx. 20 pendentes), papéis (dono, admin, editor, colaborador, leitor; só o dono concede/gerencia admin), remoção/saída com proteção do último dono, atribuição de tarefa só a membros, comentários validados, notificações criadas só por gatilhos/RPCs e imutáveis exceto `read_at`.
+- Ninguém vira membro sem convite aceito (política de INSERT em membros removida). Espaço pessoal não aceita convite.
+- Aceite concorrente: 16 clientes simultâneos no mesmo convite → exatamente 1 sucesso.
+
+**Domínio (verificado, 11 testes + `tsc --strict` com stubs):** `modules/collab/{domain,token}.ts`.
+
+**Aplicação (escrita, não compilada):** seletor de espaço e sino de notificações no topo; `/espacos` (pessoas, papéis, convites, criar espaço, sair); `/convite/[token]` (público, redireciona ao login e volta); `/notificacoes`; comentários em tarefas e projetos; atribuição de responsável em `/tarefas/[id]`; títulos do quadro e das listas agora abrem a tarefa. O espaço ativo fica em cookie httpOnly validado contra as associações a cada requisição.
+
+**Para verificar no Supabase real:** `npm run verify:supabase` agora cobre também a colaboração (3 contas, convite, aceite paralelo, isolamento, atribuição, comentário, notificação, remoção). Exige "Confirm email" desativado no projeto de DEV.
+
+**Riscos/limites conhecidos:**
+- A aplicação não foi compilada aqui: rodar `npm ci && npm run check && npm run build` (Node 24+).
+- O link do convite é mostrado uma única vez ao dono (o banco não guarda o token); não há envio por e-mail — o dono copia e envia.
+- Moderação: admin/dono só apagam comentários de outros (não editam).
+- Sem preferências de notificação por usuário e sem e-mail/push.

@@ -11,16 +11,19 @@ import {
   ShieldAlert,
 } from "lucide-react";
 
+import { CommentThread } from "@/components/comments/comment-thread";
 import { EmptyState } from "@/components/patterns/empty-state";
 import { PageHeader } from "@/components/patterns/page-header";
 import { ProgressLine } from "@/components/patterns/progress-line";
 import { SectionCard } from "@/components/patterns/section-card";
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
 import { TaskRow } from "@/components/tasks/task-row";
+import { listComments } from "@/lib/data/comments";
 import { getAppContext } from "@/lib/data/context";
 import { getProjectDetail } from "@/lib/data/projects";
 import { listTasks } from "@/lib/data/tasks";
 import { formatDatePtBr } from "@/lib/dates";
+import { canComment, canManageMembers } from "@/modules/workspaces/domain";
 import {
   PROJECT_STATUS_LABELS,
   projectStageLabel,
@@ -75,6 +78,11 @@ export default async function ProjectDetailPage({
     projectId: project.id,
   });
   const openTasks = tasks.filter((task) => task.status !== "done");
+  const comments = await listComments({
+    workspaceId: context.workspace.id,
+    entityType: "project",
+    entityId: project.id,
+  });
 
   return (
     <div className="grid gap-6">
@@ -211,6 +219,18 @@ export default async function ProjectDetailPage({
               Tarefas concluídas continuam aparecendo aqui, com risco no título.
             </p>
           ) : null}
+
+          <SectionCard title="Conversa">
+            <CommentThread
+              workspaceId={context.workspace.id}
+              entityType="project"
+              entityId={project.id}
+              comments={comments}
+              viewerId={context.user.id}
+              canComment={canComment(context.workspace.role)}
+              canModerate={canManageMembers(context.workspace.role)}
+            />
+          </SectionCard>
         </div>
 
         <aside className="grid min-w-0 content-start gap-5">

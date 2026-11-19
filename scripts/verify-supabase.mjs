@@ -3,6 +3,7 @@
 // Uso: node --env-file=.env.local scripts/verify-supabase.mjs
 // Pré-requisito: migrações aplicadas e "Confirm email" DESATIVADO no projeto de DEV
 // (Authentication → Providers → Email), para o signUp já devolver sessão.
+import { createHash, randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -74,6 +75,59 @@ const found = await A.c.rpc("search_workspace", { p_workspace: A.ws, p_query: "o
 check("busca sem acento encontra", !found.error && (found.data ?? []).length >= 1, found.error?.message);
 const leak = await B.c.rpc("search_workspace", { p_workspace: A.ws, p_query: "organizacao" });
 check("busca não vaza para B", (leak.data ?? []).length === 0);
+
+// 5. Etapa 6: colaboração (convite, papéis, isolamento, comentários, notificações)
+const mkToken = () => { const t = randomBytes(32).toString("base64url"); return { t, h: createHash("sha256").update(t, "utf8").digest("hex") }; };
+const C = await signUp("c");
+const team = await A.c.rpc("create_workspace", { p_name: "Equipe verificação", p_kind: "team" });
+check("A cria espaço de equipe", !team.error && !!team.data, team.error?.message);
+const TW = team.data;
+const personalInvite = await A.c.rpc("create_invitation", { p_workspace: A.ws, p_role: "editor", p_email: null, p_token_hash: mkToken().h });
+check("espaço pessoal não aceita convite", !!personalInvite.error);
+const inv = mkToken();
+const mk = await A.c.rpc("create_invitation", { p_workspace: TW, p_role: "editor", p_email: null, p_token_hash: inv.h });
+check("dono cria convite", !mk.error, mk.error?.message);
+const bBefore = await B.c.from("projects").select("id").eq("workspace_id", TW);
+check("B sem convite aceito não vê o espaço", (bBefore.data ?? []).length === 0);
+const { error: selfJoin } = await B.c.from("workspace_members").insert({ workspace_id: TW, user_id: B.id, role: "owner", status: "active" });
+check("ninguém entra sem convite (insert direto recusado)", !!selfJoin);
+const acc = await Promise.all(Array.from({ length: 8 }, () => B.c.rpc("accept_invitation", { p_token_hash: inv.h })));
+check("convite aceito por exatamente 1 chamada em paralelo", acc.filter((r) => !r.error).length === 1);
+const reuse = await C.c.rpc("accept_invitation", { p_token_hash: inv.h });
+check("convite não pode ser reutilizado por outra pessoa", !!reuse.error);
+const wrong = await C.c.rpc("accept_invitation", { p_token_hash: mkToken().h });
+check("token desconhecido é recusado", !!wrong.error);
+
+const tTask = await A.c.from("tasks").insert({ workspace_id: TW, title: "Tarefa da equipe", created_by: A.id }).select("id").single();
+check("A cria tarefa no espaço de equipe", !tTask.error, tTask.error?.message);
+const bSees = await B.c.from("tasks").select("id").eq("id", tTask.data?.id ?? "");
+check("B (editor) vê tarefa da equipe", (bSees.data ?? []).length === 1);
+const cSees = await C.c.from("tasks").select("id").eq("id", tTask.data?.id ?? "");
+check("C (fora) não vê tarefa da equipe", (cSees.data ?? []).length === 0);
+const asg = await A.c.from("tasks").update({ assignee_id: B.id }).eq("id", tTask.data?.id ?? "");
+check("atribuir a membro é aceito", !asg.error, asg.error?.message);
+const asgOut = await A.c.from("tasks").update({ assignee_id: C.id }).eq("id", tTask.data?.id ?? "");
+check("atribuir a quem é de fora é recusado", !!asgOut.error);
+const notif = await B.c.from("notifications").select("type").eq("user_id", B.id);
+check("B recebeu notificação de atribuição", (notif.data ?? []).some((n) => n.type === "task_assigned"));
+
+const cm = await B.c.from("comments").insert({ workspace_id: TW, entity_type: "task", entity_id: tTask.data?.id, author_id: B.id, body: "Olá equipe" }).select("id").single();
+check("B comenta na tarefa", !cm.error, cm.error?.message);
+const cOut = await C.c.from("comments").insert({ workspace_id: TW, entity_type: "task", entity_id: tTask.data?.id, author_id: C.id, body: "invasão" });
+check("C não comenta em espaço alheio", !!cOut.error);
+const aNotif = await A.c.from("notifications").select("type").eq("user_id", A.id);
+check("A recebeu notificação do comentário", (aNotif.data ?? []).some((n) => n.type === "comment"));
+const forge = await B.c.from("notifications").update({ payload: { forjado: true } }).eq("user_id", B.id).select();
+check("notificação é imutável (exceto leitura)", !!forge.error || (forge.data ?? []).length === 0);
+
+const promote = await B.c.rpc("change_member_role", { p_workspace: TW, p_user: B.id, p_role: "owner" });
+check("editor não se promove a dono", !!promote.error);
+const rm = await A.c.rpc("remove_member", { p_workspace: TW, p_user: B.id });
+check("dono remove membro", !rm.error, rm.error?.message);
+const bAfter = await B.c.from("tasks").select("id").eq("id", tTask.data?.id ?? "");
+check("membro removido perde acesso", (bAfter.data ?? []).length === 0);
+const lastLeave = await A.c.rpc("leave_workspace", { p_workspace: TW });
+check("último dono não consegue sair", !!lastLeave.error);
 
 console.log(`\n${results.filter(Boolean).length}/${results.length} verificações passaram`);
 console.log("Limpeza: apague os usuários orbita.*@example.com em Authentication → Users (cascata remove os dados).");

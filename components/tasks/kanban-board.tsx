@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Trash2 } from "lucide-react";
+import Link from "next/link";
 import { toast } from "sonner";
 
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
@@ -164,14 +165,15 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                         key={task.id}
                         className="rounded-md border border-border bg-surface p-3 shadow-[var(--shadow-1)]"
                       >
-                        <p
+                        <Link
+                          href={`/tarefas/${task.id}`}
                           className={cn(
-                            "text-[13.5px] leading-snug font-medium",
+                            "block text-[13.5px] leading-snug font-medium text-ink no-underline hover:underline",
                             task.status === "done" && "line-through",
                           )}
                         >
                           {task.title}
-                        </p>
+                        </Link>
                         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                           <span className="text-[11.5px] text-faint">
                             {task.projectTitle ?? "Sem projeto"}
