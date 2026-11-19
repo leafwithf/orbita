@@ -23,4 +23,13 @@ for f in supabase/tests/*.sql; do
   echo "$OUT" | grep -E "PASS|ERROR|FAIL" || true
   [ "$RC" = 0 ] || { echo "FALHOU: $f"; FAIL=1; }
 done
+# Concorrência: 16 pessoas aceitando o mesmo convite ao mesmo tempo.
+if [ -x "$PGBIN/pgbench" ]; then
+  echo ">> concorrência de convites (pgbench)"
+  TOK=$(printf 'a%.0s' $(seq 1 64))
+  $RUN "$P -h $DIR -p $PORT -d orbita_test -f $PWD/supabase/tests/concurrency/invite_setup.sql" || FAIL=1
+  $RUN "$PGBIN/pgbench -n -h $DIR -p $PORT -f $PWD/supabase/tests/concurrency/invite_accept.pgbench -c 16 -j 4 -t 1 -D tok=$TOK orbita_test" >/dev/null 2>&1 || true
+  if OUT=$($RUN "$P -h $DIR -p $PORT -d orbita_test -f $PWD/supabase/tests/concurrency/invite_verify.sql" 2>&1); then :; else FAIL=1; fi
+  echo "$OUT" | grep -E "PASS|ERROR|FAIL" || true
+fi
 [ "$FAIL" = 0 ] && echo "OK: migrações e suítes SQL concluídas" || { echo "ERRO: há suítes com falha"; exit 1; }

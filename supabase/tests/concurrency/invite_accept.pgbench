@@ -1,0 +1,7 @@
+-- Uso: pgbench -n -f invite_accept.pgbench -c 16 -j 4 -t 1 -D tok=<hash>
+-- Cada cliente é uma pessoa diferente tentando aceitar o MESMO link ao mesmo tempo.
+BEGIN;
+SET LOCAL ROLE authenticated;
+SELECT set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-00000e' || lpad(:client_id::text, 6, '0'), true);
+SELECT public.accept_invitation(':tok');
+COMMIT;
