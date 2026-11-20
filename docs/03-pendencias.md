@@ -189,3 +189,9 @@ Validações obrigatórias depois da migração. Os itens marcados com **(local)
 - O link do convite é mostrado uma única vez ao dono (o banco não guarda o token); não há envio por e-mail — o dono copia e envia.
 - Moderação: admin/dono só apagam comentários de outros (não editam).
 - Sem preferências de notificação por usuário e sem e-mail/push.
+
+### Etapa 7 — portfólio, segurança e operação (2026-11-20)
+- **Verificado (Postgres local, 48 PASS):** portfólio (6 testes: publicar, escrita direta bloqueada, leitura pública curada, não-membro, rotação/revogação, lixeira, auditoria), invariantes de segurança, backup/restauração idêntica.
+- **Escrito, não compilado:** `/p/[slug]/[token]` (público, noindex), gestão em `/portfolio` (publicar, trocar token, revogar), `robots.ts`, cabeçalhos. Domínio: 6 testes + `tsc` com stubs.
+- **Não feito/limites:** CSP, rate limit próprio, axe/Lighthouse, backup do Storage, monitoramento real (ver `docs/05` e `docs/06`).
+- Link do portfólio é mostrado uma vez (banco guarda só o hash); para ver de novo, troque o token.

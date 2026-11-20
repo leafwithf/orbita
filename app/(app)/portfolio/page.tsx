@@ -6,7 +6,11 @@ import { EmptyState } from "@/components/patterns/empty-state";
 import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
 import { StatusChip } from "@/components/patterns/status-chip";
+import { EntryActions } from "@/components/portfolio/entry-actions";
+import { PublishForm } from "@/components/portfolio/publish-form";
 import { getAppContext } from "@/lib/data/context";
+import { listProjects } from "@/lib/data/projects";
+import { canPublishPortfolio } from "@/modules/workspaces/domain";
 import { listPortfolioEntries } from "@/lib/data/portfolio";
 import { formatDatePtBr } from "@/lib/dates";
 
@@ -30,7 +34,17 @@ export default async function PortfolioPage() {
     );
   }
 
-  const entries = await listPortfolioEntries(context.workspace.id);
+  const [entries, projects] = await Promise.all([
+    listPortfolioEntries(context.workspace.id),
+    listProjects({ workspaceId: context.workspace.id, today: context.today }),
+  ]);
+  const canPublish = canPublishPortfolio(context.workspace.role);
+  const activeProjectIds = new Set(
+    entries.filter((e) => e.visibility !== "private" && !e.revokedAt).map((e) => e.projectId),
+  );
+  const publishable = projects
+    .filter((project) => !activeProjectIds.has(project.id))
+    .map(({ id, title }) => ({ id, title }));
 
   return (
     <div className="grid gap-6">
@@ -91,6 +105,9 @@ export default async function PortfolioPage() {
                         {entry.summary}
                       </p>
                     ) : null}
+                    {canPublish && entry.visibility === "unlisted" && !entry.revokedAt ? (
+                      <EntryActions entryId={entry.id} />
+                    ) : null}
                   </li>
                 ))}
               </ul>
@@ -119,11 +136,14 @@ export default async function PortfolioPage() {
         </div>
 
         <aside className="grid min-w-0 content-start gap-5">
-          <SectionCard title="Nesta fase">
-            <p className="text-[12.5px] leading-relaxed text-muted">
-              A estrutura de publicações e tokens já existe no banco. A criação e
-              a revogação de links entram com a tela de portfólio do MVP.
-            </p>
+          <SectionCard title="Publicar um projeto">
+            {canPublish ? (
+              <PublishForm projects={publishable} />
+            ) : (
+              <p className="text-[12.5px] leading-relaxed text-muted">
+                Só editores, administradores e donos publicam no portfólio.
+              </p>
+            )}
           </SectionCard>
 
           <SectionCard title="Privacidade por padrão">

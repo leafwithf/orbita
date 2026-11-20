@@ -129,6 +129,24 @@ check("membro removido perde acesso", (bAfter.data ?? []).length === 0);
 const lastLeave = await A.c.rpc("leave_workspace", { p_workspace: TW });
 check("último dono não consegue sair", !!lastLeave.error);
 
+// 6. Etapa 7: portfólio não listado
+const pj = await A.c.from("projects").insert({ workspace_id: A.ws, title: "Projeto público", created_by: A.id }).select("id").single();
+const ptk = mkToken();
+const pub = await A.c.rpc("publish_portfolio", { p_project: pj.data?.id, p_summary: "Resumo", p_token_hash: ptk.h });
+check("publicar portfólio", !pub.error, pub.error?.message);
+const ent = await A.c.from("portfolio_entries").select("id, slug").eq("project_id", pj.data?.id ?? "").single();
+const open1 = await anon.rpc("get_public_portfolio", { p_slug: ent.data?.slug, p_token_hash: ptk.h });
+check("visitante anônimo abre com slug + token", (open1.data ?? []).length === 1);
+const open2 = await anon.rpc("get_public_portfolio", { p_slug: ent.data?.slug, p_token_hash: mkToken().h });
+check("token errado não abre", (open2.data ?? []).length === 0);
+const direct = await anon.from("portfolio_entries").select("id");
+check("anônimo não lê a tabela", !!direct.error || (direct.data ?? []).length === 0);
+const hashCol = await A.c.from("portfolio_entries").select("access_token_hash");
+check("membro não lê o hash do token", !!hashCol.error);
+const rv = await A.c.rpc("revoke_portfolio", { p_entry: ent.data?.id });
+const open3 = await anon.rpc("get_public_portfolio", { p_slug: ent.data?.slug, p_token_hash: ptk.h });
+check("link revogado fecha na hora", !rv.error && (open3.data ?? []).length === 0);
+
 console.log(`\n${results.filter(Boolean).length}/${results.length} verificações passaram`);
 console.log("Limpeza: apague os usuários orbita.*@example.com em Authentication → Users (cascata remove os dados).");
 process.exit(results.every(Boolean) ? 0 : 1);
