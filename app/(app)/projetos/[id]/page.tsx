@@ -111,7 +111,7 @@ export default async function ProjectDetailPage({
       ) : null}
 
       <PageHeader
-        eyebrow="Projeto"
+        eyebrow={`${project.emoji} Projeto`}
         title={project.title}
         description={
           project.objective ?? "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."
