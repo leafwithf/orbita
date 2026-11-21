@@ -59,12 +59,20 @@ export default async function WorkspacesPage() {
   const roles = grantableRoles(workspace.role);
 
   return (
-    <div className="grid gap-6">
-      <PageHeader
-        eyebrow="Colaboração"
-        title="Espaços e pessoas"
-        description="Seus espaços, quem participa de cada um e o que cada pessoa pode fazer."
-      />
+    <div className="grid gap-7">
+      <header className="relative overflow-hidden rounded-3xl border border-border bg-surface p-6 sm:p-8">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-24 size-64 rounded-full bg-brand/10 blur-3xl" />
+        <div className="relative max-w-2xl">
+          <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-brand">Colaboração e acesso</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-.05em] sm:text-[40px]">Pessoas certas.<br className="hidden sm:block" /> Espaços organizados<span className="text-brand">.</span></h1>
+          <p className="mt-3 text-sm leading-6 text-muted">Gerencie quem participa, distribua responsabilidades e mantenha cada equipe no espaço certo.</p>
+        </div>
+        <div className="relative mt-6 flex flex-wrap gap-2 border-t border-border pt-4 text-xs text-muted">
+          <span className="rounded-full bg-surface-2 px-3 py-1.5">{members.length} pessoas</span>
+          <span className="rounded-full bg-surface-2 px-3 py-1.5">{myWorkspaces.length} espaços disponíveis</span>
+          <span className="rounded-full bg-surface-2 px-3 py-1.5">Seu papel: {ROLE_LABELS[workspace.role]}</span>
+        </div>
+      </header>
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,1fr)]">
         <div className="grid min-w-0 content-start gap-5">
