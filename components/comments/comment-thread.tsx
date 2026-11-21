@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Pencil, Trash2 } from "lucide-react";
+import { FileText, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { FormMessage } from "@/components/auth/form-message";
@@ -22,6 +22,7 @@ export function CommentThread({
   viewerId,
   canComment,
   canModerate,
+  files = [],
 }: {
   workspaceId: string;
   entityType: CommentEntity;
@@ -30,15 +31,64 @@ export function CommentThread({
   viewerId: string;
   canComment: boolean;
   canModerate: boolean;
+  files?: { id: string; fileName: string }[];
 }) {
   const router = useRouter();
   const [state, formAction, pending] = useActionState(addCommentAction, initialFormState);
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
+  const [newBody, setNewBody] = useState("");
+  const [mentionQuery, setMentionQuery] = useState<string | null>(null);
+  const [mentionStart, setMentionStart] = useState<number | null>(null);
+  const newBodyRef = useRef<HTMLTextAreaElement>(null);
+
+  function updateComposer(value: string, cursor: number) {
+    setNewBody(value);
+    const match = /(?:^|\\s)@([^@\\n]*)$/.exec(value.slice(0, cursor));
+    if (match && match[1].length <= 60) {
+      setMentionQuery(match[1].toLocaleLowerCase("pt-BR"));
+      setMentionStart(cursor - match[1].length - 1);
+    } else {
+      setMentionQuery(null);
+      setMentionStart(null);
+    }
+  }
+
+  function insertMention(file: { id: string; fileName: string }) {
+    if (mentionStart === null || !newBodyRef.current) return;
+    const cursor = newBodyRef.current.selectionStart;
+    const token = "[[arquivo:" + file.id + "|" + file.fileName + "]]";
+    const next = newBody.slice(0, mentionStart) + token + " " + newBody.slice(cursor);
+    setNewBody(next);
+    setMentionQuery(null);
+    setMentionStart(null);
+    requestAnimationFrame(() => {
+      const position = mentionStart + token.length + 1;
+      newBodyRef.current?.focus();
+      newBodyRef.current?.setSelectionRange(position, position);
+    });
+  }
+
+  function renderBody(body: string) {
+    const parts = body.split(/(\\[\\[arquivo:[0-9a-f-]{36}\\|[^\\]]+\\]\\])/gi);
+    return parts.map((part, index) => {
+      const match = /^\\[\\[arquivo:([0-9a-f-]{36})\\|([^\\]]+)\\]\\]$/i.exec(part);
+      return match ? (
+        <a key={index} href={"/api/files/" + match[1] + "/url"} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded bg-brand-soft px-1.5 py-0.5 font-medium text-brand underline underline-offset-2">
+          <FileText className="size-3.5" aria-hidden="true" />{match[2]}
+        </a>
+      ) : <span key={index}>{part}</span>;
+    });
+  }
   const commentFormRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.status === "success") commentFormRef.current?.reset();
+    if (state.status === "success") {
+      commentFormRef.current?.reset();
+      setNewBody("");
+      setMentionQuery(null);
+      setMentionStart(null);
+    }
   }, [state]);
   async function saveEdit(id: string) {
     const result = await editCommentAction({ commentId: id, body: draft });
@@ -106,7 +156,7 @@ export function CommentThread({
                       </div>
                     </div>
                   ) : (
-                    <p className="mt-1 text-[14px] leading-relaxed whitespace-pre-wrap break-words">{comment.body}</p>
+                    <p className="mt-1 text-[14px] leading-relaxed whitespace-pre-wrap break-words">{renderBody(comment.body)}</p>
                   )}
 
                   {editing !== comment.id && (mine || canModerate) ? (
@@ -149,16 +199,34 @@ export function CommentThread({
           <label htmlFor="new-comment" className="text-[13px] font-medium">
             Novo comentário
           </label>
-          <textarea
-            id="new-comment"
-            name="body"
-            rows={3}
-            required
-            maxLength={MAX_COMMENT_LENGTH}
-            aria-invalid={state.fieldErrors?.body ? true : undefined}
-            className="rounded-md border border-border-strong bg-surface p-3 text-[14px]"
-            placeholder="Escreva para quem acompanha este item…"
-          />
+          <div className="relative">
+            <textarea
+              ref={newBodyRef}
+              id="new-comment"
+              name="body"
+              value={newBody}
+              onChange={(event) => updateComposer(event.target.value, event.target.selectionStart)}
+              rows={3}
+              required
+              maxLength={MAX_COMMENT_LENGTH}
+              aria-invalid={state.fieldErrors?.body ? true : undefined}
+              className="w-full rounded-md border border-border-strong bg-surface p-3 text-[14px]"
+              placeholder={files.length ? "Escreva um comentário ou digite @ para mencionar um arquivo…" : "Escreva para quem acompanha este item…"}
+            />
+            {mentionQuery !== null && files.length > 0 ? (
+              <div role="listbox" aria-label="Arquivos para mencionar" className="absolute bottom-full left-0 z-20 mb-1 max-h-52 w-full overflow-y-auto rounded-md border border-border bg-surface p-1 shadow-xl">
+                {files.filter((file) => file.fileName.toLocaleLowerCase("pt-BR").includes(mentionQuery)).slice(0, 8).map((file) => (
+                  <button key={file.id} type="button" role="option" aria-selected="false" onMouseDown={(event) => event.preventDefault()} onClick={() => insertMention(file)} className="flex min-h-11 w-full items-center gap-2 rounded px-3 text-left text-[13px] hover:bg-surface-2">
+                    <FileText className="size-4 flex-none text-brand" aria-hidden="true" />
+                    <span className="truncate">{file.fileName}</span>
+                  </button>
+                ))}
+                {files.filter((file) => file.fileName.toLocaleLowerCase("pt-BR").includes(mentionQuery)).length === 0 ? (
+                  <p className="px-3 py-2 text-[12px] text-muted">Nenhum arquivo encontrado neste projeto.</p>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
           {state.status === "error" ? <FormMessage status="error" message={state.message} /> : null}
           <div>
             <SubmitButton pending={pending} pendingLabel="Enviando…">
