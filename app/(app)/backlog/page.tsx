@@ -33,7 +33,8 @@ export default async function BacklogPage() {
     );
   }
 
-  const ideas = await listIdeas(context.workspace.id);
+  const workspace = context.workspace;
+  const ideas = await listIdeas(workspace.id);
 
   return (
     <div className="grid gap-6">
@@ -97,7 +98,7 @@ export default async function BacklogPage() {
                   </h3>
                   {idea.body ? (
                     <p className="mt-1 whitespace-pre-line text-[13px] leading-relaxed text-muted">
-                      <FileMentionText workspaceId={context.workspace.id} text={idea.body} />
+                      <FileMentionText workspaceId={workspace.id} text={idea.body} />
                     </p>
                   ) : null}
                   {idea.convertedProjectId ? (
