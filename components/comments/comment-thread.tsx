@@ -48,7 +48,7 @@ export function CommentThread({
     const at = before.lastIndexOf("@");
     const query = at >= 0 ? before.slice(at + 1) : "";
     const previous = at > 0 ? before[at - 1] : " ";
-    if (at >= 0 && /\\s/.test(previous) && !/[\\n@]/.test(query) && query.length <= 60) {
+    if (at >= 0 && /\s/.test(previous) && !/[\n@]/.test(query) && query.length <= 60) {
       setMentionQuery(query.toLocaleLowerCase("pt-BR"));
       setMentionStart(at);
     } else {
