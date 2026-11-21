@@ -115,7 +115,7 @@ export default async function ProjectDetailPage({
       ) : null}
 
       <PageHeader
-        eyebrow={`${project.emoji} Projeto`}
+        eyebrow={<span className="inline-flex items-center gap-1.5">{project.coverUrl ? <img src={project.coverUrl} alt="" className="size-5 rounded-md object-cover" /> : project.emoji} Projeto</span>}
         title={project.title}
         description={
           project.objective ?? "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."
