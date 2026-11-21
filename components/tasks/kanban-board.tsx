@@ -1,12 +1,20 @@
 "use client";
 
 import { useState, type DragEvent, type ReactNode } from "react";
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Trash2 } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  CalendarDays,
+  GripVertical,
+  Trash2,
+} from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
 import { UserAvatar } from "@/components/layout/user-avatar";
+import { StatusChip } from "@/components/patterns/status-chip";
 import {
   moveTaskAction,
   reorderColumnAction,
@@ -26,14 +34,39 @@ import { cn } from "@/lib/utils";
 
 const byPosition = (a: KanbanTask, b: KanbanTask) => a.position - b.position;
 
+const COLUMN_STYLES: Record<KanbanStatus, { marker: string; count: string; drop: string }> = {
+  todo: {
+    marker: "bg-slate-400",
+    count: "bg-slate-500/10 text-slate-500 dark:text-slate-300",
+    drop: "border-slate-400/50 bg-slate-400/5",
+  },
+  in_progress: {
+    marker: "bg-brand",
+    count: "bg-brand/10 text-brand",
+    drop: "border-brand/60 bg-brand/5",
+  },
+  done: {
+    marker: "bg-success",
+    count: "bg-success/10 text-success",
+    drop: "border-success/50 bg-success/5",
+  },
+};
+
+function formatDueDate(value: string): string {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "short",
+  }).format(new Date(year, month - 1, day, 12));
+}
+
 export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   const [items, setItems] = useState(tasks);
   const [previousTasks, setPreviousTasks] = useState(tasks);
   const [announcement, setAnnouncement] = useState("");
+  const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
+  const [dragOverStatus, setDragOverStatus] = useState<KanbanStatus | null>(null);
 
-  // Atualiza o estado otimista quando o servidor entrega uma nova lista.
-  // O ajuste condicional durante a renderização evita um efeito que provoca
-  // uma renderização extra e mantém as atualizações locais entre refreshes.
   if (tasks !== previousTasks) {
     setPreviousTasks(tasks);
     setItems(tasks);
@@ -66,7 +99,6 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
       others.map((entry) => entry.position),
       safeIndex,
     );
-
     const ordered = [
       ...others.slice(0, safeIndex),
       task,
@@ -82,7 +114,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
     });
 
     setItems(next);
-    const label = KANBAN_COLUMNS.find((c) => c.status === status)?.label;
+    const label = KANBAN_COLUMNS.find((entry) => entry.status === status)?.label;
     setAnnouncement(
       `${task.title} movida para ${label}, posição ${safeIndex + 1} de ${ordered.length}.`,
     );
@@ -113,6 +145,43 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
     }
   }
 
+  function dropOnColumn(event: DragEvent<HTMLElement>, status: KanbanStatus) {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragOverStatus(null);
+    const id = event.dataTransfer.getData("text/plain") || draggedTaskId;
+    const dragged = items.find((entry) => entry.id === id);
+    if (!dragged) return;
+    if (dragged.id === id && dragged.status === status && column(status).length === 1) return;
+    void move(dragged, status, column(status).filter((entry) => entry.id !== dragged.id).length);
+    setDraggedTaskId(null);
+  }
+
+  function dropOnCard(
+    event: DragEvent<HTMLLIElement>,
+    status: KanbanStatus,
+    targetId: string,
+  ) {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragOverStatus(null);
+    const id = event.dataTransfer.getData("text/plain") || draggedTaskId;
+    const dragged = items.find((entry) => entry.id === id);
+    if (!dragged || dragged.id === targetId) {
+      setDraggedTaskId(null);
+      return;
+    }
+    const target = event.currentTarget.getBoundingClientRect();
+    const after = event.clientY > target.top + target.height / 2;
+    const targetIndex = column(status).findIndex((entry) => entry.id === targetId);
+    const insertAt = targetIndex + (after ? 1 : 0);
+    const adjusted = dragged.status === status && column(status).findIndex((entry) => entry.id === dragged.id) < insertAt
+      ? insertAt - 1
+      : insertAt;
+    void move(dragged, status, adjusted);
+    setDraggedTaskId(null);
+  }
+
   async function trash(task: KanbanTask) {
     const before = items;
     setItems(items.filter((entry) => entry.id !== task.id));
@@ -136,148 +205,180 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   }
 
   return (
-    <div>
-      <p className="sr-only" role="status" aria-live="polite">
-        {announcement}
-      </p>
+    <div className="min-w-0">
+      <p className="sr-only" role="status" aria-live="polite">{announcement}</p>
+      <div className="mb-3 flex items-center justify-between gap-3 text-[11px] text-muted">
+        <span className="inline-flex items-center gap-1.5">
+          <GripVertical className="size-3.5" aria-hidden="true" />
+          No computador, arraste os cartões. No celular, use os controles do cartão.
+        </span>
+        <span className="hidden shrink-0 sm:inline">{items.length} no total</span>
+      </div>
+
       <div
-        className="-mx-4 grid grid-flow-col auto-cols-[minmax(280px,86vw)] gap-3 overflow-x-auto overscroll-x-contain px-4 pb-2 snap-x snap-mandatory sm:auto-cols-[minmax(300px,44vw)] lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:auto-cols-auto lg:overflow-visible lg:px-0"
+        className="-mx-4 grid grid-flow-col auto-cols-[minmax(280px,86vw)] gap-3 overflow-x-auto overscroll-x-contain px-4 pb-4 snap-x snap-mandatory touch-pan-x sm:auto-cols-[minmax(300px,44vw)] lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:auto-cols-auto lg:overflow-visible lg:px-0"
         aria-label="Colunas do quadro; deslize horizontalmente para ver as próximas"
       >
         {KANBAN_COLUMNS.map(({ status, label }) => {
           const cards = column(status);
+          const style = COLUMN_STYLES[status];
+          const isDropTarget = dragOverStatus === status;
           return (
             <section
               key={status}
               aria-labelledby={`col-${status}`}
-              className="min-w-0 snap-start rounded-xl border border-border bg-surface-2 p-3 sm:p-3.5"
+              onDragOver={(event) => {
+                event.preventDefault();
+                event.dataTransfer.dropEffect = "move";
+                setDragOverStatus(status);
+              }}
+              onDragLeave={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                  setDragOverStatus(null);
+                }
+              }}
+              onDrop={(event) => dropOnColumn(event, status)}
+              className={cn(
+                "flex min-h-[360px] min-w-0 snap-start flex-col rounded-2xl border border-border bg-surface-2/80 p-3 transition-colors sm:p-3.5",
+                isDropTarget && style.drop,
+              )}
             >
-              <h2
-                id={`col-${status}`}
-                className="mb-3 flex items-center justify-between text-[13px] font-semibold"
-              >
-                {label}
-                <span className="rounded-full bg-surface px-2 py-0.5 text-[11px] text-muted">
-                  {cards.length}
-                </span>
-              </h2>
+              <header className="mb-3 flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2.5">
+                  <span className={cn("size-2.5 shrink-0 rounded-full", style.marker)} />
+                  <h2 id={`col-${status}`} className="truncate text-[13px] font-semibold text-ink">
+                    {label}
+                  </h2>
+                  <span className={cn("rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums", style.count)}>
+                    {cards.length}
+                  </span>
+                </div>
+                <span className="text-[10px] font-medium text-faint">#{KANBAN_COLUMNS.findIndex((entry) => entry.status === status) + 1}</span>
+              </header>
 
-              <p className="mb-3 hidden text-[10.5px] text-faint lg:block">Arraste os cartões para reorganizar</p>
-              {cards.length === 0 ? (
-                <p className="rounded-md border border-dashed border-border-strong p-4 text-center text-[12px] text-faint">
-                  Nenhuma tarefa aqui.
-                </p>
-              ) : (
-                <ul className="grid gap-2">
-                  {cards.map((task, index) => {
+              <div className="grid flex-1 content-start gap-2.5">
+                {cards.length === 0 ? (
+                  <div className={cn(
+                    "grid min-h-36 flex-1 place-items-center rounded-xl border border-dashed border-border-strong px-4 py-6 text-center transition-colors",
+                    isDropTarget && style.drop,
+                  )}>
+                    <div>
+                      <p className="text-[12px] font-medium text-muted">Solte uma tarefa aqui</p>
+                      <p className="mt-1 text-[11px] text-faint">Esta coluna está vazia.</p>
+                    </div>
+                  </div>
+                ) : (
+                  cards.map((task, index) => {
                     const left = adjacentStatus(task.status, "left");
                     const right = adjacentStatus(task.status, "right");
+                    const priorityTone = task.priority === "urgent" || task.priority === "high"
+                      ? "danger"
+                      : task.priority === "medium"
+                        ? "warning"
+                        : "neutral";
                     return (
                       <li
                         key={task.id}
                         draggable
-                        onDragStart={(event: DragEvent<HTMLLIElement>) => {
+                        onDragStart={(event) => {
                           event.dataTransfer.setData("text/plain", task.id);
                           event.dataTransfer.effectAllowed = "move";
+                          setDraggedTaskId(task.id);
                         }}
-                        onDragOver={(event: DragEvent<HTMLLIElement>) => {
+                        onDragEnd={() => {
+                          setDraggedTaskId(null);
+                          setDragOverStatus(null);
+                        }}
+                        onDragOver={(event) => {
                           event.preventDefault();
+                          event.stopPropagation();
                           event.dataTransfer.dropEffect = "move";
+                          setDragOverStatus(status);
                         }}
-                        onDrop={(event: DragEvent<HTMLLIElement>) => {
-                          event.preventDefault();
-                          const draggedId = event.dataTransfer.getData("text/plain");
-                          const dragged = items.find((entry) => entry.id === draggedId);
-                          if (!dragged || dragged.id === task.id) return;
-                          const sourceIndex = column(status).findIndex((entry) => entry.id === dragged.id);
-                          const targetIndex = cards.findIndex((entry) => entry.id === task.id);
-                          const insertAt = targetIndex + (dragged.status === status && sourceIndex < targetIndex ? 1 : 0);
-                          void move(dragged, status, insertAt);
-                        }}
-                        className="cursor-grab rounded-md border border-border bg-surface p-3 shadow-[var(--shadow-1)] active:cursor-grabbing"
+                        onDrop={(event) => dropOnCard(event, status, task.id)}
+                        className={cn(
+                          "list-none rounded-xl border border-border bg-surface p-3.5 shadow-[var(--shadow-1)] transition-[opacity,border-color,box-shadow,transform] hover:border-brand/35 hover:shadow-[var(--shadow-2)] active:cursor-grabbing sm:p-4",
+                          draggedTaskId === task.id && "opacity-40",
+                          "cursor-grab",
+                        )}
                       >
-                        <Link
-                          href={`/tarefas/${task.id}`}
-                          className={cn(
-                            "block text-[13.5px] leading-snug font-medium text-ink no-underline hover:underline",
-                            task.status === "done" && "line-through",
+                        <div className="flex items-start justify-between gap-2">
+                          <Link
+                            href={`/tarefas/${task.id}`}
+                            className={cn(
+                              "min-w-0 flex-1 text-[13.5px] leading-snug font-semibold text-ink no-underline hover:text-brand hover:underline sm:text-sm",
+                              task.status === "done" && "line-through text-muted",
+                            )}
+                          >
+                            {task.title}
+                          </Link>
+                          <span className="mt-0.5 shrink-0 text-[10px] text-faint" aria-hidden="true">
+                            <GripVertical className="size-4" />
+                          </span>
+                        </div>
+
+                        <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                          <StatusChip label={priorityLabel(task.priority)} tone={priorityTone} />
+                          {task.dueDate ? (
+                            <span className={cn(
+                              "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10.5px] font-medium",
+                              task.dueState === "overdue"
+                                ? "border-danger/25 bg-danger-soft text-[var(--danger-700)]"
+                                : task.dueState === "today"
+                                  ? "border-warning/35 bg-warning-soft text-[var(--warning-700)]"
+                                  : "border-border bg-surface-2 text-muted",
+                            )}>
+                              <CalendarDays className="size-3" aria-hidden="true" />
+                              {formatDueDate(task.dueDate)}
+                              {task.dueState === "overdue" ? " · Atrasada" : task.dueState === "today" ? " · Hoje" : ""}
+                            </span>
+                          ) : (
+                            <span className="text-[10.5px] text-faint">Sem prazo</span>
                           )}
-                        >
-                          {task.title}
-                        </Link>
-                        <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                          <span className="mr-1 text-[11.5px] text-faint">
+                        </div>
+
+                        <div className="mt-3 flex min-w-0 items-center justify-between gap-2 border-t border-border/80 pt-3">
+                          <div className="flex min-w-0 items-center gap-2">
+                            {task.assigneeName ? (
+                              <>
+                                <UserAvatar name={task.assigneeName} size="sm" />
+                                <span className="truncate text-[11px] font-medium text-muted">{task.assigneeName}</span>
+                              </>
+                            ) : (
+                              <span className="text-[11px] text-faint">Sem responsável</span>
+                            )}
+                          </div>
+                          <span className="max-w-[42%] truncate text-right text-[10.5px] text-faint">
                             {task.projectTitle ?? "Sem projeto"}
                           </span>
-                          {task.status !== "done" ? (
-                            <DueDateChip state={task.dueState} />
-                          ) : null}
-                          <StatusChip
-                            label={priorityLabel(task.priority)}
-                            tone={
-                              task.priority === "high" || task.priority === "urgent"
-                                ? "danger"
-                                : "neutral"
-                            }
-                          />
                         </div>
-                        {task.assigneeName ? (
-                          <div className="mt-2 inline-flex max-w-full items-center gap-1.5 rounded-full border border-border bg-surface-2 py-1 pr-2 pl-1">
-                            <UserAvatar name={task.assigneeName} size="sm" />
-                            <span className="max-w-[180px] truncate text-[11px] text-muted">
-                              {task.assigneeName}
-                            </span>
-                          </div>
-                        ) : (
-                          <p className="mt-2 text-[11px] text-faint">Sem responsável</p>
-                        )}
 
                         <div
                           role="group"
-                          aria-label={`Ações de ${task.title}`}
-                          className="mt-3 flex flex-wrap gap-1.5 border-t border-border pt-2"
+                          aria-label={`Mover ou excluir ${task.title}`}
+                          className="mt-3 flex items-center gap-1 border-t border-border/80 pt-2.5"
                         >
-                          <CardButton
-                            label={`Mover ${task.title} para a coluna anterior`}
-                            disabled={!left}
-                            onClick={() => left && move(task, left, cards.length)}
-                          >
+                          <CardButton label={`Mover ${task.title} para a coluna anterior`} disabled={!left} onClick={() => left && move(task, left, column(left).length)}>
                             <ArrowLeft className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton
-                            label={`Subir ${task.title}`}
-                            disabled={index === 0}
-                            onClick={() => move(task, status, index - 1)}
-                          >
+                          <CardButton label={`Subir ${task.title} na coluna`} disabled={index === 0} onClick={() => move(task, status, index - 1)}>
                             <ArrowUp className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton
-                            label={`Descer ${task.title}`}
-                            disabled={index === cards.length - 1}
-                            onClick={() => move(task, status, index + 1)}
-                          >
+                          <CardButton label={`Descer ${task.title} na coluna`} disabled={index === cards.length - 1} onClick={() => move(task, status, index + 1)}>
                             <ArrowDown className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton
-                            label={`Mover ${task.title} para a próxima coluna`}
-                            disabled={!right}
-                            onClick={() => right && move(task, right, 0)}
-                          >
+                          <CardButton label={`Mover ${task.title} para a próxima coluna`} disabled={!right} onClick={() => right && move(task, right, 0)}>
                             <ArrowRight className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton
-                            label={`Excluir ${task.title}`}
-                            className="ml-auto"
-                            onClick={() => trash(task)}
-                          >
+                          <CardButton label={`Excluir ${task.title}`} className="ml-auto" onClick={() => trash(task)}>
                             <Trash2 className="size-4" aria-hidden="true" />
                           </CardButton>
                         </div>
                       </li>
                     );
-                  })}
-                </ul>
-              )}
+                  })
+                )}
+              </div>
             </section>
           );
         })}
@@ -307,7 +408,7 @@ function CardButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "grid size-11 place-items-center rounded-md border border-border bg-surface text-muted transition-colors hover:bg-surface-2 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-40",
+        "grid size-9 shrink-0 place-items-center rounded-lg border border-border bg-surface-2 text-muted transition-colors hover:border-brand/40 hover:bg-brand/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-30 sm:size-8",
         className,
       )}
     >
