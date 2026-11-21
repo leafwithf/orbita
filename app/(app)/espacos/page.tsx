@@ -6,7 +6,6 @@ import { InviteForm } from "@/components/collab/invite-form";
 import { UserAvatar } from "@/components/layout/user-avatar";
 import { WorkspaceAvatar } from "@/components/brand/workspace-avatar";
 import { EmptyState } from "@/components/patterns/empty-state";
-import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
 import { StatusChip } from "@/components/patterns/status-chip";
 import {
