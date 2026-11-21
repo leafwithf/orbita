@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, FolderKanban } from "lucide-react";
 
@@ -31,7 +32,7 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
             className="grid size-11 flex-none place-items-center overflow-hidden rounded-xl border border-border bg-surface-2 text-[23px]"
             aria-hidden="true"
           >
-            {project.coverUrl ? <img src={project.coverUrl} alt="" className="size-full object-cover" /> : project.emoji ?? "🚀"}
+            {project.coverUrl ? <Image src={project.coverUrl} alt="" width={44} height={44} sizes="44px" className="size-full object-cover" /> : project.emoji ?? "🚀"}
           </span>
           <div className="min-w-0 pt-0.5">
             <h3 className="line-clamp-2 text-[14px] leading-snug font-semibold tracking-[-0.015em] sm:text-[15px]">
