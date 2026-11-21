@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Lightbulb, Plus, Sparkles } from "lucide-react";
 
 import { EmptyState } from "@/components/patterns/empty-state";
+import { FileMentionText } from "@/components/files/file-mention-text";
 import { IdeaActions } from "@/components/ideas/idea-actions";
 import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
@@ -96,7 +97,7 @@ export default async function BacklogPage() {
                   </h3>
                   {idea.body ? (
                     <p className="mt-1 whitespace-pre-line text-[13px] leading-relaxed text-muted">
-                      {idea.body}
+                      <FileMentionText workspaceId={context.workspace.id} text={idea.body} />
                     </p>
                   ) : null}
                   {idea.convertedProjectId ? (
