@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, type DragEvent, type ReactNode } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -162,6 +162,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                 </span>
               </h2>
 
+              <p className="mb-3 hidden text-[10.5px] text-faint lg:block">Arraste os cartões para reorganizar</p>
               {cards.length === 0 ? (
                 <p className="rounded-md border border-dashed border-border-strong p-4 text-center text-[12px] text-faint">
                   Nenhuma tarefa aqui.
@@ -174,7 +175,26 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                     return (
                       <li
                         key={task.id}
-                        className="rounded-md border border-border bg-surface p-3 shadow-[var(--shadow-1)]"
+                        draggable
+                        onDragStart={(event: DragEvent<HTMLLIElement>) => {
+                          event.dataTransfer.setData("text/plain", task.id);
+                          event.dataTransfer.effectAllowed = "move";
+                        }}
+                        onDragOver={(event: DragEvent<HTMLLIElement>) => {
+                          event.preventDefault();
+                          event.dataTransfer.dropEffect = "move";
+                        }}
+                        onDrop={(event: DragEvent<HTMLLIElement>) => {
+                          event.preventDefault();
+                          const draggedId = event.dataTransfer.getData("text/plain");
+                          const dragged = items.find((entry) => entry.id === draggedId);
+                          if (!dragged || dragged.id === task.id) return;
+                          const sourceIndex = column(status).findIndex((entry) => entry.id === dragged.id);
+                          const targetIndex = cards.findIndex((entry) => entry.id === task.id);
+                          const insertAt = targetIndex + (dragged.status === status && sourceIndex < targetIndex ? 1 : 0);
+                          void move(dragged, status, insertAt);
+                        }}
+                        className="cursor-grab rounded-md border border-border bg-surface p-3 shadow-[var(--shadow-1)] active:cursor-grabbing"
                       >
                         <Link
                           href={`/tarefas/${task.id}`}
