@@ -24,8 +24,7 @@ import { ProjectSwitcher } from "@/components/projects/project-switcher";
 import { listComments } from "@/lib/data/comments";
 import { listProjectFiles } from "@/lib/data/files";
 import { FileActions } from "@/components/files/file-actions";
-import { FileUploader } from "@/components/files/file-uploader";
-import { formatBytes } from "@/modules/files/domain";
+import { FileMentionText } from "@/components/files/file-mention-text";
 import { getAppContext } from "@/lib/data/context";
 import { getProjectDetail, listProjects } from "@/lib/data/projects";
 import { listTasks } from "@/lib/data/tasks";
@@ -122,9 +121,7 @@ export default async function ProjectDetailPage({
       <PageHeader
         eyebrow={<span className="inline-flex items-center gap-1.5">{project.coverUrl ? <img src={project.coverUrl} alt="" className="size-5 rounded-md object-cover" /> : project.emoji} Projeto</span>}
         title={project.title}
-        description={
-          project.objective ?? "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."
-        }
+        description={project.objective ? <FileMentionText workspaceId={workspace.id} text={project.objective} /> : "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."}
         actions={
           <>
             <ProjectSwitcher currentProjectId={project.id} projects={workspaceProjects} />
@@ -184,8 +181,7 @@ export default async function ProjectDetailPage({
                 <ArrowRight className="size-4" aria-hidden="true" />
               </span>
               <p className="min-w-0 flex-1 text-[13.5px] leading-relaxed font-medium">
-                {project.nextStep ??
-                  "Ainda não definido. Escreva o próximo passo em uma frase curta e acionável."}
+                {project.nextStep ? <FileMentionText workspaceId={workspace.id} text={project.nextStep} /> : "Ainda não definido. Escreva o próximo passo em uma frase curta e acionável."}
               </p>
             </div>
           </SectionCard>
@@ -239,13 +235,9 @@ export default async function ProjectDetailPage({
 
           <SectionCard title={`Arquivos do projeto · ${projectFiles.length}`} description="Materiais e referências compartilhados com quem tem acesso a este projeto.">
             <div className="grid gap-4">
-              {canEditContent(workspace.role) ? (
-                <FileUploader workspaceId={workspace.id} projectId={project.id} />
-              ) : (
-                <p className="text-[12px] text-muted">Somente editores podem enviar arquivos para este projeto.</p>
-              )}
+              <p className="text-[12px] text-muted">A biblioteca central fica na aba Arquivos. Envie os materiais lá e mencione qualquer um deles aqui usando @.</p>
               {projectFiles.length === 0 ? (
-                <p className="rounded-md border border-dashed border-border p-4 text-center text-[12.5px] text-muted">Nenhum arquivo neste projeto ainda. Envie o primeiro material acima.</p>
+                <p className="rounded-md border border-dashed border-border p-4 text-center text-[12.5px] text-muted">Nenhum arquivo vinculado diretamente a este projeto. Você ainda pode mencionar qualquer arquivo do espaço.</p>
               ) : (
                 <ul className="divide-y divide-border">
                   {projectFiles.map((file) => (
@@ -269,7 +261,6 @@ export default async function ProjectDetailPage({
               entityType="project"
               entityId={project.id}
               comments={comments}
-              files={projectFiles.filter((file) => file.status === "ready").map(({ id, fileName }) => ({ id, fileName }))}
               viewerId={context.user.id}
               canComment={canComment(workspace.role)}
               canModerate={canManageMembers(workspace.role)}
@@ -293,7 +284,7 @@ export default async function ProjectDetailPage({
                   Descrição
                 </dt>
                 <dd className="mt-0.5 leading-relaxed text-muted">
-                  {project.description ?? "Não escrita."}
+                  {project.description ? <FileMentionText workspaceId={workspace.id} text={project.description} /> : "Não escrita."}
                 </dd>
               </div>
               <div>
@@ -310,7 +301,7 @@ export default async function ProjectDetailPage({
           <SectionCard title="Riscos e bloqueios">
             {project.risks ? (
               <p className="text-[13px] leading-relaxed text-muted">
-                {project.risks}
+                <FileMentionText workspaceId={workspace.id} text={project.risks} />
               </p>
             ) : (
               <div className="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-muted">
