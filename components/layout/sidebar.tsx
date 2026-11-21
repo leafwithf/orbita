@@ -32,6 +32,8 @@ export type SidebarViewer = {
 export type SidebarWorkspace = {
   name: string;
   role: WorkspaceRole;
+  brandColor: string;
+  coverUrl: string | null;
 } | null;
 
 function NavLink({
@@ -94,16 +96,16 @@ export function SidebarContent({
       <Link
         href="/espacos"
         onClick={onNavigate}
-        className="flex min-h-11 items-center gap-2.5 rounded-[10px] border border-sidebar-border bg-sidebar-accent px-2.5 py-2 text-sidebar-accent-foreground no-underline transition-colors hover:bg-[#1b2740] hover:no-underline"
+        className="relative flex min-h-11 items-center gap-2.5 overflow-hidden rounded-[10px] border border-sidebar-border bg-sidebar-accent px-2.5 py-2 text-sidebar-accent-foreground no-underline transition-colors hover:bg-[#1b2740] hover:no-underline"
       >
-        <span className="grid size-[22px] flex-none place-items-center rounded-md bg-[#2a3b5c] text-[11px] font-bold text-[#cbd8ee]">
+        <span className="grid size-[22px] flex-none place-items-center rounded-md text-[11px] font-bold text-[#101521]" style={{ backgroundColor: workspace?.brandColor ?? "#d6a64b" }}>
           {workspace ? workspace.name.slice(0, 1).toUpperCase() : "Ó"}
         </span>
         <span className="grid min-w-0 leading-tight">
           <span className="truncate text-[13px] font-medium text-white">
             {workspace?.name ?? "Configurar espaço"}
           </span>
-          <span className="truncate text-[10.5px] text-[#7f8ca3]">
+          <span className="truncate text-[10.5px] text-[#a9b4c6]">
             {workspace ? ROLE_LABELS[workspace.role] : "Nenhum espaço ainda"}
           </span>
         </span>
