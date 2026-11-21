@@ -235,7 +235,7 @@ export default async function ProjectDetailPage({
 
           <SectionCard title={`Arquivos do projeto · ${projectFiles.length}`} description="Materiais e referências compartilhados com quem tem acesso a este projeto.">
             <div className="grid gap-4">
-              <p className="text-[12px] text-muted">A biblioteca central fica na aba Arquivos. Envie os materiais lá e mencione qualquer um deles aqui usando @.</p>
+              <p className="text-[12px] text-muted">A biblioteca central fica na aba <Link href="/arquivos" className="font-semibold text-brand underline underline-offset-2">Arquivos</Link>. Envie os materiais lá e mencione qualquer um deles aqui usando @.</p>
               {projectFiles.length === 0 ? (
                 <p className="rounded-md border border-dashed border-border p-4 text-center text-[12.5px] text-muted">Nenhum arquivo vinculado diretamente a este projeto. Você ainda pode mencionar qualquer arquivo do espaço.</p>
               ) : (
