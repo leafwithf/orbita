@@ -13,27 +13,15 @@ export default function manifest(): MetadataRoute.Manifest {
     orientation: "any",
     lang: "pt-BR",
     dir: "ltr",
-    background_color: "#f6f8fc",
-    theme_color: "#2f6fe0",
+    background_color: "#0b1220",
+    theme_color: "#0b1220",
     categories: ["productivity", "education", "organization"],
     icons: [
       {
-        src: "/icons/icon-192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "/icons/icon-512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "/icons/icon-maskable-512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "maskable",
+        src: "/icons/orbita.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "any maskable",
       },
     ],
     shortcuts: [
@@ -44,9 +32,9 @@ export default function manifest(): MetadataRoute.Manifest {
         url: "/criar?tipo=tarefa",
         icons: [
           {
-            src: "/icons/icon-192.png",
-            sizes: "192x192",
-            type: "image/png",
+            src: "/icons/orbita.svg",
+            sizes: "any",
+            type: "image/svg+xml",
           },
         ],
       },
