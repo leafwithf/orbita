@@ -37,7 +37,7 @@ export default async function FilesPage() {
       <PageHeader
         eyebrow={`${files.length} ${files.length === 1 ? "arquivo" : "arquivos"}`}
         title="Arquivos"
-        description="Briefings, referências e entregas ficam no mesmo espaço do projeto. Tipos são validados no servidor."
+        description="Biblioteca central do espaço: envie cada arquivo uma vez e mencione em qualquer projeto, tarefa ou conversa usando @."
       />
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(290px,1fr)]">
@@ -47,7 +47,7 @@ export default async function FilesPage() {
             description="Envie do computador ou do celular. O arquivo vai direto para o armazenamento e só aparece como pronto depois de conferido."
           >
             <div className="mb-4">
-              <FileUploader workspaceId={context.workspace.id} />
+              {canEditContent(context.workspace.role) ? <FileUploader workspaceId={context.workspace.id} /> : <p className="text-[12px] text-muted">Seu papel neste espaço permite consultar e baixar arquivos, mas não enviar novos materiais.</p>}
             </div>
             {files.length === 0 ? (
               <EmptyState
@@ -85,6 +85,7 @@ export default async function FilesPage() {
                         fileName={file.fileName}
                         mime={file.mime}
                         ready={file.status === "ready"}
+                        canManage={canEditContent(context.workspace.role)}
                       />
                       <StatusChip
                         label={
