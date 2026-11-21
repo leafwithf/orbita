@@ -36,16 +36,31 @@ export function ProjectEmojiEditor({
 }) {
   const [emoji, setEmoji] = useState(currentEmoji || "🚀");
   const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("all");
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [preview, setPreview] = useState(currentImage);
   const [emojiState, emojiAction, emojiPending] = useActionState(updateProjectEmojiAction, initialFormState);
   const [imageMessage, setImageMessage] = useState<{ status: "error" | "success"; message: string } | null>(null);
   const [imagePending, startImageTransition] = useTransition();
   const router = useRouter();
-  const emojis = useMemo(
-    () => [...new Set(PROJECT_EMOJIS)].filter((item) => item.includes(query.trim())),
-    [query],
-  );
+  const emojiCategories = [
+    { id: "all", label: "Todos", items: [] as string[] },
+    { id: "faces", label: "Rostos", items: ["😀","😎","🤩","🥳","🤔","😴","😍","🥰","😭","😤","🤯","🤖","👻","💀"] },
+    { id: "nature", label: "Natureza", items: ["🐶","🐱","🦊","🐼","🦋","🐢","🐬","🌵","🌲","🌿","🌸","🌻","🌙","⭐","🔥","🌈"] },
+    { id: "food", label: "Comida", items: ["🍎","🍊","🍓","🍉","🍕","🍔","🍟","🍣","🍰","☕","🥑","🥗"] },
+    { id: "activities", label: "Atividades", items: ["⚽","🏀","🎾","🏆","🎮","🎯","🎨","🎧","🎸","📷","🎬","🧩"] },
+    { id: "travel", label: "Viagem", items: ["🚀","🛸","✈️","🚗","🚲","🚢","🏠","🏢","🏰","🗼","⛺","🌍"] },
+    { id: "objects", label: "Objetos", items: ["💻","📱","⌨️","💡","🔧","🔬","📚","📁","📅","📈","✏️","💼"] },
+    { id: "symbols", label: "Símbolos", items: ["❤️","💛","💚","💙","💜","🖤","✨","⚡","💥","✅","❌","♻️"] },
+  ];
+  const emojis = useMemo(() => {
+    const unique = [...new Set(PROJECT_EMOJIS)];
+    const selected = emojiCategories.find((item) => item.id === category);
+    const source = query.trim() || category === "all"
+      ? unique
+      : unique.filter((item) => selected?.items.includes(item));
+    return source.filter((item) => item.includes(query.trim()));
+  }, [category, query]);
   const customEmoji = query.trim();
   const canUseCustomEmoji = customEmoji.length > 0 && customEmoji.length <= 8 && /[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}]/u.test(customEmoji);
   const quickEmojis = ["🚀", "💡", "🎯"];
@@ -70,6 +85,19 @@ export function ProjectEmojiEditor({
               <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-faint" aria-hidden="true" />
               <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar ou colar um emoji" className="h-10 w-full rounded-md border border-input bg-surface-2 pl-9 pr-3 text-sm outline-none focus-visible:border-brand" />
             </label>
+            <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1" role="group" aria-label="Categorias de emojis">
+              {emojiCategories.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setCategory(item.id)}
+                  aria-pressed={category === item.id}
+                  className={`min-h-8 shrink-0 rounded-full border px-3 text-[11px] font-semibold transition-colors ${category === item.id ? "border-brand bg-brand-soft text-brand" : "border-border bg-surface text-muted hover:bg-surface-2"}`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
             <div className="grid max-h-52 grid-cols-8 gap-1.5 overflow-y-auto sm:grid-cols-10 md:grid-cols-12" role="group" aria-label="Emojis disponíveis">
               {emojis.map((item) => (
                 <button key={item} type="button" onClick={() => { setEmoji(item); setPreview(null); setLibraryOpen(false); }} aria-label={`Usar ${item}`} aria-pressed={emoji === item && !preview} className={`grid size-9 place-items-center rounded-lg border text-xl ${emoji === item && !preview ? "border-brand bg-brand-soft" : "border-transparent hover:bg-surface-2"}`}>
