@@ -405,7 +405,25 @@
 }
 
 @keyframes orbital-breathe {
-  50% { opacity: 0.72; }
+  50% { opacity: 0.78; }
+}
+
+/* Page transitions stay short and avoid layout movement. */
+.orbital-page-enter {
+  animation: orbital-page-enter 160ms ease-out both;
+}
+
+@keyframes orbital-page-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Shimmer is intentionally disabled on small screens to reduce GPU work. */
+@media (max-width: 640px) {
+  .orbital-skeleton::after {
+    display: none;
+    animation: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
