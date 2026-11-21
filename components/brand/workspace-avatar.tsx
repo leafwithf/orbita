@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
 export function WorkspaceAvatar({
@@ -13,6 +15,7 @@ export function WorkspaceAvatar({
   size?: "sm" | "md" | "lg";
   className?: string;
 }) {
+  const imageSize = size === "sm" ? 24 : size === "lg" ? 44 : 32;
   const sizes = {
     sm: "size-6 rounded-md text-[10px]",
     md: "size-8 rounded-lg text-[12px]",
@@ -30,7 +33,7 @@ export function WorkspaceAvatar({
       style={{ backgroundColor: brandColor, color: "#101521" }}
     >
       {coverUrl ? (
-        <img src={coverUrl} alt="" className="absolute inset-0 size-full object-cover" />
+        <Image src={coverUrl} alt="" width={imageSize} height={imageSize} sizes={`${imageSize}px`} className="absolute inset-0 size-full object-cover" />
       ) : (
         name.trim().slice(0, 1).toLocaleUpperCase("pt-BR") || "Ó"
       )}
