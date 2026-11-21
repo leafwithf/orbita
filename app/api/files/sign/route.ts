@@ -20,6 +20,19 @@ export async function POST(request: NextRequest) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return json({ error: "requisicao_invalida" }, 400);
 
+  if (parsed.data.entityType === "project" && parsed.data.entityId) {
+    const { data: project } = await auth.supabase
+      .from("projects")
+      .select("id")
+      .eq("id", parsed.data.entityId)
+      .eq("workspace_id", parsed.data.workspaceId)
+      .is("deleted_at", null)
+      .maybeSingle();
+    if (!project) return json({ error: "projeto_nao_encontrado" }, 404);
+  } else if (parsed.data.entityType || parsed.data.entityId) {
+    return json({ error: "vinculo_invalido" }, 400);
+  }
+
   const check = validateUploadRequest(parsed.data);
   if (!check.ok) return json({ error: check.code, message: check.message }, 422);
 
