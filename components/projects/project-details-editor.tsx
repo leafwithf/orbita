@@ -60,8 +60,9 @@ export function ProjectDetailsEditor({
             maxLength={160}
             error={state.fieldErrors?.title?.[0]}
           />
-          <TextField
+          <TextAreaField
             id="project-edit-objective"
+            workspaceId={workspaceId}
             name="objective"
             label="Objetivo"
             defaultValue={project.objective ?? ""}
@@ -79,8 +80,9 @@ export function ProjectDetailsEditor({
             required={false}
             error={state.fieldErrors?.description?.[0]}
           />
-          <TextField
+          <TextAreaField
             id="project-edit-next-step"
+            workspaceId={workspaceId}
             name="nextStep"
             label="Próximo passo"
             defaultValue={project.nextStep ?? ""}
