@@ -90,9 +90,9 @@ export default async function OverviewPage() {
                     <h2 className="mt-1 text-2xl font-semibold tracking-tight"><Link href={`/projetos/${data.focusProject.id}`} className="text-ink no-underline hover:text-brand">{data.focusProject.title}</Link></h2>
                     <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{data.focusProject.objective ?? "Seu projeto em destaque. Mantenha o próximo passo sempre visível."}</p>
                   </div>
-                  <span className="rounded-full bg-brand-soft px-3 py-1.5 text-xs font-semibold text-brand">{data.focusProject.progress}%</span>
+                  <span className="rounded-full bg-brand-soft px-3 py-1.5 text-xs font-semibold text-brand">{data.focusProject.progress.percent}%</span>
                 </div>
-                <div className="mt-5 h-2 overflow-hidden rounded-full bg-surface-2"><div className="h-full rounded-full bg-brand transition-all" style={{width:`${data.focusProject.progress}%`}}/></div>
+                <div className="mt-5 h-2 overflow-hidden rounded-full bg-surface-2"><div className="h-full rounded-full bg-brand transition-all" style={{width:`${data.focusProject.progress.percent}%`}}/></div>
                 <div className="mt-5 flex flex-col justify-between gap-3 rounded-2xl bg-surface-2 p-4 sm:flex-row sm:items-center">
                   <div className="min-w-0"><p className="text-[10px] font-semibold tracking-[.15em] text-muted uppercase">Próximo passo</p><p className="mt-1 text-sm font-medium">{data.focusProject.nextStep ?? "Defina a próxima entrega deste projeto."}</p></div>
                   <Link href={`/projetos/${data.focusProject.id}`} className="inline-flex h-9 shrink-0 items-center gap-1 rounded-lg border border-border-strong bg-surface px-3 text-xs font-semibold text-ink no-underline">Abrir projeto <ArrowUpRight className="size-3.5"/></Link>
