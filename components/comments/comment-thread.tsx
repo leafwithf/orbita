@@ -46,6 +46,9 @@ export function CommentThread({
     return () => { active = false; };
   }, [workspaceId]);
   const commentFormRef = useRef<HTMLFormElement>(null);
+  const [editing, setEditing] = useState<string | null>(null);
+  const [draft, setDraft] = useState("");
+  const [newBody, setNewBody] = useState("");
   const [state, formAction, pending] = useActionState(
     async (previousState: typeof initialFormState, formData: FormData) => {
       const result = await addCommentAction(previousState, formData);
@@ -54,9 +57,6 @@ export function CommentThread({
     },
     initialFormState,
   );
-  const [editing, setEditing] = useState<string | null>(null);
-  const [draft, setDraft] = useState("");
-  const [newBody, setNewBody] = useState("");
 
   function renderBody(body: string) {
     const parts = body.split(/(\[\[arquivo:[0-9a-f-]{36}\]\])/gi);
