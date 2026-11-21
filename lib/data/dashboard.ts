@@ -20,6 +20,7 @@ export type DashboardTask = {
 export type DashboardProject = {
   id: string;
   title: string;
+  emoji: string;
   objective: string | null;
   nextStep: string | null;
   stage: string;
@@ -84,6 +85,7 @@ type TaskRow = {
 type ProjectRow = {
   id: string;
   title: string;
+  emoji: string;
   objective: string | null;
   next_step: string | null;
   stage: string;
@@ -137,7 +139,7 @@ export async function getDashboardData({
         .limit(80),
       supabase
         .from("projects")
-        .select("id, title, objective, next_step, stage, due_date")
+        .select("id, title, emoji, objective, next_step, stage, due_date")
         .eq("workspace_id", workspaceId)
         .eq("status", "active")
         .is("deleted_at", null)
@@ -217,6 +219,7 @@ export async function getDashboardData({
   const toProject = (row: ProjectRow): DashboardProject => ({
     id: row.id,
     title: row.title,
+    emoji: row.emoji || "🚀",
     objective: row.objective,
     nextStep: row.next_step,
     stage: row.stage,
