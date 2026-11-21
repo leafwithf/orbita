@@ -11,7 +11,6 @@ import {
   ShieldAlert,
 } from "lucide-react";
 
-import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
 import { StatusChip } from "@/components/patterns/status-chip";
 import { ProfileForm } from "@/components/settings/profile-form";
