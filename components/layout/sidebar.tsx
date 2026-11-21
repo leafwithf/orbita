@@ -96,7 +96,8 @@ export function SidebarContent({
       <Link
         href="/espacos"
         onClick={onNavigate}
-        className="relative flex min-h-11 items-center gap-2.5 overflow-hidden rounded-[10px] border border-sidebar-border bg-sidebar-accent px-2.5 py-2 text-sidebar-accent-foreground no-underline transition-colors hover:bg-[#1b2740] hover:no-underline"
+        className="relative flex min-h-11 items-center gap-2.5 overflow-hidden rounded-[10px] border border-sidebar-border bg-sidebar-accent bg-cover bg-center px-2.5 py-2 text-sidebar-accent-foreground no-underline transition-colors hover:bg-[#1b2740] hover:no-underline"
+        style={workspace?.coverUrl ? { backgroundImage: `linear-gradient(90deg, rgba(13,18,29,.96), rgba(13,18,29,.78)), url("${workspace.coverUrl}")` } : undefined}
       >
         <span className="grid size-[22px] flex-none place-items-center rounded-md text-[11px] font-bold text-[#101521]" style={{ backgroundColor: workspace?.brandColor ?? "#d6a64b" }}>
           {workspace ? workspace.name.slice(0, 1).toUpperCase() : "Ó"}
