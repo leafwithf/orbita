@@ -158,7 +158,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   }
 
   function dropOnCard(
-    event: DragEvent<HTMLLIElement>,
+    event: DragEvent<HTMLElement>,
     status: KanbanStatus,
     targetId: string,
   ) {
@@ -277,7 +277,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                         ? "warning"
                         : "neutral";
                     return (
-                      <li
+                      <article
                         key={task.id}
                         draggable
                         onDragStart={(event) => {
@@ -374,7 +374,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                             <Trash2 className="size-4" aria-hidden="true" />
                           </CardButton>
                         </div>
-                      </li>
+                      </article>
                     );
                   })
                 )}
