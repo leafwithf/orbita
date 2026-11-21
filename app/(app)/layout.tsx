@@ -5,6 +5,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { getAppContext, contextDisplayName } from "@/lib/data/context";
 import { countUnreadNotifications } from "@/lib/data/notifications";
 import { listMyWorkspaces } from "@/lib/data/workspaces";
+import { getUserPalette } from "@/lib/data/preferences";
 
 // Every page here depends on the session cookie and fresh workspace data.
 // Rendering them per request also keeps builds without env vars from baking a
@@ -18,14 +19,15 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     redirect("/bem-vindo");
   }
 
-  const [unread, workspaces] = await Promise.all([
+  const [unread, workspaces, initialPalette] = await Promise.all([
     countUnreadNotifications(),
     listMyWorkspaces(context.user.id),
+    getUserPalette(context.user.id),
   ]);
 
   return (
     <AppShell
-      userId={context.user.id}
+      initialPalette={initialPalette}
       unread={unread}
       workspaces={workspaces.map(({ id, name, kind, brandColor, coverUrl }) => ({ id, name, kind, brandColor, coverUrl }))}
       activeWorkspaceId={context.workspace?.id ?? null}
