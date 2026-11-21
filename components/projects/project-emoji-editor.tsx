@@ -8,7 +8,7 @@ import { SubmitButton } from "@/components/forms/submit-button";
 import { initialFormState } from "@/lib/actions/state";
 import { updateProjectEmojiAction } from "@/lib/actions/projects";
 
-const PROJECT_EMOJIS = [
+export const PROJECT_EMOJIS = [
   "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😋","😎","🤩","🥳","😏","😴","🤔","🫡","🤗","🤭","🤫","🤥","😶","🙄","😬","🤐","🥱","😮","😯","😲","😳","🥺","😭","😤","😡","🤯","🥶","🥵","🤠","🥸","😈","👻","💀","🤖","👽","🎃",
   "👋","🤚","✋","🖖","👌","🤌","🤏","✌️","🤞","🫰","🤟","🤘","🤙","👈","👉","👆","👇","☝️","✊","👊","🤛","🤜","👏","🙌","👐","🤲","🙏","💪","🦾","🖐️","✍️","💅","🫶",
   "❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💔","❣️","💕","💞","💓","💗","💖","💘","💝","💟","💌","💋","💯","💢","💥","💫","💦","💨","🕳️","💤",
@@ -40,6 +40,8 @@ export function ProjectEmojiEditor({
     () => [...new Set(PROJECT_EMOJIS)].filter((item) => item.includes(query.trim())),
     [query],
   );
+  const customEmoji = query.trim();
+  const canUseCustomEmoji = customEmoji.length > 0 && customEmoji.length <= 8 && /[\\p{Extended_Pictographic}\\u{1F1E6}-\\u{1F1FF}]/u.test(customEmoji);
 
   return (
     <form action={formAction} className="grid gap-3">
@@ -72,8 +74,13 @@ export function ProjectEmojiEditor({
             {item}
           </button>
         ))}
-        {emojis.length === 0 ? <p className="col-span-full py-5 text-center text-sm text-muted">Nenhum emoji encontrado. Cole o emoji desejado na busca e selecione-o usando o campo abaixo.</p> : null}
+        {emojis.length === 0 && !canUseCustomEmoji ? <p className="col-span-full py-5 text-center text-sm text-muted">Nenhum emoji encontrado. Você também pode colar qualquer emoji do teclado do celular.</p> : null}
       </div>
+      {canUseCustomEmoji ? (
+        <button type="button" onClick={() => setEmoji(customEmoji)} className="min-h-10 justify-self-start rounded-md border border-border px-3 text-[12px] font-semibold text-brand hover:bg-surface-2">
+          Usar este emoji: {customEmoji}
+        </button>
+      ) : null}
       <div className="flex items-center gap-3">
         <span className="text-2xl" aria-hidden="true">{emoji}</span>
         <SubmitButton pending={pending} pendingLabel="Salvando…">
