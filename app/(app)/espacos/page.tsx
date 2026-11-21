@@ -4,6 +4,7 @@ import { Crown, Users } from "lucide-react";
 import { CreateWorkspaceForm } from "@/components/collab/create-workspace-form";
 import { InviteForm } from "@/components/collab/invite-form";
 import { UserAvatar } from "@/components/layout/user-avatar";
+import { WorkspaceAvatar } from "@/components/brand/workspace-avatar";
 import { EmptyState } from "@/components/patterns/empty-state";
 import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
@@ -200,7 +201,8 @@ export default async function WorkspacesPage() {
           <SectionCard title={`Seus espaços · ${myWorkspaces.length}`}>
             <ul className="grid gap-2">
               {myWorkspaces.map((item) => (
-                <li key={item.id} className="flex flex-wrap items-center gap-2">
+                <li key={item.id} className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface-2/60 p-2.5">
+                  <WorkspaceAvatar name={item.name} brandColor={item.brandColor} coverUrl={item.coverUrl} size="md" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[13px] font-medium">{item.name}</p>
                     <p className="text-[11.5px] text-faint">
@@ -238,6 +240,13 @@ export default async function WorkspacesPage() {
             >
               <form action={updateWorkspaceAppearanceAction} className="grid gap-3">
                 <input type="hidden" name="workspaceId" value={workspace.id} />
+                <div className="flex items-center gap-3 rounded-xl border border-border bg-surface-2 p-3">
+                  <WorkspaceAvatar name={workspace.name} brandColor={workspace.brandColor} coverUrl={workspace.coverUrl} size="lg" />
+                  <div className="min-w-0">
+                    <p className="truncate text-[13px] font-semibold">{workspace.name}</p>
+                    <p className="text-[11.5px] text-muted">Prévia da identidade do espaço</p>
+                  </div>
+                </div>
                 <label className="grid gap-1.5 text-[12.5px] font-medium">
                   Cor do espaço
                   <div className="flex min-h-11 items-center gap-3 rounded-md border border-border bg-surface px-3">
