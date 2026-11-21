@@ -25,6 +25,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
 
   return (
     <AppShell
+      userId={context.user.id}
       unread={unread}
       workspaces={workspaces.map(({ id, name, kind, brandColor, coverUrl }) => ({ id, name, kind, brandColor, coverUrl }))}
       activeWorkspaceId={context.workspace?.id ?? null}
