@@ -38,25 +38,27 @@ export function TaskRow({
   return (
     <div
       className={cn(
-        "flex items-start gap-2.5 px-2 py-2.5 sm:px-3",
+        "flex min-w-0 items-start gap-3 px-3 py-3 transition-colors hover:bg-surface-2/65 sm:px-4",
         done && "opacity-65",
         className,
       )}
     >
-      <TaskCheckbox taskId={task.id} title={task.title} done={done} />
+      <div className="pt-0.5">
+        <TaskCheckbox taskId={task.id} title={task.title} done={done} />
+      </div>
 
-      <div className="min-w-0 flex-1 pt-2">
+      <div className="min-w-0 flex-1">
         <p
           className={cn(
-            "text-[13.5px] leading-snug font-medium text-ink",
+            "text-[13px] leading-snug font-medium text-ink sm:text-[13.5px]",
             done && "line-through decoration-1",
           )}
         >
           {task.title}
         </p>
-        <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+        <div className="mt-2 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5">
           {showProject ? (
-            <span className="text-[11.5px] text-faint">
+            <span className="max-w-full truncate text-[11px] text-faint">
               {task.projectTitle ?? "Sem projeto"}
             </span>
           ) : null}
@@ -66,7 +68,7 @@ export function TaskRow({
             tone={highPriority ? "danger" : "neutral"}
           />
           {task.assigneeName ? (
-            <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] text-faint">
+            <span className="ml-auto inline-flex flex-none items-center gap-1.5 text-[11px] text-faint">
               <UserAvatar name={task.assigneeName} size="sm" />
               <span className="sr-only">Responsável: {task.assigneeName}</span>
             </span>
@@ -88,7 +90,7 @@ export function TaskRowLink({
     <Link
       href={`/tarefas/${task.id}`}
       className={cn(
-        "block rounded-md no-underline transition-colors hover:bg-surface-2",
+        "block rounded-xl no-underline transition-colors hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
         className,
       )}
     >
