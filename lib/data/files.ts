@@ -26,23 +26,7 @@ export async function listFiles(
   workspaceId: string,
 ): Promise<{ files: FileListItem[]; usage: FileUsage }> {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("files_metadata")
-    .select("id, file_name, mime, size_bytes, status, entity_type, created_at")
-    .eq("workspace_id", workspaceId)
-    .in("status", ["pending", "ready", "quarantined"])
-    .is("deleted_at", null)
-    .order("created_at", { ascending: false })
-    .limit(1000);
-
-  if (error) {
-    return {
-      files: [],
-      usage: { usedBytes: 0, limitBytes: WORKSPACE_STORAGE_LIMIT_BYTES, count: 0 },
-    };
-  }
-
-  const rows = (data ?? []) as {
+  const rows: {
     id: string;
     file_name: string;
     mime: string;
@@ -50,7 +34,29 @@ export async function listFiles(
     status: FileListItem["status"];
     entity_type: string | null;
     created_at: string;
-  }[];
+  }[] = [];
+
+  for (let offset = 0; ; offset += 1000) {
+    const { data, error } = await supabase
+      .from("files_metadata")
+      .select("id, file_name, mime, size_bytes, status, entity_type, created_at")
+      .eq("workspace_id", workspaceId)
+      .in("status", ["pending", "ready", "quarantined"])
+      .is("deleted_at", null)
+      .order("created_at", { ascending: false })
+      .range(offset, offset + 999);
+
+    if (error) {
+      return {
+        files: [],
+        usage: { usedBytes: 0, limitBytes: WORKSPACE_STORAGE_LIMIT_BYTES, count: 0 },
+      };
+    }
+
+    const batch = (data ?? []) as typeof rows;
+    rows.push(...batch);
+    if (batch.length < 1000) break;
+  }
 
   return {
     files: rows.map((row) => ({
