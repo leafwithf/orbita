@@ -26,6 +26,8 @@ export type TopbarWorkspace = {
   id: string;
   name: string;
   kind: string;
+  brandColor: string;
+  coverUrl: string | null;
 };
 
 export function Topbar({
@@ -69,10 +71,10 @@ export function Topbar({
 
       <div className="grid min-w-0 gap-1 leading-tight">
         <span
-          className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-full border border-brand/25 bg-brand/10 px-2 py-0.5 text-[10.5px] font-semibold text-brand-700"
+          className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10.5px] font-semibold" style={{ borderColor: `${workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"}55`, backgroundColor: `${workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"}18`, color: workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b" }}
           aria-label={`Espaço atual: ${workspace?.name ?? "Órbita"}`}
         >
-          <span aria-hidden="true" className="size-1.5 flex-none rounded-full bg-brand" />
+          <span aria-hidden="true" className="size-1.5 flex-none rounded-full" style={{ backgroundColor: workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b" }} />
           <span className="truncate">{workspace?.name ?? "ÓRBITA"}</span>
           <span className="hidden text-[9px] font-medium opacity-75 sm:inline">ESPAÇO ATUAL</span>
         </span>
@@ -138,7 +140,7 @@ export function Topbar({
                         className="min-h-10 w-full cursor-pointer justify-between"
                         aria-current={item.id === activeWorkspaceId ? "true" : undefined}
                       >
-                        <span className="truncate">{item.name}</span>
+                        <span className="flex min-w-0 items-center gap-2 truncate"><span aria-hidden="true" className="size-2 flex-none rounded-full" style={{ backgroundColor: item.brandColor }} />{item.name}</span>
                         {item.id === activeWorkspaceId ? (
                           <span className="text-[11px] text-brand">atual</span>
                         ) : null}
