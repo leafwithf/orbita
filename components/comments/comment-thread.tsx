@@ -68,6 +68,7 @@ export function CommentThread({
   useEffect(() => {
     if (state.status === "success") {
       commentFormRef.current?.reset();
+      if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
       setNewBody("");
     }
   }, [state]);
