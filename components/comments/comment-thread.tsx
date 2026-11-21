@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -35,13 +35,11 @@ export function CommentThread({
   const [state, formAction, pending] = useActionState(addCommentAction, initialFormState);
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
-  // Troca a chave após enviar para limpar o campo sem controlar cada tecla.
-  const [formKey, setFormKey] = useState(0);
+  const commentFormRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.status === "success") setFormKey((value) => value + 1);
+    if (state.status === "success") commentFormRef.current?.reset();
   }, [state]);
-
   async function saveEdit(id: string) {
     const result = await editCommentAction({ commentId: id, body: draft });
     if (result.status === "error") {
@@ -144,7 +142,7 @@ export function CommentThread({
       )}
 
       {canComment ? (
-        <form key={formKey} action={formAction} className="grid gap-2">
+        <form ref={commentFormRef} action={formAction} className="grid gap-2">
           <input type="hidden" name="workspaceId" value={workspaceId} />
           <input type="hidden" name="entityType" value={entityType} />
           <input type="hidden" name="entityId" value={entityId} />

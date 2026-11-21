@@ -19,7 +19,7 @@ const client = () => createClient(url, key, { auth: { persistSession: false, aut
 
 async function signUp(tag) {
   const c = client();
-  const email = `orbita.${tag}.${Date.now()}.${Math.floor(Math.random() * 1e6)}@example.com`;
+  const email = `orbita.${tag}.${Date.now()}.${Math.floor(Math.random() * 1e6)}@gmail.com`;
   const { data, error } = await c.auth.signUp({ email, password: "Teste-Orbita-12345" });
   if (error || !data.session) throw new Error(`signUp ${tag} falhou (${error?.message ?? "sem sessão: desative Confirm email"})`);
   const { data: m } = await c.from("workspace_members").select("workspace_id").eq("user_id", data.user.id).single();

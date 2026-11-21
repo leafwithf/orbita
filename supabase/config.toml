@@ -19,7 +19,7 @@ enabled = false
 enabled = true
 port = 54323
 
-[inbucket]
+[local_smtp]
 enabled = true
 port = 54324
 
@@ -42,9 +42,9 @@ double_confirm_changes = true
 enable_confirmations = true
 
 [auth.email.template.confirmation]
-subject = "Confirme seu e-mail no ÓRBITA"
+subject = "Confirme seu e-mail no Ã“RBITA"
 content_path = "./supabase/templates/confirmation.html"
 
 [auth.email.template.recovery]
-subject = "Criar uma nova senha no ÓRBITA"
+subject = "Criar uma nova senha no Ã“RBITA"
 content_path = "./supabase/templates/recovery.html"

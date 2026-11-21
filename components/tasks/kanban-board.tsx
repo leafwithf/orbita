@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -27,9 +27,16 @@ const byPosition = (a: KanbanTask, b: KanbanTask) => a.position - b.position;
 
 export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   const [items, setItems] = useState(tasks);
+  const [previousTasks, setPreviousTasks] = useState(tasks);
   const [announcement, setAnnouncement] = useState("");
 
-  useEffect(() => setItems(tasks), [tasks]);
+  // Atualiza o estado otimista quando o servidor entrega uma nova lista.
+  // O ajuste condicional durante a renderização evita um efeito que provoca
+  // uma renderização extra e mantém as atualizações locais entre refreshes.
+  if (tasks !== previousTasks) {
+    setPreviousTasks(tasks);
+    setItems(tasks);
+  }
 
   const column = (status: KanbanStatus, source = items) =>
     source.filter((task) => task.status === status).sort(byPosition);
