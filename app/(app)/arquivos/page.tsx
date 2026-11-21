@@ -28,7 +28,8 @@ export default async function FilesPage() {
     );
   }
 
-  const { files, usage } = await listFiles(context.workspace.id);
+  const workspace = context.workspace;
+  const { files, usage } = await listFiles(workspace.id);
   const quota = quotaState(usage.usedBytes, usage.limitBytes);
   const percent = quota.percent;
 
@@ -47,7 +48,7 @@ export default async function FilesPage() {
             description="Envie do computador ou do celular. O arquivo vai direto para o armazenamento e só aparece como pronto depois de conferido."
           >
             <div className="mb-4">
-              {canEditContent(context.workspace.role) ? <FileUploader workspaceId={context.workspace.id} /> : <p className="text-[12px] text-muted">Seu papel neste espaço permite consultar e baixar arquivos, mas não enviar novos materiais.</p>}
+              {canEditContent(workspace.role) ? <FileUploader workspaceId={workspace.id} /> : <p className="text-[12px] text-muted">Seu papel neste espaço permite consultar e baixar arquivos, mas não enviar novos materiais.</p>}
             </div>
             {files.length === 0 ? (
               <EmptyState
@@ -85,7 +86,7 @@ export default async function FilesPage() {
                         fileName={file.fileName}
                         mime={file.mime}
                         ready={file.status === "ready"}
-                        canManage={canEditContent(context.workspace.role)}
+                        canManage={canEditContent(workspace.role)}
                       />
                       <StatusChip
                         label={
