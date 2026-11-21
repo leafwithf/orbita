@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { FileMentionTextarea } from "@/components/files/file-mention-textarea";
 
 type FieldChrome = {
   id: string;
@@ -80,12 +81,13 @@ export function TextField({
 export function TextAreaField({
   id,
   label,
+  workspaceId,
   hint,
   error,
   required = false,
   className,
   ...props
-}: FieldChrome & Omit<ComponentProps<typeof Textarea>, "id" | "className">) {
+}: FieldChrome & Omit<ComponentProps<typeof Textarea>, "id" | "className"> & { workspaceId?: string }) {
   return (
     <div className={cn("grid gap-1.5", className)}>
       <Label htmlFor={id} className="text-[13px] font-medium">
@@ -94,14 +96,28 @@ export function TextAreaField({
           <span className="ml-1 font-normal text-faint">(opcional)</span>
         ) : null}
       </Label>
-      <Textarea
-        id={id}
-        required={required}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy(id, hint, error)}
-        className="min-h-24 bg-surface px-3 py-2.5 text-[15px] md:text-sm"
-        {...props}
-      />
+      {workspaceId ? (
+        <FileMentionTextarea
+          id={id}
+          name={props.name}
+          workspaceId={workspaceId}
+          defaultValue={typeof props.defaultValue === "string" ? props.defaultValue : ""}
+          placeholder={props.placeholder}
+          maxLength={props.maxLength}
+          rows={props.rows}
+          required={required}
+          className="min-h-24 bg-surface"
+        />
+      ) : (
+        <Textarea
+          id={id}
+          required={required}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy(id, hint, error)}
+          className="min-h-24 bg-surface px-3 py-2.5 text-[15px] md:text-sm"
+          {...props}
+        />
+      )}
       <FieldMessages id={id} hint={hint} error={error} />
     </div>
   );
