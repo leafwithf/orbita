@@ -229,7 +229,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
       </div>
 
       <div
-        className="-mx-4 grid grid-flow-col auto-cols-[minmax(280px,86vw)] gap-3 overflow-x-auto overscroll-x-contain px-4 pb-4 snap-x snap-mandatory touch-pan-x sm:auto-cols-[minmax(300px,44vw)] lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:auto-cols-auto lg:overflow-visible lg:px-0"
+        className="-mx-4 grid grid-flow-col auto-cols-[minmax(280px,86vw)] gap-3 overflow-x-auto overscroll-x-contain px-4 pb-4 snap-x snap-mandatory sm:auto-cols-[minmax(300px,44vw)] lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:auto-cols-auto lg:overflow-visible lg:px-0"
         aria-label="Colunas do quadro; deslize horizontalmente para ver as próximas"
       >
         {KANBAN_COLUMNS.map(({ status, label }) => {
@@ -421,7 +421,7 @@ function CardButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "grid size-9 shrink-0 place-items-center rounded-lg border border-border bg-surface-2 text-muted transition-colors hover:border-brand/40 hover:bg-brand/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-30 sm:size-8",
+        "grid size-11 shrink-0 place-items-center rounded-lg border border-border bg-surface-2 text-muted transition-colors hover:border-brand/40 hover:bg-brand/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-30 sm:size-8",
         className,
       )}
     >
