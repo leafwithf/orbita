@@ -259,6 +259,16 @@
     color: var(--text-faint);
   }
 
+  /* Brand-colored text must remain readable on both light and dark surfaces. */
+  .text-brand {
+    color: var(--brand-700);
+  }
+
+  [contenteditable="true"] {
+    color: var(--text);
+    caret-color: var(--text);
+  }
+
   .surface-card {
     background: var(--surface);
     border: 1px solid var(--border);
