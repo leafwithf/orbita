@@ -29,6 +29,7 @@ import { getAppContext } from "@/lib/data/context";
 import { getProjectDetail, listProjects } from "@/lib/data/projects";
 import { listTasks } from "@/lib/data/tasks";
 import { formatDatePtBr } from "@/lib/dates";
+import { formatBytes } from "@/modules/files/domain";
 import { canComment, canEditContent, canManageMembers } from "@/modules/workspaces/domain";
 import {
   PROJECT_STATUS_LABELS,
