@@ -36,7 +36,6 @@ export function FileMentionTextarea({
   const editor = useRef<HTMLDivElement>(null);
   const [files, setFiles] = useState<MentionFile[]>([]);
   const [query, setQuery] = useState<string | null>(null);
-  const [mentionStart, setMentionStart] = useState<number | null>(null);
   const [internalValue, setInternalValue] = useState(defaultValue);
   const current = value ?? internalValue;
 
@@ -73,10 +72,8 @@ export function FileMentionTextarea({
     const term = at >= 0 ? textBefore.slice(at + 1) : "";
     if (at >= 0 && /\s/.test(previous) && !/[\s@]/.test(term) && term.length <= 60) {
       setQuery(term.toLocaleLowerCase("pt-BR"));
-      setMentionStart(at);
     } else {
       setQuery(null);
-      setMentionStart(null);
     }
     if (maxLength && next.length > maxLength) {
       const trimmed = next.slice(0, maxLength);
@@ -113,7 +110,6 @@ export function FileMentionTextarea({
     selection.removeAllRanges();
     selection.addRange(range);
     setQuery(null);
-    setMentionStart(null);
     readValue();
     node.focus();
   }
