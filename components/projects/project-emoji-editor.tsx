@@ -10,6 +10,17 @@ import { initialFormState } from "@/lib/actions/state";
 import { saveProjectIconAction, updateProjectEmojiAction } from "@/lib/actions/projects";
 import { createClient as createBrowserClient } from "@/lib/supabase/client";
 
+const PROJECT_EMOJI_CATEGORIES = [
+  { id: "all", label: "Todos", items: [] as string[] },
+  { id: "faces", label: "Rostos", items: ["😀","😎","🤩","🥳","🤔","😴","😍","🥰","😭","😤","🤯","🤖","👻","💀"] },
+  { id: "nature", label: "Natureza", items: ["🐶","🐱","🦊","🐼","🦋","🐢","🐬","🌵","🌲","🌿","🌸","🌻","🌙","⭐","🔥","🌈"] },
+  { id: "food", label: "Comida", items: ["🍎","🍊","🍓","🍉","🍕","🍔","🍟","🍣","🍰","☕","🥑","🥗"] },
+  { id: "activities", label: "Atividades", items: ["⚽","🏀","🎾","🏆","🎮","🎯","🎨","🎧","🎸","📷","🎬","🧩"] },
+  { id: "travel", label: "Viagem", items: ["🚀","🛸","✈️","🚗","🚲","🚢","🏠","🏢","🏰","🗼","⛺","🌍"] },
+  { id: "objects", label: "Objetos", items: ["💻","📱","⌨️","💡","🔧","🔬","📚","📁","📅","📈","✏️","💼"] },
+  { id: "symbols", label: "Símbolos", items: ["❤️","💛","💚","💙","💜","🖤","✨","⚡","💥","✅","❌","♻️"] },
+];
+
 export const PROJECT_EMOJIS = [
   "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😋","😎","🤩","🥳","😏","😴","🤔","🫡","🤗","🤭","🤫","🤥","😶","🙄","😬","🤐","🥱","😮","😯","😲","😳","🥺","😭","😤","😡","🤯","🥶","🥵","🤠","🥸","😈","👻","💀","🤖","👽","🎃",
   "👋","🤚","✋","🖖","👌","🤌","🤏","✌️","🤞","🫰","🤟","🤘","🤙","👈","👉","👆","👇","☝️","✊","👊","🤛","🤜","👏","🙌","👐","🤲","🙏","💪","🦾","🖐️","✍️","💅","🫶",
@@ -43,19 +54,9 @@ export function ProjectEmojiEditor({
   const [imageMessage, setImageMessage] = useState<{ status: "error" | "success"; message: string } | null>(null);
   const [imagePending, startImageTransition] = useTransition();
   const router = useRouter();
-  const emojiCategories = [
-    { id: "all", label: "Todos", items: [] as string[] },
-    { id: "faces", label: "Rostos", items: ["😀","😎","🤩","🥳","🤔","😴","😍","🥰","😭","😤","🤯","🤖","👻","💀"] },
-    { id: "nature", label: "Natureza", items: ["🐶","🐱","🦊","🐼","🦋","🐢","🐬","🌵","🌲","🌿","🌸","🌻","🌙","⭐","🔥","🌈"] },
-    { id: "food", label: "Comida", items: ["🍎","🍊","🍓","🍉","🍕","🍔","🍟","🍣","🍰","☕","🥑","🥗"] },
-    { id: "activities", label: "Atividades", items: ["⚽","🏀","🎾","🏆","🎮","🎯","🎨","🎧","🎸","📷","🎬","🧩"] },
-    { id: "travel", label: "Viagem", items: ["🚀","🛸","✈️","🚗","🚲","🚢","🏠","🏢","🏰","🗼","⛺","🌍"] },
-    { id: "objects", label: "Objetos", items: ["💻","📱","⌨️","💡","🔧","🔬","📚","📁","📅","📈","✏️","💼"] },
-    { id: "symbols", label: "Símbolos", items: ["❤️","💛","💚","💙","💜","🖤","✨","⚡","💥","✅","❌","♻️"] },
-  ];
   const emojis = useMemo(() => {
     const unique = [...new Set(PROJECT_EMOJIS)];
-    const selected = emojiCategories.find((item) => item.id === category);
+    const selected = PROJECT_EMOJI_CATEGORIES.find((item) => item.id === category);
     const source = query.trim() || category === "all"
       ? unique
       : unique.filter((item) => selected?.items.includes(item));
@@ -86,7 +87,7 @@ export function ProjectEmojiEditor({
               <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar ou colar um emoji" className="h-10 w-full rounded-md border border-input bg-surface-2 pl-9 pr-3 text-sm outline-none focus-visible:border-brand" />
             </label>
             <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1" role="group" aria-label="Categorias de emojis">
-              {emojiCategories.map((item) => (
+              {PROJECT_EMOJI_CATEGORIES.map((item) => (
                 <button
                   key={item.id}
                   type="button"
