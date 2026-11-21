@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -120,7 +121,7 @@ export default async function ProjectDetailPage({
       ) : null}
 
       <PageHeader
-        eyebrow={<span className="inline-flex items-center gap-1.5">{project.coverUrl ? <img src={project.coverUrl} alt="" className="size-5 rounded-md object-cover" /> : project.emoji} Projeto</span>}
+        eyebrow={<span className="inline-flex items-center gap-1.5">{project.coverUrl ? <Image src={project.coverUrl} alt="" width={20} height={20} sizes="20px" className="size-5 rounded-md object-cover" /> : project.emoji} Projeto</span>}
         title={project.title}
         description={project.objective ? <FileMentionText workspaceId={workspace.id} text={project.objective} /> : "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."}
         actions={
