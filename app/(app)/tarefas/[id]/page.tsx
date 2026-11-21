@@ -40,17 +40,20 @@ export default async function TaskPage({ params }: { params: Promise<{ id: strin
   const statusLabel = KANBAN_COLUMNS.find((column) => column.status === task.status)?.label ?? task.status;
 
   return (
-    <div className="grid gap-6">
-      <Link href="/tarefas/quadro" className="inline-flex min-h-11 items-center gap-1.5 text-[13px] font-semibold text-muted no-underline hover:text-ink hover:no-underline">
+    <div className="grid gap-7">
+      <Link href="/tarefas/quadro" className="inline-flex min-h-10 w-fit items-center gap-2 rounded-xl border border-border bg-surface px-3.5 text-[12px] font-semibold text-muted no-underline transition hover:border-brand/35 hover:text-ink hover:no-underline">
         <ArrowLeft className="size-4" aria-hidden="true" />
         Voltar ao quadro
       </Link>
 
-      <PageHeader
-        eyebrow={task.projectTitle ?? "Sem projeto"}
-        title={task.title}
-        description={task.description ? <FileMentionText workspaceId={context.workspace.id} text={task.description} /> : undefined}
-      />
+<header className="relative overflow-hidden rounded-3xl border border-border bg-surface p-5 sm:p-7">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-24 size-64 rounded-full bg-brand/10 blur-3xl" />
+        <div className="relative">
+          <p className="text-[10px] font-semibold uppercase tracking-[.18em] text-brand">{task.projectTitle ?? "Tarefa sem projeto"}</p>
+          <h1 className="mt-3 max-w-3xl break-words text-3xl font-semibold tracking-[-.05em] sm:text-[40px]">{task.title}<span className="text-brand">.</span></h1>
+          {task.description ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted"><FileMentionText workspaceId={context.workspace.id} text={task.description} /></p> : <p className="mt-3 text-sm text-muted">Detalhes, responsáveis e conversa desta tarefa.</p>}
+        </div>
+      </header>
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)]">
         <SectionCard title="Conversa">
