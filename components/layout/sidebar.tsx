@@ -6,6 +6,7 @@ import { ChevronDown, LogOut, Plus } from "lucide-react";
 import { useState } from "react";
 
 import { BrandLockup } from "@/components/brand/logo";
+import { WorkspaceAvatar } from "@/components/brand/workspace-avatar";
 import {
   isActivePath,
   PRIMARY_NAV,
@@ -105,7 +106,7 @@ export function SidebarContent({
 
       <div className="grid gap-1">
         <button type="button" onClick={() => setSpacesOpen((open) => !open)} aria-expanded={spacesOpen} aria-controls="workspace-switcher-list" className="relative flex min-h-11 w-full items-center gap-2.5 overflow-hidden rounded-[10px] border border-sidebar-border bg-sidebar-accent px-2.5 py-2 text-left text-sidebar-accent-foreground transition-colors hover:bg-[#1b2740]">
-          <span className="grid size-[22px] flex-none place-items-center rounded-md text-[11px] font-bold text-[#101521]" style={{ backgroundColor: workspace?.brandColor ?? "#d6a64b" }}>{workspace ? workspace.name.slice(0, 1).toUpperCase() : "Ó"}</span>
+          <WorkspaceAvatar name={workspace?.name ?? "Órbita"} brandColor={workspace?.brandColor ?? "#d6a64b"} coverUrl={workspace?.coverUrl} size="sm" />
           <span className="grid min-w-0 flex-1 leading-tight">
             <span className="truncate text-[13px] font-medium text-white">{workspace?.name ?? "Configurar espaço"}</span>
             <span className="truncate text-[10.5px] text-[#a9b4c6]">{workspace ? ROLE_LABELS[workspace.role] : "Nenhum espaço ainda"}</span>
@@ -119,7 +120,7 @@ export function SidebarContent({
               <form key={item.id} action={switchWorkspaceAction}>
                 <input type="hidden" name="workspaceId" value={item.id} />
                 <button type="submit" onClick={onNavigate} aria-current={item.id === activeWorkspaceId ? "true" : undefined} className={cn("flex min-h-10 w-full items-center gap-2 rounded-md px-2 text-left text-[12.5px] transition-colors hover:bg-sidebar-accent", item.id === activeWorkspaceId ? "bg-sidebar-accent text-white" : "text-[#b8c3d5]")}>
-                  <span className="grid size-6 flex-none place-items-center rounded-md text-[10px] font-bold text-[#101521]" style={{ backgroundColor: item.brandColor }}>{item.name.slice(0, 1).toUpperCase()}</span>
+                  <WorkspaceAvatar name={item.name} brandColor={item.brandColor} coverUrl={item.coverUrl} size="sm" />
                   <span className="min-w-0 flex-1 truncate">{item.name}</span>
                   {item.id === activeWorkspaceId ? <span className="text-[10px] font-semibold text-brand">ATUAL</span> : null}
                 </button>
