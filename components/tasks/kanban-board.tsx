@@ -6,6 +6,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
+import { UserAvatar } from "@/components/layout/user-avatar";
 import {
   moveTaskAction,
   reorderColumnAction,
@@ -139,14 +140,17 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
       <p className="sr-only" role="status" aria-live="polite">
         {announcement}
       </p>
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div
+        className="-mx-4 grid grid-flow-col auto-cols-[minmax(280px,86vw)] gap-3 overflow-x-auto overscroll-x-contain px-4 pb-2 snap-x snap-mandatory sm:auto-cols-[minmax(300px,44vw)] lg:mx-0 lg:grid-flow-row lg:grid-cols-3 lg:auto-cols-auto lg:overflow-visible lg:px-0"
+        aria-label="Colunas do quadro; deslize horizontalmente para ver as próximas"
+      >
         {KANBAN_COLUMNS.map(({ status, label }) => {
           const cards = column(status);
           return (
             <section
               key={status}
               aria-labelledby={`col-${status}`}
-              className="min-w-0 rounded-lg border border-border bg-surface-2 p-3"
+              className="min-w-0 snap-start rounded-xl border border-border bg-surface-2 p-3 sm:p-3.5"
             >
               <h2
                 id={`col-${status}`}
@@ -181,8 +185,8 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                         >
                           {task.title}
                         </Link>
-                        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                          <span className="text-[11.5px] text-faint">
+                        <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                          <span className="mr-1 text-[11.5px] text-faint">
                             {task.projectTitle ?? "Sem projeto"}
                           </span>
                           {task.status !== "done" ? (
@@ -197,11 +201,21 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                             }
                           />
                         </div>
+                        {task.assigneeName ? (
+                          <div className="mt-2 inline-flex max-w-full items-center gap-1.5 rounded-full border border-border bg-surface-2 py-1 pr-2 pl-1">
+                            <UserAvatar name={task.assigneeName} size="sm" />
+                            <span className="max-w-[180px] truncate text-[11px] text-muted">
+                              {task.assigneeName}
+                            </span>
+                          </div>
+                        ) : (
+                          <p className="mt-2 text-[11px] text-faint">Sem responsável</p>
+                        )}
 
                         <div
                           role="group"
                           aria-label={`Ações de ${task.title}`}
-                          className="mt-2 flex flex-wrap gap-1"
+                          className="mt-3 flex flex-wrap gap-1.5 border-t border-border pt-2"
                         >
                           <CardButton
                             label={`Mover ${task.title} para a coluna anterior`}
