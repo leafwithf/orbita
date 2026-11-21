@@ -13,7 +13,6 @@ import {
 
 import { CommentThread } from "@/components/comments/comment-thread";
 import { EmptyState } from "@/components/patterns/empty-state";
-import { PageHeader } from "@/components/patterns/page-header";
 import { ProgressLine } from "@/components/patterns/progress-line";
 import { SectionCard } from "@/components/patterns/section-card";
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
