@@ -148,6 +148,7 @@ export default async function CreatePage({
           {type === "tarefa" ? (
             <CreateTaskForm
               today={context.today}
+              workspaceId={workspaceId}
               projects={projects
                 .filter((project) => project.status !== "completed")
                 .map((project) => ({ id: project.id, title: project.title }))}
@@ -155,7 +156,7 @@ export default async function CreatePage({
             />
           ) : null}
 
-          {type === "ideia" ? <CreateIdeaForm /> : null}
+          {type === "ideia" ? <CreateIdeaForm workspaceId={workspaceId} /> : null}
 
           {type === "projeto" ? (
             <CreateProjectForm currentFocusTitle={focusProject?.title ?? null} />
