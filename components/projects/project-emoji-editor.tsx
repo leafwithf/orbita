@@ -41,7 +41,7 @@ export function ProjectEmojiEditor({
     [query],
   );
   const customEmoji = query.trim();
-  const canUseCustomEmoji = customEmoji.length > 0 && customEmoji.length <= 8 && /[\\p{Extended_Pictographic}\\u{1F1E6}-\\u{1F1FF}]/u.test(customEmoji);
+  const canUseCustomEmoji = customEmoji.length > 0 && customEmoji.length <= 8 && /[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}]/u.test(customEmoji);
 
   return (
     <form action={formAction} className="grid gap-3">
