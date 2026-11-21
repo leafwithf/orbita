@@ -97,7 +97,7 @@ export default async function NotificationsPage() {
 
           <SectionCard
             title={`Anteriores · ${read.length}`}
-            description="Notificações que você já visualizou ou marcou como lidas."
+            description="Notificações que você já marcou como lidas."
             bodyClassName="p-0 sm:p-0"
           >
             {read.length === 0 ? (
