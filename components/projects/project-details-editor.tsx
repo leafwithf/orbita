@@ -12,7 +12,9 @@ import { updateProjectDetailsAction } from "@/lib/actions/projects";
 
 export function ProjectDetailsEditor({
   project,
+  workspaceId,
 }: {
+  workspaceId: string;
   project: {
     id: string;
     title: string;
@@ -69,6 +71,7 @@ export function ProjectDetailsEditor({
           />
           <TextAreaField
             id="project-edit-description"
+            workspaceId={workspaceId}
             name="description"
             label="Descrição"
             defaultValue={project.description ?? ""}
@@ -87,6 +90,7 @@ export function ProjectDetailsEditor({
           />
           <TextAreaField
             id="project-edit-risks"
+            workspaceId={workspaceId}
             name="risks"
             label="Riscos e bloqueios"
             defaultValue={project.risks ?? ""}
