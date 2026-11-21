@@ -73,9 +73,9 @@ export function CommentThread({
   }
 
   function renderBody(body: string) {
-    const parts = body.split(/(\\[\\[arquivo:[0-9a-f-]{36}\\|[^\\]]+\\]\\])/gi);
+    const parts = body.split(/(\[\[arquivo:[0-9a-f-]{36}\|[^\]]+\]\])/gi);
     return parts.map((part, index) => {
-      const match = /^\\[\\[arquivo:([0-9a-f-]{36})\\|([^\\]]+)\\]\\]$/i.exec(part);
+      const match = /^\[\[arquivo:([0-9a-f-]{36})\|([^\]]+)\]\]$/i.exec(part);
       return match ? (
         <a key={index} href={"/api/files/" + match[1] + "/url"} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded bg-brand-soft px-1.5 py-0.5 font-medium text-brand underline underline-offset-2">
           <FileText className="size-3.5" aria-hidden="true" />{match[2]}
