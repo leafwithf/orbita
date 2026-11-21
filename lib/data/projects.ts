@@ -10,6 +10,7 @@ export type ProjectListItem = {
   id: string;
   title: string;
   emoji: string;
+  coverUrl: string | null;
   objective: string | null;
   nextStep: string | null;
   stage: string;
@@ -24,6 +25,7 @@ type ProjectRow = {
   id: string;
   title: string;
   emoji: string;
+  cover_url: string | null;
   objective: string | null;
   next_step: string | null;
   stage: string;
@@ -32,7 +34,7 @@ type ProjectRow = {
 };
 
 const PROJECT_SELECT =
-  "id, title, emoji, objective, next_step, stage, status, due_date";
+  "id, title, emoji, cover_url, objective, next_step, stage, status, due_date";
 
 function toProject(
   row: ProjectRow,
@@ -43,6 +45,7 @@ function toProject(
     id: row.id,
     title: row.title,
     emoji: row.emoji || "🚀",
+    coverUrl: row.cover_url,
     objective: row.objective,
     nextStep: row.next_step,
     stage: row.stage,
@@ -112,7 +115,7 @@ export async function getProjectDetail({
   const { data, error } = await supabase
     .from("projects")
     .select(
-      "id, title, emoji, objective, next_step, stage, status, due_date, description, risks, start_date, created_at, owner_id, created_by",
+      "id, title, emoji, cover_url, objective, next_step, stage, status, due_date, description, risks, start_date, created_at, owner_id, created_by",
     )
     .eq("workspace_id", workspaceId)
     .eq("id", projectId)
