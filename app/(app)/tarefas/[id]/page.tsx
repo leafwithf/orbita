@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import { CommentThread } from "@/components/comments/comment-thread";
+import { FileMentionText } from "@/components/files/file-mention-text";
 import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
@@ -48,7 +49,7 @@ export default async function TaskPage({ params }: { params: Promise<{ id: strin
       <PageHeader
         eyebrow={task.projectTitle ?? "Sem projeto"}
         title={task.title}
-        description={task.description ?? undefined}
+        description={task.description ? <FileMentionText workspaceId={context.workspace.id} text={task.description} /> : undefined}
       />
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)]">
