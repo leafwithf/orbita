@@ -107,7 +107,7 @@ export function CommentThread({
             return (
               <li key={comment.id} className="flex gap-3">
                 <UserAvatar name={comment.authorName} size="lg" />
-                <div className="min-w-0 flex-1 rounded-md border border-border bg-surface p-3">
+                <div className="min-w-0 flex-1 rounded-md border border-border bg-surface p-3 text-ink">
                   <div className="flex flex-wrap items-baseline gap-x-2">
                     <span className="text-[13px] font-semibold">{mine ? "Você" : comment.authorName}</span>
                     <time dateTime={comment.createdAt} className="text-[11.5px] text-faint">
@@ -139,7 +139,7 @@ export function CommentThread({
                       </div>
                     </div>
                   ) : (
-                    <p className="mt-1 text-[14px] leading-relaxed whitespace-pre-wrap break-words">{renderBody(comment.body)}</p>
+                    <p className="mt-1 text-[14px] leading-relaxed whitespace-pre-wrap break-words text-ink">{renderBody(comment.body)}</p>
                   )}
 
                   {editing !== comment.id && (mine || canModerate) ? (
