@@ -22,6 +22,10 @@ import { ProjectEmojiEditor } from "@/components/projects/project-emoji-editor";
 import { ProjectDetailsEditor } from "@/components/projects/project-details-editor";
 import { ProjectSwitcher } from "@/components/projects/project-switcher";
 import { listComments } from "@/lib/data/comments";
+import { listProjectFiles } from "@/lib/data/files";
+import { FileActions } from "@/components/files/file-actions";
+import { FileUploader } from "@/components/files/file-uploader";
+import { formatBytes } from "@/modules/files/domain";
 import { getAppContext } from "@/lib/data/context";
 import { getProjectDetail, listProjects } from "@/lib/data/projects";
 import { listTasks } from "@/lib/data/tasks";
@@ -82,11 +86,11 @@ export default async function ProjectDetailPage({
   }), listProjects({ workspaceId: context.workspace.id, today: context.today })]);
   const canEditProject = project.ownerId === context.user.id && canEditContent(context.workspace.role);
   const openTasks = tasks.filter((task) => task.status !== "done");
-  const comments = await listComments({
+  const [comments, projectFiles] = await Promise.all([listComments({
     workspaceId: context.workspace.id,
     entityType: "project",
     entityId: project.id,
-  });
+  }), listProjectFiles({ workspaceId: context.workspace.id, projectId: project.id })]);
 
   return (
     <div className="grid gap-6">
@@ -232,12 +236,35 @@ export default async function ProjectDetailPage({
             </p>
           ) : null}
 
+          <SectionCard title={`Arquivos do projeto · ${projectFiles.length}`} description="Materiais e referências compartilhados com quem tem acesso a este projeto.">
+            <div className="grid gap-4">
+              <FileUploader workspaceId={context.workspace.id} projectId={project.id} />
+              {projectFiles.length === 0 ? (
+                <p className="rounded-md border border-dashed border-border p-4 text-center text-[12.5px] text-muted">Nenhum arquivo neste projeto ainda. Envie o primeiro material acima.</p>
+              ) : (
+                <ul className="divide-y divide-border">
+                  {projectFiles.map((file) => (
+                    <li key={file.id} className="flex min-w-0 items-center gap-3 py-3 first:pt-0 last:pb-0">
+                      <span className="grid size-9 flex-none place-items-center rounded-md bg-surface-2 text-brand"><span className="text-[11px] font-bold">{file.fileName.split(".").pop()?.slice(0, 4).toUpperCase()}</span></span>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[13px] font-medium">{file.fileName}</p>
+                        <p className="mt-0.5 text-[11px] text-faint">{formatBytes(file.sizeBytes)} · {file.authorName} · {formatDatePtBr(file.createdAt.slice(0, 10))}</p>
+                      </div>
+                      <FileActions fileId={file.id} fileName={file.fileName} mime={file.mime} ready={file.status === "ready"} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </SectionCard>
+
           <SectionCard title="Conversa">
             <CommentThread
               workspaceId={context.workspace.id}
               entityType="project"
               entityId={project.id}
               comments={comments}
+              files={projectFiles.filter((file) => file.status === "ready").map(({ id, fileName }) => ({ id, fileName }))}
               viewerId={context.user.id}
               canComment={canComment(context.workspace.role)}
               canModerate={canManageMembers(context.workspace.role)}
