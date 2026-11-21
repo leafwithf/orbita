@@ -207,7 +207,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   return (
     <div className="min-w-0">
       <p className="sr-only" role="status" aria-live="polite">{announcement}</p>
-      <div className="mb-3 flex items-center justify-between gap-3 text-[11px] text-muted">
+      <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-border bg-surface px-3.5 py-3 text-[11px] text-muted">
         <span className="inline-flex items-center gap-1.5">
           <GripVertical className="size-3.5" aria-hidden="true" />
           No computador, arraste os cartões. No celular, use os controles do cartão.
@@ -239,11 +239,11 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
               }}
               onDrop={(event) => dropOnColumn(event, status)}
               className={cn(
-                "flex min-h-[360px] min-w-0 snap-start flex-col rounded-2xl border border-border bg-surface-2/80 p-3 transition-colors sm:p-3.5",
+                "flex min-h-[420px] min-w-0 snap-start flex-col rounded-[22px] border border-border bg-surface-2/60 p-3.5 transition-colors sm:p-4",
                 isDropTarget && style.drop,
               )}
             >
-              <header className="mb-3 flex items-center justify-between gap-2">
+              <header className="mb-4 flex items-center justify-between gap-2 border-b border-border/80 px-1 pb-3">
                 <div className="flex min-w-0 items-center gap-2.5">
                   <span className={cn("size-2.5 shrink-0 rounded-full", style.marker)} />
                   <h2 id={`col-${status}`} className="truncate text-[13px] font-semibold text-ink">
@@ -256,7 +256,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                 <span className="text-[10px] font-medium text-faint">#{KANBAN_COLUMNS.findIndex((entry) => entry.status === status) + 1}</span>
               </header>
 
-              <div className="grid flex-1 content-start gap-2.5">
+              <div className="grid flex-1 content-start gap-3">
                 {cards.length === 0 ? (
                   <div className={cn(
                     "grid min-h-36 flex-1 place-items-center rounded-xl border border-dashed border-border-strong px-4 py-6 text-center transition-colors",
@@ -297,7 +297,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                         }}
                         onDrop={(event) => dropOnCard(event, status, task.id)}
                         className={cn(
-                          "list-none rounded-xl border border-border bg-surface p-3.5 shadow-[var(--shadow-1)] transition-[opacity,border-color,box-shadow,transform] hover:border-brand/35 hover:shadow-[var(--shadow-2)] active:cursor-grabbing sm:p-4",
+                          "list-none rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition-[opacity,border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[var(--shadow-2)] active:cursor-grabbing sm:p-[18px]",
                           draggedTaskId === task.id && "opacity-40",
                           "cursor-grab",
                         )}
@@ -337,7 +337,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                           )}
                         </div>
 
-                        <div className="mt-3 flex min-w-0 items-center justify-between gap-2 border-t border-border/80 pt-3">
+                        <div className="mt-4 flex min-w-0 items-center justify-between gap-2 border-t border-border/80 pt-3.5">
                           <div className="flex min-w-0 items-center gap-2">
                             {task.assigneeName ? (
                               <>
@@ -356,7 +356,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                         <div
                           role="group"
                           aria-label={`Mover ou excluir ${task.title}`}
-                          className="mt-3 flex items-center gap-1 border-t border-border/80 pt-2.5"
+                          className="mt-4 flex items-center gap-1 border-t border-border/80 pt-3"
                         >
                           <CardButton label={`Mover ${task.title} para a coluna anterior`} disabled={!left} onClick={() => left && move(task, left, column(left).length)}>
                             <ArrowLeft className="size-4" aria-hidden="true" />
@@ -408,7 +408,7 @@ function CardButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "grid size-9 shrink-0 place-items-center rounded-lg border border-border bg-surface-2 text-muted transition-colors hover:border-brand/40 hover:bg-brand/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-30 sm:size-8",
+        "grid size-9 shrink-0 place-items-center rounded-xl border border-border bg-surface-2 text-muted transition-colors hover:border-brand/40 hover:bg-brand/10 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-30",
         className,
       )}
     >
