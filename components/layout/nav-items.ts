@@ -1,5 +1,4 @@
 import {
-  Bell,
   Crosshair,
   FolderKanban,
   FolderOpen,
@@ -35,7 +34,6 @@ export const PRIMARY_NAV: NavItem[] = [
 
 export const SECONDARY_NAV: NavItem[] = [
   { href: "/backlog", label: "Ideias e backlog", icon: Lightbulb },
-  { href: "/notificacoes", label: "Notificações", icon: Bell },
   { href: "/busca", label: "Busca", icon: Search },
   { href: "/historico", label: "Histórico", icon: History },
   { href: "/lixeira", label: "Lixeira", icon: Trash2 },
