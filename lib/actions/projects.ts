@@ -159,7 +159,7 @@ export async function saveProjectIconAction(
   const safePrefix = `${context.user.id}/${projectId}/`;
   const validPath = storagePath.startsWith(safePrefix)
     && !storagePath.includes("..")
-    && /\\.(png|jpg|webp|gif)$/i.test(storagePath);
+    && /\.(png|jpg|webp|gif)$/i.test(storagePath);
   if (!validPath) {
     return { status: "error", message: "Caminho da imagem inválido." };
   }
