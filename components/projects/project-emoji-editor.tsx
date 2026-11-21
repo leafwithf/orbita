@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useMemo, useState, useTransition, type FormEvent } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ImagePlus, Search, X } from "lucide-react";
 
@@ -122,7 +123,7 @@ export function ProjectEmojiEditor({
 
       <div className="grid gap-2 rounded-xl border border-border bg-surface-2/40 p-3">
         <div className="flex items-center gap-2 text-[13px] font-medium text-ink"><ImagePlus className="size-4 text-brand" /> Ou envie uma imagem</div>
-        {preview ? <img src={preview} alt="Prévia da imagem do projeto" className="size-16 rounded-xl border border-border object-cover" /> : null}
+        {preview ? <Image src={preview} alt="Prévia da imagem do projeto" width={64} height={64} sizes="64px" unoptimized={preview.startsWith("blob:")} className="size-16 rounded-xl border border-border object-cover" /> : null}
         <form
           className="grid gap-2"
           onSubmit={(event: FormEvent<HTMLFormElement>) => {
