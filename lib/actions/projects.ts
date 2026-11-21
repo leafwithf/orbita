@@ -12,6 +12,34 @@ const emojiSchema = z.object({
   emoji: z.string().trim().min(1, "Escolha um emoji.").max(8, "Emoji inválido."),
 });
 
+const projectDetailsSchema = z.object({
+  projectId: z.uuid("Projeto inválido."),
+  title: z.string().trim().min(1, "Dê um nome ao projeto.").max(160, "Use até 160 caracteres."),
+  objective: z.string().trim().max(500, "Use até 500 caracteres."),
+  description: z.string().trim().max(4000, "Use até 4.000 caracteres."),
+  nextStep: z.string().trim().max(300, "Use até 300 caracteres."),
+  risks: z.string().trim().max(2000, "Use até 2.000 caracteres."),
+});
+
+function read(formData: FormData, key: string): string {
+  const value = formData.get(key);
+  return typeof value === "string" ? value : "";
+}
+
+async function ownedProject(projectId: string, workspaceId: string, userId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("projects")
+    .select("id, owner_id, created_by")
+    .eq("id", projectId)
+    .eq("workspace_id", workspaceId)
+    .is("deleted_at", null)
+    .maybeSingle<{ id: string; owner_id: string | null; created_by: string | null }>();
+
+  if (!data || (data.owner_id ?? data.created_by) !== userId) return null;
+  return { supabase, projectId: data.id };
+}
+
 export async function updateProjectEmojiAction(
   _previous: FormActionState,
   formData: FormData,
@@ -22,36 +50,90 @@ export async function updateProjectEmojiAction(
   }
 
   const parsed = emojiSchema.safeParse({
-    projectId: formData.get("projectId"),
-    emoji: formData.get("emoji"),
+    projectId: read(formData, "projectId"),
+    emoji: read(formData, "emoji"),
+  });
+
+  if (!parsed.success) {
+    return { status: "error", message: "Escolha um emoji válido." };
+  }
+
+  const owned = await ownedProject(parsed.data.projectId, context.workspace.id, context.user.id);
+  if (!owned) {
+    return { status: "error", message: "Somente o proprietário do projeto pode alterar sua identidade." };
+  }
+
+  const { error } = await owned.supabase
+    .from("projects")
+    .update({ emoji: parsed.data.emoji })
+    .eq("id", owned.projectId)
+    .eq("workspace_id", context.workspace.id)
+    .is("deleted_at", null);
+
+  if (error) {
+    return { status: "error", message: "Não foi possível atualizar o emoji. Verifique sua permissão e tente novamente." };
+  }
+
+  revalidatePath("/", "layout");
+  revalidatePath(`/projetos/${owned.projectId}`);
+  revalidatePath("/projetos");
+  return { status: "success", message: "Emoji atualizado." };
+}
+
+export async function updateProjectDetailsAction(
+  _previous: FormActionState,
+  formData: FormData,
+): Promise<FormActionState> {
+  const context = await getAppContext();
+  if (!context.workspace) {
+    return { status: "error", message: "Espaço de trabalho indisponível." };
+  }
+
+  const parsed = projectDetailsSchema.safeParse({
+    projectId: read(formData, "projectId"),
+    title: read(formData, "title"),
+    objective: read(formData, "objective"),
+    description: read(formData, "description"),
+    nextStep: read(formData, "nextStep"),
+    risks: read(formData, "risks"),
   });
 
   if (!parsed.success) {
     return {
       status: "error",
-      message: "Escolha um emoji válido.",
+      message: "Confira os campos e tente novamente.",
+      fieldErrors: Object.fromEntries(
+        Object.entries(z.flattenError(parsed.error).fieldErrors)
+          .filter(([, value]) => value?.length)
+          .map(([key, value]) => [key, value ?? []]),
+      ),
     };
   }
 
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("projects")
-    .update({ emoji: parsed.data.emoji })
-    .eq("id", parsed.data.projectId)
-    .eq("workspace_id", context.workspace.id)
-    .is("deleted_at", null)
-    .select("id")
-    .maybeSingle<{ id: string }>();
+  const owned = await ownedProject(parsed.data.projectId, context.workspace.id, context.user.id);
+  if (!owned) {
+    return { status: "error", message: "Somente o proprietário do projeto pode editá-lo." };
+  }
 
-  if (error || !data) {
-    return {
-      status: "error",
-      message: "Não foi possível atualizar o emoji. Verifique sua permissão e tente novamente.",
-    };
+  const { error } = await owned.supabase
+    .from("projects")
+    .update({
+      title: parsed.data.title,
+      objective: parsed.data.objective || null,
+      description: parsed.data.description || null,
+      next_step: parsed.data.nextStep || null,
+      risks: parsed.data.risks || null,
+    })
+    .eq("id", owned.projectId)
+    .eq("workspace_id", context.workspace.id)
+    .is("deleted_at", null);
+
+  if (error) {
+    return { status: "error", message: "Não foi possível salvar as alterações. Verifique sua permissão e tente novamente." };
   }
 
   revalidatePath("/", "layout");
-  revalidatePath(`/projetos/${data.id}`);
+  revalidatePath(`/projetos/${owned.projectId}`);
   revalidatePath("/projetos");
-  return { status: "success", message: "Emoji atualizado." };
+  return { status: "success", message: "Projeto atualizado com sucesso." };
 }
