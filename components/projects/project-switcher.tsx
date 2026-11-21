@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ChevronDown, FolderKanban } from "lucide-react";
 
-type ProjectOption = { id: string; title: string; emoji: string; status: string };
+type ProjectOption = { id: string; title: string; emoji: string; coverUrl?: string | null; status: string };
 
 export function ProjectSwitcher({
   currentProjectId,
@@ -19,7 +19,7 @@ export function ProjectSwitcher({
     <details className="group relative">
       <summary className="inline-flex min-h-9 cursor-pointer list-none items-center gap-2 rounded-md border border-border bg-surface px-3 text-[12.5px] font-semibold text-ink transition-colors hover:border-border-strong hover:bg-surface-2 [&::-webkit-details-marker]:hidden">
         <FolderKanban className="size-4 text-brand" aria-hidden="true" />
-        <span className="max-w-[min(42vw,180px)] truncate">{current?.emoji ?? "🚀"} {current?.title ?? "Projeto atual"}</span>
+        <span className="max-w-[min(42vw,180px)] truncate">{current?.coverUrl ? <img src={current.coverUrl} alt="" className="size-5 rounded-md object-cover" /> : current?.emoji ?? "🚀"} {current?.title ?? "Projeto atual"}</span>
         <ChevronDown className="size-3.5 text-muted transition-transform group-open:rotate-180" aria-hidden="true" />
       </summary>
       <div className="absolute left-0 z-40 mt-2 w-[min(340px,92vw)] max-h-80 overflow-y-auto rounded-lg border border-border bg-surface p-2 shadow-[var(--shadow-2)]">
