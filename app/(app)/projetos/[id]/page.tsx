@@ -19,9 +19,11 @@ import { SectionCard } from "@/components/patterns/section-card";
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
 import { TaskRow } from "@/components/tasks/task-row";
 import { ProjectEmojiEditor } from "@/components/projects/project-emoji-editor";
+import { ProjectDetailsEditor } from "@/components/projects/project-details-editor";
+import { ProjectSwitcher } from "@/components/projects/project-switcher";
 import { listComments } from "@/lib/data/comments";
 import { getAppContext } from "@/lib/data/context";
-import { getProjectDetail } from "@/lib/data/projects";
+import { getProjectDetail, listProjects } from "@/lib/data/projects";
 import { listTasks } from "@/lib/data/tasks";
 import { formatDatePtBr } from "@/lib/dates";
 import { canComment, canManageMembers } from "@/modules/workspaces/domain";
@@ -72,12 +74,12 @@ export default async function ProjectDetailPage({
 
   if (!project) notFound();
 
-  const tasks = await listTasks({
+  const [tasks, workspaceProjects] = await Promise.all([listTasks({
     workspaceId: context.workspace.id,
     today: context.today,
     includeDone: true,
     projectId: project.id,
-  });
+  }), listProjects({ workspaceId: context.workspace.id, today: context.today })]);
   const openTasks = tasks.filter((task) => task.status !== "done");
   const comments = await listComments({
     workspaceId: context.workspace.id,
@@ -119,6 +121,8 @@ export default async function ProjectDetailPage({
         }
         actions={
           <>
+            <ProjectSwitcher currentProjectId={project.id} projects={workspaceProjects} />
+            {project.ownerId === context.user.id ? <ProjectDetailsEditor project={project} /> : null}
             <Link
               href={`/criar?tipo=tarefa&projeto=${project.id}`}
               className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
