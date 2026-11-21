@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useMemo } from "react";
 import Link from "next/link";
 import { useState } from "react";
 import { Crosshair } from "lucide-react";
@@ -14,8 +14,7 @@ import { PriorityField } from "@/components/forms/priority-field";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { createProjectAction } from "@/lib/actions/create";
 import { initialFormState } from "@/lib/actions/state";
-
-const PROJECT_EMOJIS = ["🚀", "💡", "🎯", "💻", "🎨", "📱", "🧠", "📚", "🎮", "🏗️", "🌱", "💼", "🛠️", "✨", "❤️", "📊"] as const;
+import { PROJECT_EMOJIS } from "@/components/projects/project-emoji-editor";
 
 export function CreateProjectForm({
   currentFocusTitle,
@@ -23,6 +22,13 @@ export function CreateProjectForm({
   currentFocusTitle: string | null;
 }) {
   const [emoji, setEmoji] = useState<string>("🚀");
+  const [emojiQuery, setEmojiQuery] = useState("");
+  const visibleEmojis = useMemo(
+    () => [...new Set(PROJECT_EMOJIS)].filter((item) => item.includes(emojiQuery.trim())),
+    [emojiQuery],
+  );
+  const customEmoji = emojiQuery.trim();
+  const canUseCustomEmoji = customEmoji.length > 0 && customEmoji.length <= 8 && /[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}]/u.test(customEmoji);
   const [state, formAction, pending] = useActionState(
     createProjectAction,
     initialFormState,
@@ -38,13 +44,25 @@ export function CreateProjectForm({
       <div className="grid gap-2">
         <span className="text-[13px] font-medium text-ink">Ícone do projeto</span>
         <input type="hidden" name="emoji" value={emoji} />
-        <div className="grid grid-cols-8 gap-2 sm:flex sm:flex-wrap" role="group" aria-label="Escolha um emoji para o projeto">
-          {PROJECT_EMOJIS.map((item) => (
+        <input
+          value={emojiQuery}
+          onChange={(event) => setEmojiQuery(event.target.value)}
+          placeholder="Buscar ou colar qualquer emoji"
+          aria-label="Buscar emoji"
+          className="h-10 w-full rounded-md border border-input bg-surface px-3 text-sm outline-none focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+        />
+        <div className="grid max-h-48 grid-cols-8 gap-2 overflow-y-auto rounded-lg border border-border p-2 sm:grid-cols-10" role="group" aria-label="Escolha um emoji para o projeto">
+          {visibleEmojis.map((item) => (
             <button key={item} type="button" onClick={() => setEmoji(item)} aria-pressed={emoji === item} aria-label={`Usar ${item}`} className={`grid size-10 place-items-center rounded-lg border text-xl transition-colors ${emoji === item ? "border-brand bg-brand-soft ring-1 ring-brand" : "border-border bg-surface hover:bg-surface-2"}`}>
               {item}
             </button>
           ))}
         </div>
+        {canUseCustomEmoji ? (
+          <button type="button" onClick={() => setEmoji(customEmoji)} className="min-h-9 justify-self-start rounded-md border border-border px-3 text-[12px] font-semibold text-brand hover:bg-surface-2">
+            Usar este emoji: {customEmoji}
+          </button>
+        ) : null}
         <p className="text-[11.5px] leading-relaxed text-faint">O emoji ajuda a reconhecer o projeto nas listas e cartões.</p>
       </div>
 
