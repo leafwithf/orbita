@@ -36,12 +36,13 @@ export function CommentThread({
 }) {
   const router = useRouter();
   const [files, setFiles] = useState(initialFiles);
+  const [filesLoaded, setFilesLoaded] = useState(false);
   useEffect(() => {
     let active = true;
     fetch("/api/files/mentions?workspaceId=" + encodeURIComponent(workspaceId))
       .then((response) => response.ok ? response.json() : { files: [] })
-      .then((data) => { if (active) setFiles(data.files ?? []); })
-      .catch(() => { if (active) setFiles([]); });
+      .then((data) => { if (active) { setFiles(data.files ?? []); setFilesLoaded(true); } })
+      .catch(() => { if (active) { setFiles([]); setFilesLoaded(true); } });
     return () => { active = false; };
   }, [workspaceId]);
   const [state, formAction, pending] = useActionState(addCommentAction, initialFormState);
@@ -55,7 +56,7 @@ export function CommentThread({
       const match = /^\[\[arquivo:([0-9a-f-]{36})\]\]$/i.exec(part);
       if (!match) return <span key={index}>{part}</span>;
       const file = files.find((item) => item.id === match[1]);
-      if (!file) return <span key={index} className="text-muted">[Arquivo indisponível]</span>;
+      if (!file) return <span key={index} className="inline-flex items-center gap-1 rounded-md bg-foreground px-1.5 py-0.5 text-[12px] font-semibold text-background">{filesLoaded ? "📎 Arquivo indisponível" : "📎 Carregando arquivo…"}</span>;
       return (
         <a key={index} href={"/api/files/" + match[1] + "/url"} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded-md bg-foreground px-1.5 py-0.5 font-semibold text-background underline underline-offset-2">
           <span aria-hidden="true">📎</span>{file.fileName}
