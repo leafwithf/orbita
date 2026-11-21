@@ -8,10 +8,10 @@
 :root {
   /* Brand */
   --night: #14213d;
-  --brand: #2f6fe0;
-  --brand-hover: #2457bc;
-  --brand-700: #2a63d1;
-  --brand-050: #eaf1fe;
+  --brand: #d6a45f;
+  --brand-hover: #bd8845;
+  --brand-700: #8a5a22;
+  --brand-050: #f7eddf;
   --success: #189b85;
   --success-700: #16796a;
   --success-050: #e6f7f4;
@@ -95,20 +95,23 @@
   --text: #e8edf5;
   --text-muted: #9aa7bc;
   --text-faint: #8a96ac;
-  --brand-700: #9cc0ff;
+  --brand: #d6a45f;
+  --brand-hover: #e4b978;
+  --brand-700: #f0c98f;
   --success-700: #6fe0cb;
   --warning-700: #f2c56a;
   --danger-700: #ff9c93;
-  --brand-050: #16294a;
+  --brand-050: #332719;
   --success-050: #12332e;
   --warning-050: #33290f;
   --danger-050: #3a1d1a;
   --sidebar-bg: #0a111e;
   --sidebar-hover: #131c2c;
-  --sidebar-active: #1b2b47;
+  --sidebar-active: #302719;
   --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-2: 0 6px 18px rgb(0 0 0 / 0.45);
   --ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--brand);
+  --night: #08090d;
   color-scheme: dark;
 }
 
