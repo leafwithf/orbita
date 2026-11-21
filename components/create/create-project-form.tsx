@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 import { Crosshair } from "lucide-react";
 
 import {
@@ -14,11 +15,14 @@ import { SubmitButton } from "@/components/forms/submit-button";
 import { createProjectAction } from "@/lib/actions/create";
 import { initialFormState } from "@/lib/actions/state";
 
+const PROJECT_EMOJIS = ["🚀", "💡", "🎯", "💻", "🎨", "📱", "🧠", "📚", "🎮", "🏗️", "🌱", "💼", "🛠️", "✨", "❤️", "📊"] as const;
+
 export function CreateProjectForm({
   currentFocusTitle,
 }: {
   currentFocusTitle: string | null;
 }) {
+  const [emoji, setEmoji] = useState<string>("🚀");
   const [state, formAction, pending] = useActionState(
     createProjectAction,
     initialFormState,
@@ -30,6 +34,19 @@ export function CreateProjectForm({
         status={state.status === "error" ? "error" : "success"}
         message={state.message}
       />
+
+      <div className="grid gap-2">
+        <span className="text-[13px] font-medium text-ink">Ícone do projeto</span>
+        <input type="hidden" name="emoji" value={emoji} />
+        <div className="grid grid-cols-8 gap-2 sm:flex sm:flex-wrap" role="group" aria-label="Escolha um emoji para o projeto">
+          {PROJECT_EMOJIS.map((item) => (
+            <button key={item} type="button" onClick={() => setEmoji(item)} aria-pressed={emoji === item} aria-label={`Usar ${item}`} className={`grid size-10 place-items-center rounded-lg border text-xl transition-colors ${emoji === item ? "border-brand bg-brand-soft ring-1 ring-brand" : "border-border bg-surface hover:bg-surface-2"}`}>
+              {item}
+            </button>
+          ))}
+        </div>
+        <p className="text-[11.5px] leading-relaxed text-faint">O emoji ajuda a reconhecer o projeto nas listas e cartões.</p>
+      </div>
 
       <TextField
         id="project-title"
