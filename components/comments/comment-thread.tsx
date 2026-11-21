@@ -44,10 +44,13 @@ export function CommentThread({
 
   function updateComposer(value: string, cursor: number) {
     setNewBody(value);
-    const match = /(?:^|\\s)@([^@\\n]*)$/.exec(value.slice(0, cursor));
-    if (match && match[1].length <= 60) {
-      setMentionQuery(match[1].toLocaleLowerCase("pt-BR"));
-      setMentionStart(cursor - match[1].length - 1);
+    const before = value.slice(0, cursor);
+    const at = before.lastIndexOf("@");
+    const query = at >= 0 ? before.slice(at + 1) : "";
+    const previous = at > 0 ? before[at - 1] : " ";
+    if (at >= 0 && /\\s/.test(previous) && !/[\\n@]/.test(query) && query.length <= 60) {
+      setMentionQuery(query.toLocaleLowerCase("pt-BR"));
+      setMentionStart(at);
     } else {
       setMentionQuery(null);
       setMentionStart(null);
