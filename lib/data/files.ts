@@ -89,7 +89,7 @@ export async function listProjectFiles(input: {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("files_metadata")
-    .select("id, file_name, mime, size_bytes, status, created_at, profiles:created_by(full_name)")
+    .select("id, file_name, mime, size_bytes, status, created_at, profiles!files_metadata_created_by_fkey(full_name)")
     .eq("workspace_id", input.workspaceId)
     .eq("entity_type", "project")
     .eq("entity_id", input.projectId)
