@@ -18,6 +18,7 @@ import { ProgressLine } from "@/components/patterns/progress-line";
 import { SectionCard } from "@/components/patterns/section-card";
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
 import { TaskRow } from "@/components/tasks/task-row";
+import { ProjectEmojiEditor } from "@/components/projects/project-emoji-editor";
 import { listComments } from "@/lib/data/comments";
 import { getAppContext } from "@/lib/data/context";
 import { getProjectDetail } from "@/lib/data/projects";
@@ -128,6 +129,10 @@ export default async function ProjectDetailPage({
           </>
         }
       />
+
+      <SectionCard title="Identidade do projeto" description="Troque o emoji que aparece nos cartões, listas e nesta página.">
+        <ProjectEmojiEditor projectId={project.id} currentEmoji={project.emoji} />
+      </SectionCard>
 
       <div className="flex flex-wrap items-center gap-2">
         <StatusChip label={projectStageLabel(project.stage)} tone="brand" />
