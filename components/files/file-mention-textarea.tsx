@@ -13,9 +13,7 @@ function toHtml(value: string, files: MentionFile[]) {
   const escaped = escapeHtml(value);
   return escaped.replace(/\[\[arquivo:([0-9a-f-]{36})\]\]/gi, (token, id: string) => {
     const file = files.find((item) => item.id === id);
-    return file
-      ? '<span contenteditable="false" data-file-mention="' + id + '" class="inline-flex items-center gap-1 rounded-md bg-foreground px-1.5 py-0.5 text-background text-[12px] font-semibold align-baseline"><span>📎</span>' + escapeHtml(file.fileName) + '</span>'
-      : escapeHtml(token);
+    return '<span contenteditable="false" data-file-mention="' + id + '" class="inline-flex items-center gap-1 rounded-md bg-foreground px-1.5 py-0.5 text-background text-[12px] font-semibold align-baseline"><span>📎</span>' + escapeHtml(file?.fileName ?? "Arquivo indisponível") + '</span>';
   }).replace(/\n/g, "<br>");
 }
 
@@ -49,7 +47,7 @@ export function FileMentionTextarea({
   }, [workspaceId]);
 
   useEffect(() => {
-    if (editor.current && (editor.current.dataset.initialized !== "true" || document.activeElement !== editor.current)) {
+    if (editor.current && (editor.current.dataset.initialized !== "true" || document.activeElement !== editor.current || editor.current.dataset.dirty !== "true")) {
       editor.current.innerHTML = toHtml(current, files);
       editor.current.dataset.initialized = "true";
     }
@@ -63,6 +61,7 @@ export function FileMentionTextarea({
   }
 
   function handleInput() {
+    if (editor.current) editor.current.dataset.dirty = "true";
     const next = readValue();
     const selection = window.getSelection();
     const cursor = selection?.anchorOffset ?? 0;
@@ -102,6 +101,7 @@ export function FileMentionTextarea({
     chip.dataset.fileMention = file.id;
     chip.className = "inline-flex items-center gap-1 rounded-md bg-foreground px-1.5 py-0.5 text-background text-[12px] font-semibold align-baseline";
     chip.textContent = "📎 " + file.fileName;
+    node.dataset.dirty = "true";
     range.insertNode(chip);
     const space = document.createTextNode(" ");
     chip.after(space);
