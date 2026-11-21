@@ -114,6 +114,7 @@ export type KanbanTask = {
   dueDate: string | null;
   dueState: DueDateState;
   projectTitle: string | null;
+  assigneeName: string | null;
 };
 
 /** Quadro: abertas + concluídas nos últimos 14 dias, já ordenadas por posição. */
@@ -130,7 +131,7 @@ export async function listKanbanTasks({
   const since = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
   let query = supabase
     .from("tasks")
-    .select("id, title, status, position, priority, due_date, projects(title)")
+    .select("id, title, status, position, priority, due_date, projects(title), assignee:profiles!tasks_assignee_id_fkey(full_name)")
     .eq("workspace_id", workspaceId)
     .is("deleted_at", null)
     .is("archived_at", null)
@@ -153,6 +154,7 @@ export async function listKanbanTasks({
       priority: string;
       due_date: string | null;
       projects: { title: string } | null;
+      assignee: { full_name: string } | null;
     }[]
   ).map((row) => ({
     id: row.id,
@@ -163,6 +165,7 @@ export async function listKanbanTasks({
     dueDate: row.due_date,
     dueState: classifyDueDate(row.due_date, today),
     projectTitle: row.projects?.title ?? null,
+    assigneeName: row.assignee?.full_name ?? null,
   }));
 }
 
