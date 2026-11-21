@@ -48,12 +48,19 @@ export default async function SettingsPage() {
   const timezone = context.profile?.timezone || "America/Sao_Paulo";
 
   return (
-    <div className="grid gap-6">
-      <PageHeader
-        eyebrow="Sua conta"
-        title="Configurações"
-        description="Perfil, aparência, notificações e seus dados. Nada aqui apaga conteúdo sem confirmação."
-      />
+    <div className="grid gap-7">
+      <header className="relative overflow-hidden rounded-3xl border border-border bg-surface p-6 sm:p-8">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-28 size-72 rounded-full bg-brand/10 blur-3xl" />
+        <div className="relative max-w-2xl">
+          <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-brand">Conta e preferências</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-.05em] sm:text-[40px]">Seu espaço, suas regras<span className="text-brand">.</span></h1>
+          <p className="mt-3 text-sm leading-6 text-muted">Gerencie seus dados, personalize a experiência e controle como o Órbita acompanha seu trabalho.</p>
+        </div>
+        <div className="relative mt-6 flex flex-wrap gap-2 border-t border-border pt-4 text-xs text-muted">
+          <span className="rounded-full bg-surface-2 px-3 py-1.5">Perfil: {fullName}</span>
+          <span className="rounded-full bg-surface-2 px-3 py-1.5">Fuso: {timezone}</span>
+        </div>
+      </header>
 
       {!context.profile ? (
         <div
@@ -73,18 +80,18 @@ export default async function SettingsPage() {
         <div className="-mx-1 overflow-x-auto px-1 pb-1">
           <TabsList
             aria-label="Seções de configuração"
-            className="h-auto min-h-10 w-max bg-surface-2 p-1"
+            className="h-auto min-h-11 w-max rounded-xl border border-border bg-surface p-1.5 shadow-[var(--shadow-1)]"
           >
-            <TabsTrigger value="perfil" className="min-h-9 px-3">
+            <TabsTrigger value="perfil" className="min-h-9 rounded-lg px-4">
               Perfil
             </TabsTrigger>
-            <TabsTrigger value="aparencia" className="min-h-9 px-3">
+            <TabsTrigger value="aparencia" className="min-h-9 rounded-lg px-4">
               Aparência
             </TabsTrigger>
-            <TabsTrigger value="notificacoes" className="min-h-9 px-3">
+            <TabsTrigger value="notificacoes" className="min-h-9 rounded-lg px-4">
               Notificações
             </TabsTrigger>
-            <TabsTrigger value="privacidade" className="min-h-9 px-3">
+            <TabsTrigger value="privacidade" className="min-h-9 rounded-lg px-4">
               Privacidade e dados
             </TabsTrigger>
           </TabsList>
