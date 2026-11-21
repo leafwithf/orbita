@@ -31,7 +31,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <BrandLockup />
 
         <div className="relative my-auto max-w-[440px] py-16">
-          <p className="mb-4 text-[11px] font-semibold tracking-[0.16em] text-[#8fb4ff] uppercase">
+          <p className="mb-4 text-[11px] font-semibold tracking-[0.16em] text-[#e5b76e] uppercase">
             Clareza antes de velocidade
           </p>
           <h2 className="text-[34px] leading-[1.15] font-semibold tracking-[-0.03em] text-balance">
