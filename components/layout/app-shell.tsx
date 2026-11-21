@@ -73,7 +73,7 @@ export function AppShell({
         </SheetContent>
       </Sheet>
 
-      <div className="min-h-dvh bg-canvas lg:grid lg:grid-cols-[var(--sidebar-w)_minmax(0,1fr)]">
+      <div className="min-h-dvh bg-background lg:grid lg:grid-cols-[var(--sidebar-w)_minmax(0,1fr)]">
         <Sidebar viewer={viewer} workspace={workspace} workspaces={workspaces} activeWorkspaceId={activeWorkspaceId} />
         <div className="flex min-w-0 flex-col">
           <Topbar
