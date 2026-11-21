@@ -72,7 +72,7 @@ export function ThemePreference() {
                 className={cn(
                   "flex min-h-[68px] items-center gap-3 rounded-xl border px-3 py-3 text-left transition-all",
                   checked
-                    ? "border-brand bg-brand/5 shadow-[0_0_0_2px_color-mix(in_srgb,var(--brand)_18%,transparent)]"
+                    ? "border-brand bg-brand/5 ring-2 ring-brand/20"
                     : "border-border bg-surface hover:border-border-strong hover:bg-surface-2",
                 )}
               >
@@ -137,7 +137,7 @@ export function ThemePreference() {
         </fieldset>
       </div>
       <p className="text-[11.5px] leading-relaxed text-faint">
-        A paleta fica salva separadamente para cada conta neste dispositivo.
+        A paleta fica salva na sua conta e acompanha você quando entrar em outro dispositivo.
         O modo claro/escuro é uma preferência independente.
       </p>
     </div>
