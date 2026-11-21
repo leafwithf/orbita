@@ -92,7 +92,7 @@ export default async function OverviewPage() {
                   </div>
                   <span className="rounded-full bg-brand-soft px-3 py-1.5 text-xs font-semibold text-brand">{data.focusProject.progress}%</span>
                 </div>
-                <div className="mt-5 h-2 overflow-hidden rounded-full bg-surface-3"><div className="h-full rounded-full bg-brand transition-all" style={{width:`${data.focusProject.progress}%`}}/></div>
+                <div className="mt-5 h-2 overflow-hidden rounded-full bg-surface-2"><div className="h-full rounded-full bg-brand transition-all" style={{width:`${data.focusProject.progress}%`}}/></div>
                 <div className="mt-5 flex flex-col justify-between gap-3 rounded-2xl bg-surface-2 p-4 sm:flex-row sm:items-center">
                   <div className="min-w-0"><p className="text-[10px] font-semibold tracking-[.15em] text-muted uppercase">Próximo passo</p><p className="mt-1 text-sm font-medium">{data.focusProject.nextStep ?? "Defina a próxima entrega deste projeto."}</p></div>
                   <Link href={`/projetos/${data.focusProject.id}`} className="inline-flex h-9 shrink-0 items-center gap-1 rounded-lg border border-border-strong bg-surface px-3 text-xs font-semibold text-ink no-underline">Abrir projeto <ArrowUpRight className="size-3.5"/></Link>
@@ -122,7 +122,7 @@ export default async function OverviewPage() {
 
           <section className="rounded-2xl border border-border bg-surface p-5">
             <div className="flex items-center gap-2"><GraduationCap className="size-4 text-brand"/><h2 className="text-sm font-semibold">Aprendizado</h2><Link href="/cursos" className="ml-auto text-xs font-semibold text-brand no-underline">Ver cursos</Link></div>
-            {data.focusCourse ? <div className="mt-4"><h3 className="font-semibold leading-5">{data.focusCourse.title}</h3><p className="mt-1 text-xs text-muted">{data.focusCourse.platform ?? "Curso em andamento"}</p><div className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface-3"><div className="h-full rounded-full bg-[var(--success-600)]" style={{width:`${data.focusCourse.progress}%`}}/></div><p className="mt-2 text-xs text-muted">{data.focusCourse.progress}% concluído</p>{data.focusCourse.nextLesson ? <p className="mt-3 rounded-xl bg-surface-2 p-3 text-xs leading-5"><span className="font-semibold">Próxima aula · </span>{data.focusCourse.nextLesson}</p>:null}</div> : <p className="mt-3 text-sm leading-6 text-muted">Escolha um curso principal para acompanhar seu progresso de aprendizado.</p>}
+            {data.focusCourse ? <div className="mt-4"><h3 className="font-semibold leading-5">{data.focusCourse.title}</h3><p className="mt-1 text-xs text-muted">{data.focusCourse.platform ?? "Curso em andamento"}</p><div className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface-2"><div className="h-full rounded-full bg-[var(--success-600)]" style={{width:`${data.focusCourse.progress}%`}}/></div><p className="mt-2 text-xs text-muted">{data.focusCourse.progress}% concluído</p>{data.focusCourse.nextLesson ? <p className="mt-3 rounded-xl bg-surface-2 p-3 text-xs leading-5"><span className="font-semibold">Próxima aula · </span>{data.focusCourse.nextLesson}</p>:null}</div> : <p className="mt-3 text-sm leading-6 text-muted">Escolha um curso principal para acompanhar seu progresso de aprendizado.</p>}
           </section>
 
           <section className="rounded-2xl border border-border bg-surface p-5">
