@@ -63,9 +63,9 @@ export default function manifest(): MetadataRoute.Manifest {
         url: "/criar?tipo=ideia",
         icons: [
           {
-            src: "/icons/orbita.svg",
-            sizes: "any",
-            type: "image/svg+xml",
+            src: "/icons/icon-192.png",
+            sizes: "192x192",
+            type: "image/png",
           },
         ],
       },
