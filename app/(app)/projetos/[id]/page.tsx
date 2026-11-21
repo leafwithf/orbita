@@ -69,9 +69,10 @@ export default async function ProjectDetailPage({
   const context = await getAppContext();
 
   if (!context.workspace) notFound();
+  const workspace = context.workspace;
 
   const project = await getProjectDetail({
-    workspaceId: context.workspace.id,
+    workspaceId: workspace.id,
     projectId: id,
     today: context.today,
   });
@@ -79,18 +80,18 @@ export default async function ProjectDetailPage({
   if (!project) notFound();
 
   const [tasks, workspaceProjects] = await Promise.all([listTasks({
-    workspaceId: context.workspace.id,
+    workspaceId: workspace.id,
     today: context.today,
     includeDone: true,
     projectId: project.id,
-  }), listProjects({ workspaceId: context.workspace.id, today: context.today })]);
-  const canEditProject = project.ownerId === context.user.id && canEditContent(context.workspace.role);
+  }), listProjects({ workspaceId: workspace.id, today: context.today })]);
+  const canEditProject = project.ownerId === context.user.id && canEditContent(workspace.role);
   const openTasks = tasks.filter((task) => task.status !== "done");
   const [comments, projectFiles] = await Promise.all([listComments({
-    workspaceId: context.workspace.id,
+    workspaceId: workspace.id,
     entityType: "project",
     entityId: project.id,
-  }), listProjectFiles({ workspaceId: context.workspace.id, projectId: project.id })]);
+  }), listProjectFiles({ workspaceId: workspace.id, projectId: project.id })]);
 
   return (
     <div className="grid gap-6">
@@ -238,8 +239,8 @@ export default async function ProjectDetailPage({
 
           <SectionCard title={`Arquivos do projeto · ${projectFiles.length}`} description="Materiais e referências compartilhados com quem tem acesso a este projeto.">
             <div className="grid gap-4">
-              {canEditContent(context.workspace.role) ? (
-                <FileUploader workspaceId={context.workspace.id} projectId={project.id} />
+              {canEditContent(workspace.role) ? (
+                <FileUploader workspaceId={workspace.id} projectId={project.id} />
               ) : (
                 <p className="text-[12px] text-muted">Somente editores podem enviar arquivos para este projeto.</p>
               )}
@@ -254,7 +255,7 @@ export default async function ProjectDetailPage({
                         <p className="truncate text-[13px] font-medium">{file.fileName}</p>
                         <p className="mt-0.5 text-[11px] text-faint">{formatBytes(file.sizeBytes)} · {file.authorName} · {formatDatePtBr(file.createdAt.slice(0, 10))}</p>
                       </div>
-                      <FileActions fileId={file.id} fileName={file.fileName} mime={file.mime} ready={file.status === "ready"} canManage={canEditContent(context.workspace.role)} />
+                      <FileActions fileId={file.id} fileName={file.fileName} mime={file.mime} ready={file.status === "ready"} canManage={canEditContent(workspace.role)} />
                     </li>
                   ))}
                 </ul>
@@ -264,14 +265,14 @@ export default async function ProjectDetailPage({
 
           <SectionCard title="Conversa">
             <CommentThread
-              workspaceId={context.workspace.id}
+              workspaceId={workspace.id}
               entityType="project"
               entityId={project.id}
               comments={comments}
               files={projectFiles.filter((file) => file.status === "ready").map(({ id, fileName }) => ({ id, fileName }))}
               viewerId={context.user.id}
-              canComment={canComment(context.workspace.role)}
-              canModerate={canManageMembers(context.workspace.role)}
+              canComment={canComment(workspace.role)}
+              canModerate={canManageMembers(workspace.role)}
             />
           </SectionCard>
         </div>
