@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
         hostname: "ahamulrbjpnfnyreglxd.supabase.co",
         pathname: "/storage/v1/object/**",
       },
+      {
+        protocol: "https",
+        hostname: "pin.it",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.pinimg.com",
+        pathname: "/**",
+      },
     ],
   },
   // Playwright talks to the dev server through 127.0.0.1.
