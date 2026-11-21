@@ -194,28 +194,48 @@ export async function getDashboardData({
     projectIds.push(focusProjectId);
   }
 
-  const progressResult = projectIds.length
-    ? await supabase
-        .from("tasks")
-        .select("project_id, weight, status, parent_task_id")
-        .eq("workspace_id", workspaceId)
-        .in("project_id", projectIds)
-        .is("deleted_at", null)
-    : { data: [] as ProgressRow[] };
+  const [progressResult, focusProjectResult, focusCourseResult] = await Promise.all([
+    projectIds.length
+      ? supabase
+          .from("tasks")
+          .select("project_id, weight, status, parent_task_id")
+          .eq("workspace_id", workspaceId)
+          .in("project_id", projectIds)
+          .is("deleted_at", null)
+      : Promise.resolve({ data: [] as ProgressRow[] }),
+    focusProjectId && !projectRows.some((row) => row.id === focusProjectId)
+      ? supabase
+          .from("projects")
+          .select("id, title, emoji, cover_url, objective, next_step, stage, due_date")
+          .eq("id", focusProjectId)
+          .eq("workspace_id", workspaceId)
+          .maybeSingle<ProjectRow>()
+      : Promise.resolve({ data: null as ProjectRow | null }),
+    focusCourseId
+      ? supabase
+          .from("courses")
+          .select("id, title, platform, progress, next_lesson, due_date")
+          .eq("id", focusCourseId)
+          .eq("workspace_id", workspaceId)
+          .is("deleted_at", null)
+          .maybeSingle<{
+            id: string;
+            title: string;
+            platform: string | null;
+            progress: number;
+            next_lesson: string | null;
+            due_date: string | null;
+          }>()
+      : Promise.resolve({ data: null }),
+  ]);
 
   const progress = progressByProject(
     (progressResult.data ?? []) as ProgressRow[],
   );
 
   const projectById = new Map(projectRows.map((row) => [row.id, row]));
-  if (focusProjectId && !projectById.has(focusProjectId)) {
-    const { data } = await supabase
-      .from("projects")
-      .select("id, title, emoji, cover_url, objective, next_step, stage, due_date")
-      .eq("id", focusProjectId)
-      .eq("workspace_id", workspaceId)
-      .maybeSingle<ProjectRow>();
-    if (data) projectById.set(data.id, data);
+  if (focusProjectResult.data) {
+    projectById.set(focusProjectResult.data.id, focusProjectResult.data);
   }
 
   const toProject = (row: ProjectRow): DashboardProject => ({
@@ -237,34 +257,16 @@ export async function getDashboardData({
     ? projectById.get(focusProjectId) ?? null
     : null;
 
-  let focusCourse: DashboardCourse | null = null;
-  if (focusCourseId) {
-    const { data } = await supabase
-      .from("courses")
-      .select("id, title, platform, progress, next_lesson, due_date")
-      .eq("id", focusCourseId)
-      .eq("workspace_id", workspaceId)
-      .is("deleted_at", null)
-      .maybeSingle<{
-        id: string;
-        title: string;
-        platform: string | null;
-        progress: number;
-        next_lesson: string | null;
-        due_date: string | null;
-      }>();
-
-    if (data) {
-      focusCourse = {
-        id: data.id,
-        title: data.title,
-        platform: data.platform,
-        progress: data.progress,
-        nextLesson: data.next_lesson,
-        dueDate: data.due_date,
-      };
-    }
-  }
+  const focusCourse: DashboardCourse | null = focusCourseResult.data
+    ? {
+        id: focusCourseResult.data.id,
+        title: focusCourseResult.data.title,
+        platform: focusCourseResult.data.platform,
+        progress: focusCourseResult.data.progress,
+        nextLesson: focusCourseResult.data.next_lesson,
+        dueDate: focusCourseResult.data.due_date,
+      }
+    : null;
 
   const tasks = taskRows.map((row) => toDashboardTask(row, today));
   const todayTasks = tasks.filter((task) => task.dueState === "today");
