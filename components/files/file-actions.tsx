@@ -15,11 +15,13 @@ export function FileActions({
   fileName,
   mime,
   ready,
+  canManage = true,
 }: {
   fileId: string;
   fileName: string;
   mime: string;
   ready: boolean;
+  canManage?: boolean;
 }) {
   const router = useRouter();
 
@@ -66,9 +68,11 @@ export function FileActions({
           <Download className="size-4" aria-hidden="true" />
         </a>
       ) : null}
-      <button type="button" onClick={trash} className={base} aria-label={`Excluir ${fileName}`} title="Excluir">
-        <Trash2 className="size-4" aria-hidden="true" />
-      </button>
+      {canManage ? (
+        <button type="button" onClick={trash} className={base} aria-label={`Excluir ${fileName}`} title="Excluir">
+          <Trash2 className="size-4" aria-hidden="true" />
+        </button>
+      ) : null}
     </div>
   );
 }
