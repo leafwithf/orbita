@@ -73,7 +73,7 @@ export function AppShell({
         </SheetContent>
       </Sheet>
 
-      <div className="min-h-dvh lg:grid lg:grid-cols-[var(--sidebar-w)_minmax(0,1fr)]">
+      <div className="min-h-dvh bg-canvas lg:grid lg:grid-cols-[var(--sidebar-w)_minmax(0,1fr)]">
         <Sidebar viewer={viewer} workspace={workspace} workspaces={workspaces} activeWorkspaceId={activeWorkspaceId} />
         <div className="flex min-w-0 flex-col">
           <Topbar
@@ -86,7 +86,7 @@ export function AppShell({
           />
           <main
             id="conteudo"
-            className="mx-auto w-full max-w-[1240px] flex-1 px-4 pt-6 pb-28 sm:px-6 lg:px-8 lg:pt-8 lg:pb-16"
+            className="mx-auto w-full max-w-[1440px] flex-1 px-4 pt-5 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-6 sm:pt-7 lg:px-9 lg:pt-9 lg:pb-16 xl:px-11"
           >
             {children}
           </main>
