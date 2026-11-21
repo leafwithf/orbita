@@ -91,7 +91,7 @@ export function SidebarContent({
   const [spacesOpen, setSpacesOpen] = useState(false);
 
   return (
-    <div className="flex h-full min-h-0 flex-col px-3.5 py-4.5">
+    <div className="flex min-h-full flex-col px-4 py-5 sm:px-3.5 sm:py-4.5">
       <div className="px-1.5 pb-4">
         <Link
           href="/"
