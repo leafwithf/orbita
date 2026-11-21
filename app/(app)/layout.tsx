@@ -26,7 +26,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   return (
     <AppShell
       unread={unread}
-      workspaces={workspaces.map(({ id, name, kind }) => ({ id, name, kind }))}
+      workspaces={workspaces.map(({ id, name, kind, brandColor, coverUrl }) => ({ id, name, kind, brandColor, coverUrl }))}
       activeWorkspaceId={context.workspace?.id ?? null}
       viewer={{
         name: contextDisplayName(context),
@@ -34,7 +34,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       }}
       workspace={
         context.workspace
-          ? { name: context.workspace.name, role: context.workspace.role }
+          ? { name: context.workspace.name, role: context.workspace.role, brandColor: context.workspace.brandColor, coverUrl: context.workspace.coverUrl }
           : null
       }
     >
