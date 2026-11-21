@@ -14,6 +14,7 @@ import {
   removeMemberAction,
   revokeInvitationAction,
   switchWorkspaceAction,
+  updateWorkspaceAppearanceAction,
 } from "@/lib/actions/collab";
 import { getAppContext } from "@/lib/data/context";
 import { listPendingInvitations } from "@/lib/data/invitations";
@@ -229,6 +230,53 @@ export default async function WorkspacesPage() {
               </div>
             </details>
           </SectionCard>
+
+          {canInvite ? (
+            <SectionCard
+              title="Identidade visual"
+              description="Personalize a cor e a imagem que identificam este espaço."
+            >
+              <form action={updateWorkspaceAppearanceAction} className="grid gap-3">
+                <input type="hidden" name="workspaceId" value={workspace.id} />
+                <label className="grid gap-1.5 text-[12.5px] font-medium">
+                  Cor do espaço
+                  <div className="flex min-h-11 items-center gap-3 rounded-md border border-border bg-surface px-3">
+                    <input
+                      type="color"
+                      name="color"
+                      defaultValue={workspace.brandColor}
+                      aria-label="Escolher cor do espaço"
+                      className="size-8 cursor-pointer rounded border-0 bg-transparent p-0"
+                    />
+                    <span className="text-[12px] text-muted">Usada no indicador do espaço e na navegação.</span>
+                  </div>
+                </label>
+                <label className="grid gap-1.5 text-[12.5px] font-medium">
+                  Foto de capa (URL HTTPS)
+                  <input
+                    type="url"
+                    name="coverUrl"
+                    defaultValue={workspace.coverUrl ?? ""}
+                    placeholder="https://exemplo.com/imagem.jpg"
+                    maxLength={2048}
+                    className={selectClass}
+                  />
+                  <span className="text-[11.5px] font-normal text-faint">
+                    Opcional. Por enquanto, use um link público HTTPS direto para a imagem.
+                  </span>
+                </label>
+                <button type="submit" className={secondaryButton}>
+                  Salvar identidade
+                </button>
+              </form>
+            </SectionCard>
+          ) : (
+            <SectionCard title="Identidade visual">
+              <p className="text-[12.5px] leading-relaxed text-muted">
+                Apenas proprietários e administradores podem alterar a aparência deste espaço.
+              </p>
+            </SectionCard>
+          )}
 
           <SectionCard title="Este espaço">
             <dl className="grid gap-2 text-[12.5px]">
