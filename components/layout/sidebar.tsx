@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, Plus } from "lucide-react";
+import { ChevronDown, LogOut, Plus } from "lucide-react";
+import { useState } from "react";
 
 import { BrandLockup } from "@/components/brand/logo";
 import {
@@ -20,6 +21,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { signOutAction } from "@/lib/auth/actions";
+import { switchWorkspaceAction } from "@/lib/actions/collab";
 import type { WorkspaceRole } from "@/modules/workspaces/domain";
 import { ROLE_LABELS } from "@/modules/workspaces/domain";
 import { cn } from "@/lib/utils";
@@ -28,6 +30,8 @@ export type SidebarViewer = {
   name: string;
   email: string;
 };
+
+export type SidebarWorkspaceItem = { id: string; name: string; brandColor: string; coverUrl: string | null; };
 
 export type SidebarWorkspace = {
   name: string;
@@ -74,12 +78,18 @@ function NavLink({
 export function SidebarContent({
   viewer,
   workspace,
+  workspaces = [],
+  activeWorkspaceId = null,
   onNavigate,
 }: {
   viewer: SidebarViewer;
   workspace: SidebarWorkspace;
+  workspaces?: SidebarWorkspaceItem[];
+  activeWorkspaceId?: string | null;
   onNavigate?: () => void;
 }) {
+  const [spacesOpen, setSpacesOpen] = useState(false);
+
   return (
     <div className="flex h-full min-h-0 flex-col px-3.5 py-4.5">
       <div className="px-1.5 pb-4">
@@ -93,24 +103,32 @@ export function SidebarContent({
         </Link>
       </div>
 
-      <Link
-        href="/espacos"
-        onClick={onNavigate}
-        className="relative flex min-h-11 items-center gap-2.5 overflow-hidden rounded-[10px] border border-sidebar-border bg-sidebar-accent bg-cover bg-center px-2.5 py-2 text-sidebar-accent-foreground no-underline transition-colors hover:bg-[#1b2740] hover:no-underline"
-        style={workspace?.coverUrl ? { backgroundImage: `linear-gradient(90deg, rgba(13,18,29,.96), rgba(13,18,29,.78)), url("${workspace.coverUrl}")` } : undefined}
-      >
-        <span className="grid size-[22px] flex-none place-items-center rounded-md text-[11px] font-bold text-[#101521]" style={{ backgroundColor: workspace?.brandColor ?? "#d6a64b" }}>
-          {workspace ? workspace.name.slice(0, 1).toUpperCase() : "Ó"}
-        </span>
-        <span className="grid min-w-0 leading-tight">
-          <span className="truncate text-[13px] font-medium text-white">
-            {workspace?.name ?? "Configurar espaço"}
+      <div className="grid gap-1">
+        <button type="button" onClick={() => setSpacesOpen((open) => !open)} aria-expanded={spacesOpen} aria-controls="workspace-switcher-list" className="relative flex min-h-11 w-full items-center gap-2.5 overflow-hidden rounded-[10px] border border-sidebar-border bg-sidebar-accent px-2.5 py-2 text-left text-sidebar-accent-foreground transition-colors hover:bg-[#1b2740]">
+          <span className="grid size-[22px] flex-none place-items-center rounded-md text-[11px] font-bold text-[#101521]" style={{ backgroundColor: workspace?.brandColor ?? "#d6a64b" }}>{workspace ? workspace.name.slice(0, 1).toUpperCase() : "Ó"}</span>
+          <span className="grid min-w-0 flex-1 leading-tight">
+            <span className="truncate text-[13px] font-medium text-white">{workspace?.name ?? "Configurar espaço"}</span>
+            <span className="truncate text-[10.5px] text-[#a9b4c6]">{workspace ? ROLE_LABELS[workspace.role] : "Nenhum espaço ainda"}</span>
           </span>
-          <span className="truncate text-[10.5px] text-[#a9b4c6]">
-            {workspace ? ROLE_LABELS[workspace.role] : "Nenhum espaço ainda"}
-          </span>
-        </span>
-      </Link>
+          <ChevronDown className={cn("size-4 flex-none text-[#a9b4c6] transition-transform", spacesOpen && "rotate-180")} aria-hidden="true" />
+        </button>
+        {spacesOpen ? (
+          <div id="workspace-switcher-list" className="grid gap-1 rounded-[10px] border border-sidebar-border bg-[#0d1421] p-1.5">
+            <p className="px-2 py-1 text-[10px] font-semibold tracking-[0.1em] text-[#7f8ca3] uppercase">Seus espaços</p>
+            {workspaces.map((item) => (
+              <form key={item.id} action={switchWorkspaceAction}>
+                <input type="hidden" name="workspaceId" value={item.id} />
+                <button type="submit" onClick={onNavigate} aria-current={item.id === activeWorkspaceId ? "true" : undefined} className={cn("flex min-h-10 w-full items-center gap-2 rounded-md px-2 text-left text-[12.5px] transition-colors hover:bg-sidebar-accent", item.id === activeWorkspaceId ? "bg-sidebar-accent text-white" : "text-[#b8c3d5]")}>
+                  <span className="grid size-6 flex-none place-items-center rounded-md text-[10px] font-bold text-[#101521]" style={{ backgroundColor: item.brandColor }}>{item.name.slice(0, 1).toUpperCase()}</span>
+                  <span className="min-w-0 flex-1 truncate">{item.name}</span>
+                  {item.id === activeWorkspaceId ? <span className="text-[10px] font-semibold text-brand">ATUAL</span> : null}
+                </button>
+              </form>
+            ))}
+            <Link href="/espacos" onClick={onNavigate} className="mt-1 border-t border-sidebar-border px-2 pt-2 text-[11px] font-medium text-brand no-underline hover:underline">Gerenciar espaços</Link>
+          </div>
+        ) : null}
+      </div>
 
       <Button
         asChild
@@ -173,6 +191,8 @@ export function SidebarContent({
 export function Sidebar(props: {
   viewer: SidebarViewer;
   workspace: SidebarWorkspace;
+  workspaces?: SidebarWorkspaceItem[];
+  activeWorkspaceId?: string | null;
 }) {
   return (
     <aside className="sticky top-0 hidden h-dvh overflow-y-auto border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:block">
