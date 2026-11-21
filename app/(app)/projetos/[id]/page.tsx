@@ -134,9 +134,11 @@ export default async function ProjectDetailPage({
         }
       />
 
-      <SectionCard title="Identidade do projeto" description="Troque o emoji que aparece nos cartões, listas e nesta página.">
-        <ProjectEmojiEditor projectId={project.id} currentEmoji={project.emoji} />
-      </SectionCard>
+      {project.ownerId === context.user.id ? (
+        <SectionCard title="Identidade do projeto" description="Troque o emoji que aparece nos cartões, listas e nesta página.">
+          <ProjectEmojiEditor projectId={project.id} currentEmoji={project.emoji} />
+        </SectionCard>
+      ) : null}
 
       <div className="flex flex-wrap items-center gap-2">
         <StatusChip label={projectStageLabel(project.stage)} tone="brand" />
