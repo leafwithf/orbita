@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type DragEvent, type ReactNode } from "react";
+import { useRef, useState, type DragEvent, type ReactNode } from "react";
 import {
   ArrowDown,
   ArrowLeft,
@@ -67,6 +67,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
   const [dragOverStatus, setDragOverStatus] = useState<KanbanStatus | null>(null);
   const [busy, setBusy] = useState(false);
+  const busyRef = useRef(false);
 
   if (tasks !== previousTasks) {
     setPreviousTasks(tasks);
@@ -93,7 +94,9 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   }
 
   async function move(task: KanbanTask, status: KanbanStatus, index: number) {
-    if (busy) return;
+    if (busyRef.current) return;
+    busyRef.current = true;
+    setBusy(true);
     const before = items;
     const others = column(status).filter((entry) => entry.id !== task.id);
     const safeIndex = Math.min(Math.max(index, 0), others.length);
@@ -121,7 +124,6 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
       `${task.title} movida para ${label}, posição ${safeIndex + 1} de ${ordered.length}.`,
     );
 
-    setBusy(true);
     try {
       const saved = await persist(
         task,
@@ -141,13 +143,23 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
           action: {
             label: "Desfazer",
             onClick: () => {
-              setItems(before);
-              void persist(task, task.status, task.position, null);
+              if (busyRef.current) return;
+              busyRef.current = true;
+              setBusy(true);
+              void persist(task, task.status, task.position, null)
+                .then((saved) => {
+                  if (saved) setItems(before);
+                })
+                .finally(() => {
+                  busyRef.current = false;
+                  setBusy(false);
+                });
             },
           },
         });
       }
     } finally {
+      busyRef.current = false;
       setBusy(false);
     }
   }
@@ -190,7 +202,8 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   }
 
   async function trash(task: KanbanTask) {
-    if (busy) return;
+    if (busyRef.current) return;
+    busyRef.current = true;
     const before = items;
     setBusy(true);
     setItems(items.filter((entry) => entry.id !== task.id));
@@ -207,12 +220,20 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
         action: {
           label: "Desfazer",
           onClick: () => {
-            setItems(before);
-            void restoreItemAction("tasks", task.id);
+            if (busyRef.current) return;
+            busyRef.current = true;
+            setBusy(true);
+            void restoreItemAction("tasks", task.id)
+              .then(() => setItems(before))
+              .finally(() => {
+                busyRef.current = false;
+                setBusy(false);
+              });
           },
         },
       });
     } finally {
+      busyRef.current = false;
       setBusy(false);
     }
   }
