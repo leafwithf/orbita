@@ -238,7 +238,11 @@ export default async function ProjectDetailPage({
 
           <SectionCard title={`Arquivos do projeto · ${projectFiles.length}`} description="Materiais e referências compartilhados com quem tem acesso a este projeto.">
             <div className="grid gap-4">
-              <FileUploader workspaceId={context.workspace.id} projectId={project.id} />
+              {canEditContent(context.workspace.role) ? (
+                <FileUploader workspaceId={context.workspace.id} projectId={project.id} />
+              ) : (
+                <p className="text-[12px] text-muted">Somente editores podem enviar arquivos para este projeto.</p>
+              )}
               {projectFiles.length === 0 ? (
                 <p className="rounded-md border border-dashed border-border p-4 text-center text-[12.5px] text-muted">Nenhum arquivo neste projeto ainda. Envie o primeiro material acima.</p>
               ) : (
@@ -250,7 +254,7 @@ export default async function ProjectDetailPage({
                         <p className="truncate text-[13px] font-medium">{file.fileName}</p>
                         <p className="mt-0.5 text-[11px] text-faint">{formatBytes(file.sizeBytes)} · {file.authorName} · {formatDatePtBr(file.createdAt.slice(0, 10))}</p>
                       </div>
-                      <FileActions fileId={file.id} fileName={file.fileName} mime={file.mime} ready={file.status === "ready"} />
+                      <FileActions fileId={file.id} fileName={file.fileName} mime={file.mime} ready={file.status === "ready"} canManage={canEditContent(context.workspace.role)} />
                     </li>
                   ))}
                 </ul>
