@@ -19,10 +19,12 @@ import { cn } from "@/lib/utils";
 
 export function CreateTaskForm({
   today,
+  workspaceId,
   projects,
   defaultProjectId,
 }: {
   today: string;
+  workspaceId: string;
   projects: { id: string; title: string }[];
   defaultProjectId?: string;
 }) {
@@ -132,6 +134,7 @@ export function CreateTaskForm({
         <div className="mt-3">
           <TextAreaField
             id="task-description"
+            workspaceId={workspaceId}
             name="description"
             label="Descrição"
             placeholder="Contexto, links, critério de conclusão…"
