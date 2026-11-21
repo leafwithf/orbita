@@ -88,7 +88,7 @@ export function FileMentionTextarea({
     const selection = window.getSelection();
     if (!node || !selection || !selection.rangeCount) return;
     const range = selection.getRangeAt(0);
-    let textNode = range.startContainer;
+    const textNode = range.startContainer;
     if (textNode.nodeType !== Node.TEXT_NODE || !textNode.parentNode?.isSameNode(node) && !node.contains(textNode)) return;
     const text = textNode.textContent ?? "";
     const cursor = range.startOffset;
