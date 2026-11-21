@@ -45,7 +45,15 @@ export function CommentThread({
       .catch(() => { if (active) { setFiles([]); setFilesLoaded(true); } });
     return () => { active = false; };
   }, [workspaceId]);
-  const [state, formAction, pending] = useActionState(addCommentAction, initialFormState);
+  const commentFormRef = useRef<HTMLFormElement>(null);
+  const [state, formAction, pending] = useActionState(
+    async (previousState: typeof initialFormState, formData: FormData) => {
+      const result = await addCommentAction(previousState, formData);
+      if (result.status === "success") setNewBody("");
+      return result;
+    },
+    initialFormState,
+  );
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const [newBody, setNewBody] = useState("");
@@ -64,15 +72,6 @@ export function CommentThread({
       );
     });
   }
-  const commentFormRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (state.status === "success") {
-      commentFormRef.current?.reset();
-      if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
-      setNewBody("");
-    }
-  }, [state]);
   async function saveEdit(id: string) {
     const result = await editCommentAction({ commentId: id, body: draft });
     if (result.status === "error") {
