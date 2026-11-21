@@ -1,12 +1,14 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useMemo, useState, useTransition, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { ImagePlus, Search, X } from "lucide-react";
 
 import { FormMessage } from "@/components/auth/form-message";
 import { SubmitButton } from "@/components/forms/submit-button";
 import { initialFormState } from "@/lib/actions/state";
-import { updateProjectEmojiAction, uploadProjectIconAction } from "@/lib/actions/projects";
+import { saveProjectIconAction, updateProjectEmojiAction } from "@/lib/actions/projects";
+import { createClient as createBrowserClient } from "@/lib/supabase/client";
 
 export const PROJECT_EMOJIS = [
   "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😋","😎","🤩","🥳","😏","😴","🤔","🫡","🤗","🤭","🤫","🤥","😶","🙄","😬","🤐","🥱","😮","😯","😲","😳","🥺","😭","😤","😡","🤯","🥶","🥵","🤠","🥸","😈","👻","💀","🤖","👽","🎃",
@@ -37,7 +39,9 @@ export function ProjectEmojiEditor({
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [preview, setPreview] = useState(currentImage);
   const [emojiState, emojiAction, emojiPending] = useActionState(updateProjectEmojiAction, initialFormState);
-  const [imageState, imageAction, imagePending] = useActionState(uploadProjectIconAction, initialFormState);
+  const [imageMessage, setImageMessage] = useState<{ status: "error" | "success"; message: string } | null>(null);
+  const [imagePending, startImageTransition] = useTransition();
+  const router = useRouter();
   const emojis = useMemo(
     () => [...new Set(PROJECT_EMOJIS)].filter((item) => item.includes(query.trim())),
     [query],
@@ -90,13 +94,76 @@ export function ProjectEmojiEditor({
       <div className="grid gap-2 rounded-xl border border-border bg-surface-2/40 p-3">
         <div className="flex items-center gap-2 text-[13px] font-medium text-ink"><ImagePlus className="size-4 text-brand" /> Ou envie uma imagem</div>
         {preview ? <img src={preview} alt="Prévia da imagem do projeto" className="size-16 rounded-xl border border-border object-cover" /> : null}
-        <form action={imageAction} className="grid gap-2">
-          <input type="hidden" name="projectId" value={projectId} />
+        <form
+          className="grid gap-2"
+          onSubmit={(event: FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            const input = event.currentTarget.elements.namedItem("icon");
+            const file = input instanceof HTMLInputElement ? input.files?.[0] : undefined;
+            if (!file) {
+              setImageMessage({ status: "error", message: "Selecione uma imagem antes de enviar." });
+              return;
+            }
+            const extensions: Record<string, string> = {
+              "image/png": "png",
+              "image/jpeg": "jpg",
+              "image/webp": "webp",
+              "image/gif": "gif",
+            };
+            const extension = extensions[file.type];
+            if (!extension) {
+              setImageMessage({ status: "error", message: "Use uma imagem PNG, JPG, WEBP ou GIF." });
+              return;
+            }
+            if (file.size > 4 * 1024 * 1024) {
+              setImageMessage({ status: "error", message: "A imagem deve ter no máximo 4 MB." });
+              return;
+            }
+            setImageMessage(null);
+            startImageTransition(async () => {
+              let uploadedPath: string | null = null;
+              try {
+                const supabase = createBrowserClient();
+                const { data: authData, error: authError } = await supabase.auth.getUser();
+                if (authError || !authData.user) {
+                  setImageMessage({ status: "error", message: "Sua sessão expirou. Entre novamente e tente." });
+                  return;
+                }
+                uploadedPath = `${authData.user.id}/${projectId}/${crypto.randomUUID()}.${extension}`;
+                const { error: uploadError } = await supabase.storage
+                  .from("project-icons")
+                  .upload(uploadedPath, file, { contentType: file.type, upsert: false });
+                if (uploadError) {
+                  setImageMessage({ status: "error", message: "Não foi possível enviar a imagem. Confira as permissões do armazenamento no Supabase." });
+                  return;
+                }
+                const result = await saveProjectIconAction(projectId, uploadedPath);
+                if (result.status !== "success") {
+                  await supabase.storage.from("project-icons").remove([uploadedPath]);
+                  setImageMessage({ status: "error", message: result.message || "Não foi possível salvar a imagem." });
+                  return;
+                }
+                setImageMessage({ status: "success", message: result.message || "Imagem atualizada." });
+                router.refresh();
+              } catch {
+                if (uploadedPath) {
+                  try {
+                    const supabase = createBrowserClient();
+                    await supabase.storage.from("project-icons").remove([uploadedPath]);
+                  } catch {
+                    // A falha de limpeza não deve ocultar a mensagem principal.
+                  }
+                }
+                setImageMessage({ status: "error", message: "Ocorreu um erro ao enviar a imagem. Tente novamente." });
+              }
+            });
+          }}
+        >
           <input name="icon" type="file" accept="image/png,image/jpeg,image/webp,image/gif" required onChange={(event) => { const file = event.target.files?.[0]; if (file) setPreview(URL.createObjectURL(file)); }} className="block w-full text-xs text-muted file:mr-3 file:min-h-10 file:rounded-lg file:border file:border-border file:bg-surface file:px-3 file:text-xs file:font-semibold file:text-ink" />
           <p className="text-[11px] text-faint">PNG, JPG, WEBP ou GIF · até 4 MB.</p>
           <div><SubmitButton pending={imagePending} pendingLabel="Enviando…">Salvar imagem</SubmitButton></div>
         </form>
-        <FormMessage status={imageState.status === "error" ? "error" : "success"} message={imageState.message} />
+        {imageMessage ? <FormMessage status={imageMessage.status} message={imageMessage.message} /> : null}
       </div>
     </div>
   );
