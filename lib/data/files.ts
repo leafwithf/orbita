@@ -33,7 +33,7 @@ export async function listFiles(
     .in("status", ["pending", "ready", "quarantined"])
     .is("deleted_at", null)
     .order("created_at", { ascending: false })
-    .limit(200);
+    .limit(1000);
 
   if (error) {
     return {
