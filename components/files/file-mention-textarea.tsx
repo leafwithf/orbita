@@ -131,11 +131,11 @@ export function FileMentionTextarea({
         data-placeholder={placeholder}
         onInput={handleInput}
         onKeyDown={(event) => { if (event.key === "Escape") setQuery(null); }}
-        className={"min-h-24 w-full whitespace-pre-wrap break-words rounded-md border border-input bg-surface px-3 py-2.5 text-[15px] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 empty:before:pointer-events-none empty:before:text-muted empty:before:content-[attr(data-placeholder)] md:text-sm " + (className ?? "")}
+        className={"min-h-24 w-full whitespace-pre-wrap break-words rounded-md border border-input bg-surface px-3 py-2.5 text-[15px] text-ink outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 empty:before:pointer-events-none empty:before:text-muted empty:before:content-[attr(data-placeholder)] md:text-sm " + (className ?? "")}
         style={{ minHeight: Math.max(96, rows * 24) }}
       />
       {query !== null ? (
-        <div role="listbox" aria-label="Arquivos do espaço" className="absolute bottom-full left-0 z-30 mb-1 max-h-56 w-full overflow-y-auto rounded-md border border-border bg-surface p-1 shadow-xl">
+        <div role="listbox" aria-label="Arquivos do espaço" className="absolute bottom-full left-0 z-30 mb-1 max-h-56 w-full overflow-y-auto rounded-md border border-border bg-surface p-1 text-ink shadow-xl">
           {matches.map((file) => (
             <button key={file.id} type="button" role="option" aria-selected="false" onMouseDown={(event) => event.preventDefault()} onClick={() => insert(file)} className="flex min-h-11 w-full items-center gap-2 rounded px-3 text-left text-[13px] hover:bg-surface-2">
               <FileText className="size-4 flex-none text-brand" />
