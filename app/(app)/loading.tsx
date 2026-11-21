@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
 function SkeletonBlock({ className = "" }: { className?: string }) {
-  return <Skeleton className={className} />;
+  return <Skeleton className={`orbital-skeleton ${className}`} />;
 }
 
 /** Shared route-level loading state for the authenticated workspace. */
