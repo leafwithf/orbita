@@ -62,13 +62,15 @@ export function AppShell({
           <SidebarContent
             viewer={viewer}
             workspace={workspace}
+            workspaces={workspaces}
+            activeWorkspaceId={activeWorkspaceId}
             onNavigate={() => setNavOpen(false)}
           />
         </SheetContent>
       </Sheet>
 
       <div className="min-h-dvh lg:grid lg:grid-cols-[var(--sidebar-w)_minmax(0,1fr)]">
-        <Sidebar viewer={viewer} workspace={workspace} />
+        <Sidebar viewer={viewer} workspace={workspace} workspaces={workspaces} activeWorkspaceId={activeWorkspaceId} />
         <div className="flex min-w-0 flex-col">
           <Topbar
             viewer={viewer}
