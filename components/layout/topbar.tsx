@@ -67,10 +67,15 @@ export function Topbar({
         <LogoMark className="size-6" />
       </Link>
 
-      <div className="grid min-w-0 leading-tight">
-        <p className="hidden truncate text-[11.5px] text-muted lg:block">
-          {workspace?.name ?? "ÓRBITA"}
-        </p>
+      <div className="grid min-w-0 gap-1 leading-tight">
+        <span
+          className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-full border border-brand/25 bg-brand/10 px-2 py-0.5 text-[10.5px] font-semibold text-brand-700"
+          aria-label={`Espaço atual: ${workspace?.name ?? "Órbita"}`}
+        >
+          <span aria-hidden="true" className="size-1.5 flex-none rounded-full bg-brand" />
+          <span className="truncate">{workspace?.name ?? "ÓRBITA"}</span>
+          <span className="hidden text-[9px] font-medium opacity-75 sm:inline">ESPAÇO ATUAL</span>
+        </span>
         <p className="truncate text-[14px] font-semibold" aria-live="polite">
           {title}
         </p>
