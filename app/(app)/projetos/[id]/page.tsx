@@ -26,7 +26,7 @@ import { getAppContext } from "@/lib/data/context";
 import { getProjectDetail, listProjects } from "@/lib/data/projects";
 import { listTasks } from "@/lib/data/tasks";
 import { formatDatePtBr } from "@/lib/dates";
-import { canComment, canManageMembers } from "@/modules/workspaces/domain";
+import { canComment, canEditContent, canManageMembers } from "@/modules/workspaces/domain";
 import {
   PROJECT_STATUS_LABELS,
   projectStageLabel,
@@ -80,6 +80,7 @@ export default async function ProjectDetailPage({
     includeDone: true,
     projectId: project.id,
   }), listProjects({ workspaceId: context.workspace.id, today: context.today })]);
+  const canEditProject = project.ownerId === context.user.id && canEditContent(context.workspace.role);
   const openTasks = tasks.filter((task) => task.status !== "done");
   const comments = await listComments({
     workspaceId: context.workspace.id,
@@ -122,7 +123,7 @@ export default async function ProjectDetailPage({
         actions={
           <>
             <ProjectSwitcher currentProjectId={project.id} projects={workspaceProjects} />
-            {project.ownerId === context.user.id ? <ProjectDetailsEditor project={project} /> : null}
+            {canEditProject ? <ProjectDetailsEditor project={project} /> : null}
             <Link
               href={`/criar?tipo=tarefa&projeto=${project.id}`}
               className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
@@ -134,7 +135,7 @@ export default async function ProjectDetailPage({
         }
       />
 
-      {project.ownerId === context.user.id ? (
+      {canEditProject ? (
         <SectionCard title="Identidade do projeto" description="Troque o emoji que aparece nos cartões, listas e nesta página.">
           <ProjectEmojiEditor projectId={project.id} currentEmoji={project.emoji} />
         </SectionCard>
