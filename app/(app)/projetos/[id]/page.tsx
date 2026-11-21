@@ -136,8 +136,8 @@ export default async function ProjectDetailPage({
       />
 
       {canEditProject ? (
-        <SectionCard title="Identidade do projeto" description="Troque o emoji que aparece nos cartões, listas e nesta página.">
-          <ProjectEmojiEditor projectId={project.id} currentEmoji={project.emoji} />
+        <SectionCard title="Identidade do projeto" description="Use um emoji ou envie uma imagem para identificar o projeto nos cartões, listas e nesta página.">
+          <ProjectEmojiEditor projectId={project.id} currentEmoji={project.emoji} currentImage={project.coverUrl} />
         </SectionCard>
       ) : null}
 
