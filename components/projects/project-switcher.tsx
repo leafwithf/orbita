@@ -19,10 +19,10 @@ export function ProjectSwitcher({
     <details className="group relative">
       <summary className="inline-flex min-h-9 cursor-pointer list-none items-center gap-2 rounded-md border border-border bg-surface px-3 text-[12.5px] font-semibold text-ink transition-colors hover:border-border-strong hover:bg-surface-2 [&::-webkit-details-marker]:hidden">
         <FolderKanban className="size-4 text-brand" aria-hidden="true" />
-        <span>Projetos</span>
+        <span className="max-w-[min(42vw,180px)] truncate">{current?.emoji ?? "🚀"} {current?.title ?? "Projeto atual"}</span>
         <ChevronDown className="size-3.5 text-muted transition-transform group-open:rotate-180" aria-hidden="true" />
       </summary>
-      <div className="absolute left-0 z-40 mt-2 w-[min( min( calc(100vw - 2rem), 340px), 340px)] max-h-80 overflow-y-auto rounded-lg border border-border bg-surface p-2 shadow-[var(--shadow-2)]">
+      <div className="absolute left-0 z-40 mt-2 w-[min(340px,calc(100vw-2rem))] max-h-80 overflow-y-auto rounded-lg border border-border bg-surface p-2 shadow-[var(--shadow-2)]">
         <p className="px-2 py-1.5 text-[10px] font-semibold tracking-[0.08em] text-faint uppercase">Projeto atual</p>
         <div className="flex items-center gap-2 rounded-md bg-brand-soft px-2.5 py-2 text-[13px] font-semibold text-ink">
           <span className="text-lg">{current?.emoji ?? "🚀"}</span>
