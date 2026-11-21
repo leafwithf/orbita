@@ -16,11 +16,6 @@ import {
 } from "@/components/layout/nav-items";
 import { UserAvatar } from "@/components/layout/user-avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { signOutAction } from "@/lib/auth/actions";
 import { switchWorkspaceAction } from "@/lib/actions/collab";
 import type { WorkspaceRole } from "@/modules/workspaces/domain";
@@ -248,22 +243,18 @@ export function SidebarContent({
               {viewer.email}
             </span>
           </div>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <form action={signOutAction}>
-                <Button
-                  type="submit"
-                  variant="ghost"
-                  size="icon"
-                  className="size-9 rounded-xl text-sidebar-foreground/50 hover:bg-sidebar-accent hover:text-white"
-                  aria-label="Sair da conta"
-                >
-                  <LogOut className="size-4" aria-hidden="true" />
-                </Button>
-              </form>
-            </TooltipTrigger>
-            <TooltipContent>Sair</TooltipContent>
-          </Tooltip>
+          <form action={signOutAction}>
+            <Button
+              type="submit"
+              variant="ghost"
+              size="icon"
+              className="size-9 rounded-xl text-sidebar-foreground/50 hover:bg-sidebar-accent hover:text-white"
+              aria-label="Sair da conta"
+              title="Sair da conta"
+            >
+              <LogOut className="size-4" aria-hidden="true" />
+            </Button>
+          </form>
         </div>
       </div>
     </div>
