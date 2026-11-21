@@ -23,6 +23,7 @@ export function CreateProjectForm({
 }) {
   const [emoji, setEmoji] = useState<string>("🚀");
   const [emojiQuery, setEmojiQuery] = useState("");
+  const [libraryOpen, setLibraryOpen] = useState(false);
   const visibleEmojis = useMemo(
     () => [...new Set(PROJECT_EMOJIS)].filter((item) => item.includes(emojiQuery.trim())),
     [emojiQuery],
@@ -42,28 +43,28 @@ export function CreateProjectForm({
       />
 
       <div className="grid gap-2">
-        <span className="text-[13px] font-medium text-ink">Ícone do projeto</span>
+        <span className="text-[13px] font-medium text-ink">Identidade do projeto</span>
         <input type="hidden" name="emoji" value={emoji} />
-        <input
-          value={emojiQuery}
-          onChange={(event) => setEmojiQuery(event.target.value)}
-          placeholder="Buscar ou colar qualquer emoji"
-          aria-label="Buscar emoji"
-          className="h-10 w-full rounded-md border border-input bg-surface px-3 text-sm outline-none focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
-        />
-        <div className="grid max-h-48 grid-cols-8 gap-2 overflow-y-auto rounded-lg border border-border p-2 sm:grid-cols-10" role="group" aria-label="Escolha um emoji para o projeto">
-          {visibleEmojis.map((item) => (
-            <button key={item} type="button" onClick={() => setEmoji(item)} aria-pressed={emoji === item} aria-label={`Usar ${item}`} className={`grid size-10 place-items-center rounded-lg border text-xl transition-colors ${emoji === item ? "border-brand bg-brand-soft ring-1 ring-brand" : "border-border bg-surface hover:bg-surface-2"}`}>
+        <div className="flex flex-wrap items-center gap-2">
+          {["🚀", "💡", "🎯"].map((item) => (
+            <button key={item} type="button" onClick={() => setEmoji(item)} aria-pressed={emoji === item} className={`grid size-11 place-items-center rounded-xl border text-2xl ${emoji === item ? "border-brand bg-brand-soft ring-1 ring-brand" : "border-border bg-surface hover:bg-surface-2"}`}>
               {item}
             </button>
           ))}
+          <button type="button" onClick={() => setLibraryOpen((open) => !open)} aria-expanded={libraryOpen} aria-label="Abrir biblioteca de emojis" className="grid size-11 place-items-center rounded-xl border border-border bg-surface text-xl">…</button>
         </div>
-        {canUseCustomEmoji ? (
-          <button type="button" onClick={() => setEmoji(customEmoji)} className="min-h-9 justify-self-start rounded-md border border-border px-3 text-[12px] font-semibold text-brand hover:bg-surface-2">
-            Usar este emoji: {customEmoji}
-          </button>
+        {libraryOpen ? (
+          <div className="grid gap-2 rounded-xl border border-border bg-surface p-3">
+            <input value={emojiQuery} onChange={(event) => setEmojiQuery(event.target.value)} placeholder="Buscar ou colar um emoji" aria-label="Buscar emoji" className="h-10 w-full rounded-md border border-input bg-surface-2 px-3 text-sm outline-none focus-visible:border-brand" />
+            <div className="grid max-h-48 grid-cols-8 gap-1.5 overflow-y-auto sm:grid-cols-10" role="group" aria-label="Biblioteca de emojis">
+              {visibleEmojis.map((item) => (
+                <button key={item} type="button" onClick={() => { setEmoji(item); setLibraryOpen(false); }} aria-pressed={emoji === item} className={`grid size-9 place-items-center rounded-lg border text-xl ${emoji === item ? "border-brand bg-brand-soft" : "border-transparent hover:bg-surface-2"}`}>{item}</button>
+              ))}
+            </div>
+            {canUseCustomEmoji ? <button type="button" onClick={() => { setEmoji(customEmoji); setLibraryOpen(false); }} className="min-h-9 justify-self-start rounded-md border border-border px-3 text-xs font-semibold text-brand">Usar {customEmoji}</button> : null}
+          </div>
         ) : null}
-        <p className="text-[11.5px] leading-relaxed text-faint">O emoji ajuda a reconhecer o projeto nas listas e cartões.</p>
+        <p className="text-[11.5px] leading-relaxed text-faint">Você também poderá enviar uma imagem depois de criar o projeto.</p>
       </div>
 
       <TextField
