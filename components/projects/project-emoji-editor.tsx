@@ -52,7 +52,7 @@ export function ProjectEmojiEditor({
         <p className="text-[13px] font-medium text-ink">Escolha como identificar este projeto</p>
         <div className="flex flex-wrap items-center gap-2">
           {quickEmojis.map((item) => (
-            <button key={item} type="button" onClick={() => setEmoji(item)} aria-pressed={emoji === item && !preview} className={`grid size-11 place-items-center rounded-xl border text-2xl transition-colors ${emoji === item && !preview ? "border-brand bg-brand-soft ring-1 ring-brand" : "border-border bg-surface hover:bg-surface-2"}`}>
+            <button key={item} type="button" onClick={() => { setEmoji(item); setPreview(null); }} aria-pressed={emoji === item && !preview} className={`grid size-11 place-items-center rounded-xl border text-2xl transition-colors ${emoji === item && !preview ? "border-brand bg-brand-soft ring-1 ring-brand" : "border-border bg-surface hover:bg-surface-2"}`}>
               {item}
             </button>
           ))}
