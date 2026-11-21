@@ -50,7 +50,7 @@ export function FileMentionTextarea({
   }, [workspaceId]);
 
   useEffect(() => {
-    if (editor.current && editor.current.dataset.initialized !== "true") {
+    if (editor.current && (editor.current.dataset.initialized !== "true" || document.activeElement !== editor.current)) {
       editor.current.innerHTML = toHtml(current, files);
       editor.current.dataset.initialized = "true";
     }
