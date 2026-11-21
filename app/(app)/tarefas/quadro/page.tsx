@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Check, Circle, Clock3, ListChecks, Plus } from "lucide-react";
 
@@ -67,7 +68,7 @@ export default async function KanbanPage() {
   );
 }
 
-function StatusSummary({ label, value, icon, accent = false, success = false }: { label: string; value: number; icon: React.ReactNode; accent?: boolean; success?: boolean }) {
+function StatusSummary({ label, value, icon, accent = false, success = false }: { label: string; value: number; icon: ReactNode; accent?: boolean; success?: boolean }) {
   return (
     <div className="flex min-w-0 items-center gap-2.5 rounded-xl border border-border bg-surface px-3 py-3.5 sm:gap-3 sm:px-4">
       <span className={success ? "grid size-9 shrink-0 place-items-center rounded-xl bg-[var(--success-050)] text-[var(--success-700)]" : accent ? "grid size-9 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand" : "grid size-9 shrink-0 place-items-center rounded-xl bg-surface-2 text-muted"}>{icon}</span>
