@@ -70,6 +70,63 @@ export async function switchWorkspaceAction(formData: FormData): Promise<void> {
   redirect("/");
 }
 
+const workspaceAppearanceSchema = z.object({
+  workspaceId: z.uuid(),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Escolha uma cor válida."),
+  coverUrl: z.string().trim().max(2048).refine((value) => {
+    if (!value) return true;
+    try {
+      const url = new URL(value);
+      return url.protocol === "https:" && Boolean(url.hostname) && !url.username && !url.password;
+    } catch {
+      return false;
+    }
+  }, "Use um endereço HTTPS válido para a imagem."),
+});
+
+export async function updateWorkspaceAppearanceAction(formData: FormData): Promise<void> {
+  const user = await requireUser();
+  const parsed = workspaceAppearanceSchema.safeParse({
+    workspaceId: formData.get("workspaceId"),
+    color: formData.get("color"),
+    coverUrl: formData.get("coverUrl") ?? "",
+  });
+  if (!parsed.success) return;
+
+  // Verificação de aplicação + RLS no banco: somente owner/admin pode alterar.
+  const mine = await listMyWorkspaces(user.id);
+  const membership = mine.find((item) => item.id === parsed.data.workspaceId);
+  if (!membership || !["owner", "admin"].includes(membership.role)) return;
+
+  const supabase = await createClient();
+  const { data: current, error: readError } = await supabase
+    .from("workspaces")
+    .select("settings")
+    .eq("id", parsed.data.workspaceId)
+    .maybeSingle();
+  if (readError || !current) return;
+
+  const currentSettings =
+    current.settings && typeof current.settings === "object" && !Array.isArray(current.settings)
+      ? current.settings
+      : {};
+
+  const { error } = await supabase
+    .from("workspaces")
+    .update({
+      settings: {
+        ...currentSettings,
+        brand_color: parsed.data.color.toLowerCase(),
+        cover_url: parsed.data.coverUrl || null,
+      },
+    })
+    .eq("id", parsed.data.workspaceId);
+
+  if (error) return;
+  refresh();
+  revalidatePath("/espacos");
+}
+
 const createWorkspaceSchema = z.object({
   name: z.string().trim().min(1, "Dê um nome ao espaço.").max(80, "Use até 80 caracteres."),
   kind: z.enum(["team", "client"]),
