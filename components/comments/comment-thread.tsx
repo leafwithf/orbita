@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FileText, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { FormMessage } from "@/components/auth/form-message";
@@ -58,7 +58,7 @@ export function CommentThread({
       if (!file) return <span key={index} className="text-muted">[Arquivo indisponível]</span>;
       return (
         <a key={index} href={"/api/files/" + match[1] + "/url"} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded-md bg-foreground px-1.5 py-0.5 font-semibold text-background underline underline-offset-2">
-          <FileText className="size-3.5" aria-hidden="true" />{file.fileName}
+          <span aria-hidden="true">📎</span>{file.fileName}
         </a>
       );
     });
