@@ -65,6 +65,7 @@ const optionalHttpUrl = z
   .transform((value) => (value === "" ? null : value));
 
 const projectSchema = z.object({
+  emoji: z.string().trim().min(1).max(8),
   title: z
     .string()
     .trim()
@@ -137,6 +138,7 @@ export async function createProjectAction(
   if (!context?.workspace) return NO_WORKSPACE;
 
   const parsed = projectSchema.safeParse({
+    emoji: read(formData, "emoji") || "🚀",
     title: read(formData, "title"),
     objective: read(formData, "objective"),
     nextStep: read(formData, "nextStep"),
@@ -153,6 +155,7 @@ export async function createProjectAction(
     .insert({
       workspace_id: context.workspace.id,
       title: parsed.data.title,
+      emoji: parsed.data.emoji,
       objective: parsed.data.objective,
       next_step: parsed.data.nextStep,
       due_date: parsed.data.dueDate,
