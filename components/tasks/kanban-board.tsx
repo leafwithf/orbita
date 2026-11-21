@@ -66,6 +66,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   const [announcement, setAnnouncement] = useState("");
   const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
   const [dragOverStatus, setDragOverStatus] = useState<KanbanStatus | null>(null);
+  const [busy, setBusy] = useState(false);
 
   if (tasks !== previousTasks) {
     setPreviousTasks(tasks);
@@ -92,6 +93,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   }
 
   async function move(task: KanbanTask, status: KanbanStatus, index: number) {
+    if (busy) return;
     const before = items;
     const others = column(status).filter((entry) => entry.id !== task.id);
     const safeIndex = Math.min(Math.max(index, 0), others.length);
@@ -119,29 +121,34 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
       `${task.title} movida para ${label}, posição ${safeIndex + 1} de ${ordered.length}.`,
     );
 
-    const saved = await persist(
-      task,
-      status,
-      position,
-      rebalance ? ordered.map((entry) => entry.id) : null,
-    );
-    if (!saved) {
-      setItems(before);
-      return;
-    }
+    setBusy(true);
+    try {
+      const saved = await persist(
+        task,
+        status,
+        position,
+        rebalance ? ordered.map((entry) => entry.id) : null,
+      );
+      if (!saved) {
+        setItems(before);
+        return;
+      }
 
-    if (status === "done" && task.status !== "done") {
-      toast.success("Tarefa concluída.", {
-        description: task.title,
-        duration: 6000,
-        action: {
-          label: "Desfazer",
-          onClick: () => {
-            setItems(before);
-            void persist(task, task.status, task.position, null);
+      if (status === "done" && task.status !== "done") {
+        toast.success("Tarefa concluída.", {
+          description: task.title,
+          duration: 6000,
+          action: {
+            label: "Desfazer",
+            onClick: () => {
+              setItems(before);
+              void persist(task, task.status, task.position, null);
+            },
           },
-        },
-      });
+        });
+      }
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -183,25 +190,31 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   }
 
   async function trash(task: KanbanTask) {
+    if (busy) return;
     const before = items;
+    setBusy(true);
     setItems(items.filter((entry) => entry.id !== task.id));
-    const result = await trashItemAction("tasks", task.id);
-    if (result.status === "error") {
-      setItems(before);
-      toast.error(result.message ?? "Não foi possível excluir.");
-      return;
-    }
-    toast("Tarefa movida para a lixeira.", {
-      description: task.title,
-      duration: 8000,
-      action: {
-        label: "Desfazer",
-        onClick: () => {
-          setItems(before);
-          void restoreItemAction("tasks", task.id);
+    try {
+      const result = await trashItemAction("tasks", task.id);
+      if (result.status === "error") {
+        setItems(before);
+        toast.error(result.message ?? "Não foi possível excluir.");
+        return;
+      }
+      toast("Tarefa movida para a lixeira.", {
+        description: task.title,
+        duration: 8000,
+        action: {
+          label: "Desfazer",
+          onClick: () => {
+            setItems(before);
+            void restoreItemAction("tasks", task.id);
+          },
         },
-      },
-    });
+      });
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
@@ -279,7 +292,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                     return (
                       <article
                         key={task.id}
-                        draggable
+                        draggable={!busy}
                         onDragStart={(event) => {
                           event.dataTransfer.setData("text/plain", task.id);
                           event.dataTransfer.effectAllowed = "move";
@@ -358,19 +371,19 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                           aria-label={`Mover ou excluir ${task.title}`}
                           className="mt-3 flex items-center gap-1 border-t border-border/80 pt-2.5"
                         >
-                          <CardButton label={`Mover ${task.title} para a coluna anterior`} disabled={!left} onClick={() => left && move(task, left, column(left).length)}>
+                          <CardButton label={`Mover ${task.title} para a coluna anterior`} disabled={busy || !left} onClick={() => left && move(task, left, column(left).length)}>
                             <ArrowLeft className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton label={`Subir ${task.title} na coluna`} disabled={index === 0} onClick={() => move(task, status, index - 1)}>
+                          <CardButton label={`Subir ${task.title} na coluna`} disabled={busy || index === 0} onClick={() => move(task, status, index - 1)}>
                             <ArrowUp className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton label={`Descer ${task.title} na coluna`} disabled={index === cards.length - 1} onClick={() => move(task, status, index + 1)}>
+                          <CardButton label={`Descer ${task.title} na coluna`} disabled={busy || index === cards.length - 1} onClick={() => move(task, status, index + 1)}>
                             <ArrowDown className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton label={`Mover ${task.title} para a próxima coluna`} disabled={!right} onClick={() => right && move(task, right, 0)}>
+                          <CardButton label={`Mover ${task.title} para a próxima coluna`} disabled={busy || !right} onClick={() => right && move(task, right, 0)}>
                             <ArrowRight className="size-4" aria-hidden="true" />
                           </CardButton>
-                          <CardButton label={`Excluir ${task.title}`} className="ml-auto" onClick={() => trash(task)}>
+                          <CardButton label={`Excluir ${task.title}`} className="ml-auto" onClick={() => trash(task)} disabled={busy}>
                             <Trash2 className="size-4" aria-hidden="true" />
                           </CardButton>
                         </div>
