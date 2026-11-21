@@ -11,6 +11,7 @@ type ProjectCardData = {
   id: string;
   title: string;
   emoji?: string;
+  coverUrl?: string | null;
   objective: string | null;
   stage: string;
   dueDate: string | null;
@@ -30,7 +31,7 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
             className="grid size-9 flex-none place-items-center rounded-lg border border-border bg-surface-2 text-xl"
             aria-hidden="true"
           >
-            {project.emoji ?? "🚀"}
+            {project.coverUrl ? <img src={project.coverUrl} alt="" className="size-9 rounded-lg object-cover" /> : project.emoji ?? "🚀"}
           </span>
           <h3 className="min-w-0 pt-1 text-[15px] leading-snug font-semibold tracking-[-0.01em]">
             {project.title}
