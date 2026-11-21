@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Bell, Menu } from "lucide-react";
 
 import { LogoMark } from "@/components/brand/logo";
+import { WorkspaceAvatar } from "@/components/brand/workspace-avatar";
 import { currentPageLabel } from "@/components/layout/nav-items";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserAvatar } from "@/components/layout/user-avatar";
@@ -74,7 +75,7 @@ export function Topbar({
           className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10.5px] font-semibold" style={{ borderColor: `${workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"}55`, backgroundColor: `${workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"}18`, color: workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b" }}
           aria-label={`Espaço atual: ${workspace?.name ?? "Órbita"}`}
         >
-          <span aria-hidden="true" className="size-1.5 flex-none rounded-full" style={{ backgroundColor: workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b" }} />
+          <WorkspaceAvatar name={workspace?.name ?? "Órbita"} brandColor={workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"} coverUrl={workspaces.find((item) => item.id === activeWorkspaceId)?.coverUrl} size="sm" className="size-4 rounded-[4px]" />
           <span className="truncate">{workspace?.name ?? "ÓRBITA"}</span>
           <span className="hidden text-[9px] font-medium opacity-75 sm:inline">ESPAÇO ATUAL</span>
         </span>
@@ -140,7 +141,7 @@ export function Topbar({
                         className="min-h-10 w-full cursor-pointer justify-between"
                         aria-current={item.id === activeWorkspaceId ? "true" : undefined}
                       >
-                        <span className="flex min-w-0 items-center gap-2 truncate"><span aria-hidden="true" className="size-2 flex-none rounded-full" style={{ backgroundColor: item.brandColor }} />{item.name}</span>
+                        <span className="flex min-w-0 items-center gap-2 truncate"><WorkspaceAvatar name={item.name} brandColor={item.brandColor} coverUrl={item.coverUrl} size="sm" />{item.name}</span>
                         {item.id === activeWorkspaceId ? (
                           <span className="text-[11px] text-brand">atual</span>
                         ) : null}
