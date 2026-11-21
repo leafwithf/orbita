@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     .eq("status", "ready")
     .is("deleted_at", null)
     .order("file_name", { ascending: true })
-    .limit(500);
+    .limit(1000);
 
   if (error) return json({ error: "falha_ao_listar" }, 500);
   return json({ files: (data ?? []).map((file) => ({ id: file.id, fileName: file.file_name })) });
