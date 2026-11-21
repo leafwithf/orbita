@@ -11,7 +11,7 @@ function escapeHtml(value: string) {
 
 function toHtml(value: string, files: MentionFile[]) {
   const escaped = escapeHtml(value);
-  return escaped.replace(/\[\[arquivo:([0-9a-f-]{36})\]\]/gi, (token, id: string) => {
+  return escaped.replace(/\[\[arquivo:([0-9a-f-]{36})\]\]/gi, (_token, id: string) => {
     const file = files.find((item) => item.id === id);
     return '<span contenteditable="false" data-file-mention="' + id + '" class="inline-flex items-center gap-1 rounded-md bg-foreground px-1.5 py-0.5 text-background text-[12px] font-semibold align-baseline"><span>📎</span>' + escapeHtml(file?.fileName ?? "Arquivo indisponível") + '</span>';
   }).replace(/\n/g, "<br>");
