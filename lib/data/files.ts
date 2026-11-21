@@ -70,6 +70,7 @@ export async function listFiles(
       count: rows.length,
     },
   };
+}
 
 export type ProjectFileItem = {
   id: string;
@@ -98,8 +99,17 @@ export async function listProjectFiles(input: {
     .limit(100);
 
   if (error) return [];
-  return (data ?? []).map((row) => {
-    const profile = row.profiles as unknown as { full_name: string } | null;
+  const rows = (data ?? []) as unknown as {
+    id: string;
+    file_name: string;
+    mime: string;
+    size_bytes: number;
+    status: ProjectFileItem["status"];
+    created_at: string;
+    profiles: { full_name: string } | null;
+  }[];
+  return rows.map((row) => {
+    const profile = row.profiles;
     return {
       id: row.id,
       fileName: row.file_name,
