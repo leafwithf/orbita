@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight, ArrowUpRight, CalendarDays, Check, CircleAlert, Clock3,
-  FolderKanban, GraduationCap, Lightbulb, ListChecks, Plus, Sparkles,
+  FolderKanban, GraduationCap, Lightbulb, ListChecks, Plus,
   Target, TrendingUp, Upload,
 } from "lucide-react";
 
@@ -167,7 +167,7 @@ export default async function OverviewPage() {
                     <Link href={`/projetos/${data.focusProject.id}`} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand no-underline">Abrir projeto <ArrowRight className="size-3.5" /></Link>
                   </div>
                 </div>
-                <div className="mx-auto grid size-36 place-items-center rounded-full" style={{ background: `conic-gradient(var(--brand) ${focusProgress * 3.6}deg, var(--border) 0deg)` }}>
+                <div className="mx-auto grid size-36 place-items-center rounded-full" style={{ background: `conic-gradient(var(--brand) 0deg ${focusProgress * 3.6}deg, var(--border) ${focusProgress * 3.6}deg 360deg)` }}>
                   <div className="grid size-[118px] place-content-center rounded-full bg-surface text-center">
                     <span className="text-3xl font-semibold tracking-tight tabular-nums">{focusProgress}%</span>
                     <span className="mt-1 text-[9px] font-semibold tracking-[.12em] text-faint uppercase">concluído</span>
