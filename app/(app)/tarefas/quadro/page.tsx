@@ -32,7 +32,7 @@ export default async function KanbanPage() {
       <PageHeader
         eyebrow={`${tasks.length} ${tasks.length === 1 ? "tarefa" : "tarefas"} no quadro`}
         title="Quadro de tarefas"
-        description="Mova com os botões de seta (teclado, leitor de tela e celular). Concluídas ficam 14 dias aqui; depois seguem no histórico."
+        description="Organize as tarefas por etapa. Arraste os cartões no computador ou use os controles para movê-los; no celular, deslize entre as colunas. Concluídas ficam 14 dias aqui e depois seguem no histórico."
         actions={
           <div className="flex flex-wrap gap-2">
             <Link
