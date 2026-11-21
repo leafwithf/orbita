@@ -10,7 +10,7 @@ import { SubmitButton } from "@/components/forms/submit-button";
 import { createIdeaAction } from "@/lib/actions/create";
 import { initialFormState } from "@/lib/actions/state";
 
-export function CreateIdeaForm() {
+export function CreateIdeaForm({ workspaceId }: { workspaceId: string }) {
   const [state, formAction, pending] = useActionState(
     createIdeaAction,
     initialFormState,
@@ -37,6 +37,7 @@ export function CreateIdeaForm() {
 
       <TextAreaField
         id="idea-body"
+        workspaceId={workspaceId}
         name="body"
         label="Nota rápida"
         placeholder="Por que isso importa? Para quem? O que falta saber?"
