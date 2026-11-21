@@ -47,7 +47,7 @@ export function AppShell({
         <SheetContent
           side="left"
           showCloseButton={false}
-          className="w-[300px] border-sidebar-border bg-sidebar p-0 text-sidebar-foreground"
+          className="h-[100dvh] max-h-[100dvh] w-[min(88vw,360px)] overflow-y-auto overscroll-contain border-sidebar-border bg-sidebar p-0 text-sidebar-foreground"
         >
           <SheetTitle className="sr-only">Menu de navegação</SheetTitle>
           <SheetClose asChild>
