@@ -10,6 +10,7 @@ import type { DueDateState, Progress } from "@/modules/tasks/domain";
 type ProjectCardData = {
   id: string;
   title: string;
+  emoji?: string;
   objective: string | null;
   stage: string;
   dueDate: string | null;
@@ -24,8 +25,13 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
       className="group flex min-w-0 flex-col rounded-lg border border-border bg-surface p-4 text-ink no-underline shadow-[var(--shadow-1)] transition-colors hover:border-border-strong hover:bg-surface-2 hover:no-underline"
     >
       <div className="flex items-start justify-between gap-3">
-        <h3 className="min-w-0 text-[15px] leading-snug font-semibold tracking-[-0.01em]">
+        <div className="flex min-w-0 items-start gap-2">
+          <span className="grid size-9 flex-none place-items-center rounded-lg border border-border bg-surface-2 text-xl" aria-hidden="true">{project.emoji ?? "🚀"}</span>
+          <h3 className="min-w-0 pt-1 text-[15px] leading-snug font-semibold tracking-[-0.01em]">
           {project.title}
+          </h3>
+        </div>
+        <span className="sr-only">
         </h3>
         <span className="mt-0.5 flex-none text-[11px] font-medium whitespace-nowrap text-faint">
           {projectStageLabel(project.stage)}
