@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, CirclePause, FolderKanban, Plus, Sparkles } from "lucide-react";
 
@@ -104,7 +105,7 @@ export default async function ProjectsPage() {
   );
 }
 
-function SummaryTile({ label, value, detail, icon, accent = false }: { label: string; value: number; detail: string; icon: React.ReactNode; accent?: boolean }) {
+function SummaryTile({ label, value, detail, icon, accent = false }: { label: string; value: number; detail: string; icon: ReactNode; accent?: boolean }) {
   return (
     <div className="min-w-0 rounded-2xl border border-border bg-surface p-4 sm:p-5">
       <div className="flex items-center justify-between gap-2">
@@ -117,7 +118,7 @@ function SummaryTile({ label, value, detail, icon, accent = false }: { label: st
   );
 }
 
-function ProjectSection({ title, subtitle, count, tone = "neutral", children }: { title: string; subtitle: string; count: number; tone?: "brand" | "neutral"; children: React.ReactNode }) {
+function ProjectSection({ title, subtitle, count, tone = "neutral", children }: { title: string; subtitle: string; count: number; tone?: "brand" | "neutral"; children: ReactNode }) {
   return (
     <section className="grid gap-4">
       <div className="flex items-end justify-between gap-3 border-b border-border pb-3">
