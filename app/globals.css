@@ -115,6 +115,86 @@
   color-scheme: dark;
 }
 
+
+/* User-selected accent palettes. Semantic status colors remain independent. */
+:root[data-palette="orange"] {
+  --brand: #d96528;
+  --brand-hover: #bd501b;
+  --brand-700: #994016;
+  --brand-050: #fff0e7;
+  --sidebar-active: #3d2418;
+}
+:root[data-palette="blue"] {
+  --brand: #347fe0;
+  --brand-hover: #2468c2;
+  --brand-700: #2059a6;
+  --brand-050: #eaf2ff;
+  --sidebar-active: #1b3150;
+}
+:root[data-palette="green"] {
+  --brand: #168b62;
+  --brand-hover: #10734f;
+  --brand-700: #0f6949;
+  --brand-050: #e7f7ef;
+  --sidebar-active: #173a2d;
+}
+:root[data-palette="purple"] {
+  --brand: #8753d6;
+  --brand-hover: #7040bd;
+  --brand-700: #6135a8;
+  --brand-050: #f2ebff;
+  --sidebar-active: #302044;
+}
+:root[data-palette="red"] {
+  --brand: #d4434f;
+  --brand-hover: #b8323e;
+  --brand-700: #a32934;
+  --brand-050: #ffedef;
+  --sidebar-active: #3d2025;
+}
+[data-theme="dark"][data-palette="amber"] {
+  --brand: #e2b65f;
+  --brand-hover: #f0c978;
+  --brand-700: #f3d28e;
+  --brand-050: #332719;
+  --sidebar-active: #302719;
+}
+[data-theme="dark"][data-palette="orange"] {
+  --brand: #f08a4b;
+  --brand-hover: #ffa36c;
+  --brand-700: #ffc095;
+  --brand-050: #3b2115;
+  --sidebar-active: #3d2418;
+}
+[data-theme="dark"][data-palette="blue"] {
+  --brand: #6aa7ff;
+  --brand-hover: #8bbaff;
+  --brand-700: #a9ccff;
+  --brand-050: #172b49;
+  --sidebar-active: #1b3150;
+}
+[data-theme="dark"][data-palette="green"] {
+  --brand: #48c99a;
+  --brand-hover: #6cddb2;
+  --brand-700: #8de9c6;
+  --brand-050: #15372d;
+  --sidebar-active: #173a2d;
+}
+[data-theme="dark"][data-palette="purple"] {
+  --brand: #b18af7;
+  --brand-hover: #c5a8ff;
+  --brand-700: #d6c1ff;
+  --brand-050: #2c1d45;
+  --sidebar-active: #302044;
+}
+[data-theme="dark"][data-palette="red"] {
+  --brand: #f07880;
+  --brand-hover: #ff969d;
+  --brand-700: #ffb5ba;
+  --brand-050: #421d24;
+  --sidebar-active: #3d2025;
+}
+
 @theme inline {
   --font-sans:
     "Inter Variable", Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
