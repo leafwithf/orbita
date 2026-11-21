@@ -26,13 +26,16 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-2">
-          <span className="grid size-9 flex-none place-items-center rounded-lg border border-border bg-surface-2 text-xl" aria-hidden="true">{project.emoji ?? "🚀"}</span>
+          <span
+            className="grid size-9 flex-none place-items-center rounded-lg border border-border bg-surface-2 text-xl"
+            aria-hidden="true"
+          >
+            {project.emoji ?? "🚀"}
+          </span>
           <h3 className="min-w-0 pt-1 text-[15px] leading-snug font-semibold tracking-[-0.01em]">
-          {project.title}
+            {project.title}
           </h3>
         </div>
-        <span className="sr-only">
-        </h3>
         <span className="mt-0.5 flex-none text-[11px] font-medium whitespace-nowrap text-faint">
           {projectStageLabel(project.stage)}
         </span>
