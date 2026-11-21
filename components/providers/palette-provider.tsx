@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -37,6 +38,10 @@ export function PaletteProvider({
   children: ReactNode;
 }) {
   const [palette, setPaletteState] = useState<OrbitaPalette>(initialPalette);
+
+  useEffect(() => {
+    document.documentElement.dataset.palette = palette;
+  }, [palette]);
 
   const setPalette = useCallback((next: OrbitaPalette) => {
     setPaletteState(next);
