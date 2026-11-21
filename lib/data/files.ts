@@ -70,4 +70,44 @@ export async function listFiles(
       count: rows.length,
     },
   };
+
+export type ProjectFileItem = {
+  id: string;
+  fileName: string;
+  mime: string;
+  sizeBytes: number;
+  status: "pending" | "ready" | "quarantined";
+  createdAt: string;
+  authorName: string;
+};
+
+export async function listProjectFiles(input: {
+  workspaceId: string;
+  projectId: string;
+}): Promise<ProjectFileItem[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("files_metadata")
+    .select("id, file_name, mime, size_bytes, status, created_at, profiles:created_by(full_name)")
+    .eq("workspace_id", input.workspaceId)
+    .eq("entity_type", "project")
+    .eq("entity_id", input.projectId)
+    .in("status", ["pending", "ready", "quarantined"])
+    .is("deleted_at", null)
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  if (error) return [];
+  return (data ?? []).map((row) => {
+    const profile = row.profiles as unknown as { full_name: string } | null;
+    return {
+      id: row.id,
+      fileName: row.file_name,
+      mime: row.mime,
+      sizeBytes: Number(row.size_bytes),
+      status: row.status as ProjectFileItem["status"],
+      createdAt: row.created_at,
+      authorName: profile?.full_name || "Pessoa do espaço",
+    };
+  });
 }
