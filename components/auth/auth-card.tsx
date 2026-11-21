@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { LogoMark } from "@/components/brand/logo";
+import { BrandLockup } from "@/components/brand/logo";
 
 export function AuthCard({
   eyebrow,
@@ -23,10 +23,7 @@ export function AuthCard({
         className="mb-8 inline-flex items-center gap-2.5 text-ink no-underline lg:hidden"
         aria-label="ÓRBITA — início"
       >
-        <span className="grid size-9 place-items-center rounded-[10px] bg-gradient-to-br from-[#2c6be0] to-[#1d4fb8] text-white">
-          <LogoMark className="size-5" />
-        </span>
-        <span className="text-[15px] font-bold tracking-[0.14em]">ÓRBITA</span>
+        <BrandLockup compact />
       </Link>
 
       <div className="rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-1)] sm:p-8">
