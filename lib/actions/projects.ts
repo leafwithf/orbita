@@ -65,7 +65,7 @@ export async function updateProjectEmojiAction(
 
   const { error } = await owned.supabase
     .from("projects")
-    .update({ emoji: parsed.data.emoji })
+    .update({ emoji: parsed.data.emoji, cover_url: null })
     .eq("id", owned.projectId)
     .eq("workspace_id", context.workspace.id)
     .is("deleted_at", null);
@@ -136,4 +136,73 @@ export async function updateProjectDetailsAction(
   revalidatePath(`/projetos/${owned.projectId}`);
   revalidatePath("/projetos");
   return { status: "success", message: "Projeto atualizado com sucesso." };
+}
+
+export async function uploadProjectIconAction(
+  _previous: FormActionState,
+  formData: FormData,
+): Promise<FormActionState> {
+  const context = await getAppContext();
+  if (!context.workspace) {
+    return { status: "error", message: "Espaço de trabalho indisponível." };
+  }
+
+  const projectId = read(formData, "projectId");
+  const owned = z.uuid().safeParse(projectId);
+  if (!owned.success) {
+    return { status: "error", message: "Projeto inválido." };
+  }
+
+  const file = formData.get("icon");
+  if (!(file instanceof File) || file.size === 0) {
+    return { status: "error", message: "Selecione uma imagem antes de enviar." };
+  }
+  const allowedTypes = new Map([
+    ["image/png", "png"],
+    ["image/jpeg", "jpg"],
+    ["image/webp", "webp"],
+    ["image/gif", "gif"],
+  ]);
+  const extension = allowedTypes.get(file.type);
+  if (!extension) {
+    return { status: "error", message: "Use uma imagem PNG, JPG, WEBP ou GIF." };
+  }
+  if (file.size > 4 * 1024 * 1024) {
+    return { status: "error", message: "A imagem deve ter no máximo 4 MB." };
+  }
+
+  const project = await ownedProject(projectId, context.workspace.id, context.user.id);
+  if (!project) {
+    return { status: "error", message: "Somente o proprietário do projeto pode alterar sua identidade." };
+  }
+
+  const path = `${context.user.id}/${projectId}/${crypto.randomUUID()}.${extension}`;
+  const { error: uploadError } = await project.supabase.storage
+    .from("project-icons")
+    .upload(path, file, { contentType: file.type, upsert: false });
+
+  if (uploadError) {
+    return { status: "error", message: "Não foi possível enviar a imagem. Confirme se a configuração de ícones foi aplicada no Supabase." };
+  }
+
+  const { data: publicUrl } = project.supabase.storage
+    .from("project-icons")
+    .getPublicUrl(path);
+
+  const { error: updateError } = await project.supabase
+    .from("projects")
+    .update({ cover_url: publicUrl.publicUrl })
+    .eq("id", projectId)
+    .eq("workspace_id", context.workspace.id)
+    .is("deleted_at", null);
+
+  if (updateError) {
+    await project.supabase.storage.from("project-icons").remove([path]);
+    return { status: "error", message: "A imagem foi enviada, mas não foi possível vinculá-la ao projeto." };
+  }
+
+  revalidatePath("/", "layout");
+  revalidatePath(`/projetos/${projectId}`);
+  revalidatePath("/projetos");
+  return { status: "success", message: "Imagem do projeto atualizada." };
 }
