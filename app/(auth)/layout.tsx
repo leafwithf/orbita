@@ -50,7 +50,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 key={benefit}
                 className="flex items-start gap-3 text-[14px] leading-relaxed text-[#d6dfec]"
               >
-                <span className="mt-0.5 grid size-5 flex-none place-items-center rounded-full bg-[#1c3358] text-[#8fb4ff]">
+                <span className="mt-0.5 grid size-5 flex-none place-items-center rounded-full bg-[#3b3021] text-[#e5b76e]">
                   <Check className="size-3" aria-hidden="true" />
                 </span>
                 {benefit}
