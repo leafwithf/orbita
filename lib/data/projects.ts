@@ -9,6 +9,7 @@ import { projectStagePosition } from "@/modules/projects/domain";
 export type ProjectListItem = {
   id: string;
   title: string;
+  emoji: string;
   objective: string | null;
   nextStep: string | null;
   stage: string;
@@ -22,6 +23,7 @@ export type ProjectListItem = {
 type ProjectRow = {
   id: string;
   title: string;
+  emoji: string;
   objective: string | null;
   next_step: string | null;
   stage: string;
@@ -30,7 +32,7 @@ type ProjectRow = {
 };
 
 const PROJECT_SELECT =
-  "id, title, objective, next_step, stage, status, due_date";
+  "id, title, emoji, objective, next_step, stage, status, due_date";
 
 function toProject(
   row: ProjectRow,
@@ -40,6 +42,7 @@ function toProject(
   return {
     id: row.id,
     title: row.title,
+    emoji: row.emoji || "🚀",
     objective: row.objective,
     nextStep: row.next_step,
     stage: row.stage,
@@ -108,7 +111,7 @@ export async function getProjectDetail({
   const { data, error } = await supabase
     .from("projects")
     .select(
-      "id, title, objective, next_step, stage, status, due_date, description, risks, start_date, created_at",
+      "id, title, emoji, objective, next_step, stage, status, due_date, description, risks, start_date, created_at",
     )
     .eq("workspace_id", workspaceId)
     .eq("id", projectId)
