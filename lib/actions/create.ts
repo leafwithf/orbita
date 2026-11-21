@@ -65,7 +65,7 @@ const optionalHttpUrl = z
   .transform((value) => (value === "" ? null : value));
 
 const projectSchema = z.object({
-  emoji: z.string().trim().min(1).max(8),
+  emoji: z.string().trim().min(1).max(32),
   title: z
     .string()
     .trim()
