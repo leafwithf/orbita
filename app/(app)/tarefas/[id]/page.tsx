@@ -5,7 +5,6 @@ import { ArrowLeft } from "lucide-react";
 
 import { CommentThread } from "@/components/comments/comment-thread";
 import { FileMentionText } from "@/components/files/file-mention-text";
-import { PageHeader } from "@/components/patterns/page-header";
 import { SectionCard } from "@/components/patterns/section-card";
 import { DueDateChip, StatusChip } from "@/components/patterns/status-chip";
 import { AssigneeSelect } from "@/components/tasks/assignee-select";
