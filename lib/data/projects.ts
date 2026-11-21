@@ -92,6 +92,7 @@ export async function listProjects({
 }
 
 export type ProjectDetail = ProjectListItem & {
+  ownerId: string | null;
   description: string | null;
   risks: string | null;
   startDate: string | null;
@@ -111,7 +112,7 @@ export async function getProjectDetail({
   const { data, error } = await supabase
     .from("projects")
     .select(
-      "id, title, emoji, objective, next_step, stage, status, due_date, description, risks, start_date, created_at",
+      "id, title, emoji, objective, next_step, stage, status, due_date, description, risks, start_date, created_at, owner_id",
     )
     .eq("workspace_id", workspaceId)
     .eq("id", projectId)
@@ -121,6 +122,7 @@ export async function getProjectDetail({
       risks: string | null;
       start_date: string | null;
       created_at: string;
+      owner_id: string | null;
     }>();
 
   if (error || !data) return null;
@@ -136,6 +138,7 @@ export async function getProjectDetail({
 
   return {
     ...toProject(data, progress, today),
+    ownerId: data.owner_id,
     description: data.description,
     risks: data.risks,
     startDate: data.start_date,
