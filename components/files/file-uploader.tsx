@@ -40,7 +40,7 @@ const PHASE_LABEL: Record<Phase, string> = {
 
 const ACTIVE: Phase[] = ["signing", "uploading", "verifying"];
 
-export function FileUploader({ workspaceId }: { workspaceId: string }) {
+export function FileUploader({ workspaceId, projectId }: { workspaceId: string; projectId?: string }) {
   const router = useRouter();
   const [uploads, setUploads] = useState<Upload[]>([]);
   const [dragging, setDragging] = useState(false);
@@ -62,7 +62,7 @@ export function FileUploader({ workspaceId }: { workspaceId: string }) {
       const signRes = await fetch("/api/files/sign", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ workspaceId, name: file.name, size: file.size, mime: file.type }),
+        body: JSON.stringify({ workspaceId, name: file.name, size: file.size, mime: file.type, ...(projectId ? { entityType: "project", entityId: projectId } : {}) }),
       });
       const sign = await signRes.json();
       if (!signRes.ok) {
