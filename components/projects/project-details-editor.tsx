@@ -65,6 +65,7 @@ export function ProjectDetailsEditor({
             defaultValue={project.objective ?? ""}
             maxLength={500}
             required={false}
+            error={state.fieldErrors?.objective?.[0]}
           />
           <TextAreaField
             id="project-edit-description"
@@ -73,6 +74,7 @@ export function ProjectDetailsEditor({
             defaultValue={project.description ?? ""}
             maxLength={4000}
             required={false}
+            error={state.fieldErrors?.description?.[0]}
           />
           <TextField
             id="project-edit-next-step"
@@ -81,6 +83,7 @@ export function ProjectDetailsEditor({
             defaultValue={project.nextStep ?? ""}
             maxLength={300}
             required={false}
+            error={state.fieldErrors?.nextStep?.[0]}
           />
           <TextAreaField
             id="project-edit-risks"
@@ -89,6 +92,7 @@ export function ProjectDetailsEditor({
             defaultValue={project.risks ?? ""}
             maxLength={2000}
             required={false}
+            error={state.fieldErrors?.risks?.[0]}
           />
           <div className="flex flex-wrap items-center gap-2">
             <SubmitButton pending={pending} pendingLabel="Salvando…">
