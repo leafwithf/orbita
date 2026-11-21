@@ -48,14 +48,16 @@ export function Topbar({
 }) {
   const pathname = usePathname();
   const title = currentPageLabel(pathname);
+  const activeWorkspace = workspaces.find((item) => item.id === activeWorkspaceId);
+  const workspaceColor = activeWorkspace?.brandColor ?? workspace?.brandColor ?? "#d6a64b";
 
   return (
-    <header className="sticky top-0 z-30 flex h-[60px] items-center gap-3 border-b border-border bg-surface/85 px-4 backdrop-blur-md sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 flex h-[68px] items-center gap-3 border-b border-border/80 bg-surface/85 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
       <Button
         type="button"
         variant="ghost"
         size="icon"
-        className="size-11 lg:hidden"
+        className="size-10 shrink-0 rounded-xl text-muted hover:bg-accent lg:hidden"
         onClick={onOpenNav}
         aria-label="Abrir menu de navegação"
       >
@@ -64,62 +66,77 @@ export function Topbar({
 
       <Link
         href="/"
-        className="inline-flex text-brand no-underline lg:hidden"
+        className="inline-flex shrink-0 text-brand no-underline lg:hidden"
         aria-label="ÓRBITA — visão geral"
       >
         <LogoMark className="size-6" />
       </Link>
 
-      <div className="grid min-w-0 gap-1 leading-tight">
-        <span
-          className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10.5px] font-semibold" style={{ borderColor: `${workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"}55`, backgroundColor: `${workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"}18`, color: workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b" }}
-          aria-label={`Espaço atual: ${workspace?.name ?? "Órbita"}`}
-        >
-          <WorkspaceAvatar name={workspace?.name ?? "Órbita"} brandColor={workspaces.find((item) => item.id === activeWorkspaceId)?.brandColor ?? "#d6a64b"} coverUrl={workspaces.find((item) => item.id === activeWorkspaceId)?.coverUrl} size="sm" className="size-4 rounded-[4px]" />
-          <span className="truncate">{workspace?.name ?? "ÓRBITA"}</span>
-          <span className="hidden text-[9px] font-medium opacity-75 sm:inline">ESPAÇO ATUAL</span>
-        </span>
-        <p className="truncate text-[14px] font-semibold" aria-live="polite">
+      <div className="grid min-w-0 gap-1">
+        <div className="flex min-w-0 items-center gap-2">
+          <span
+            className="inline-flex max-w-[min(42vw,220px)] items-center gap-1.5 rounded-full border px-2 py-1 text-[9px] font-bold tracking-[.08em]"
+            style={{
+              borderColor: `${workspaceColor}45`,
+              backgroundColor: `${workspaceColor}12`,
+              color: workspaceColor,
+            }}
+            aria-label={`Espaço atual: ${workspace?.name ?? "Órbita"}`}
+          >
+            <WorkspaceAvatar
+              name={workspace?.name ?? "Órbita"}
+              brandColor={workspaceColor}
+              coverUrl={activeWorkspace?.coverUrl ?? workspace?.coverUrl}
+              size="sm"
+              className="size-4 rounded-[5px]"
+            />
+            <span className="truncate">{workspace?.name ?? "ÓRBITA"}</span>
+          </span>
+          <span className="hidden text-[9px] font-semibold tracking-[.14em] text-faint uppercase sm:inline">
+            / ÓRBITA
+          </span>
+        </div>
+        <p className="truncate text-[14px] leading-none font-semibold tracking-[-.02em] text-ink sm:text-[15px]" aria-live="polite">
           {title}
         </p>
       </div>
 
-      <div className="ml-auto flex items-center gap-1">
+      <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
         <Link
           href="/notificacoes"
-          className="relative inline-flex size-11 items-center justify-center rounded-md text-muted no-underline transition-colors hover:bg-accent hover:text-ink hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          className="relative inline-flex size-10 items-center justify-center rounded-xl text-muted no-underline transition-colors hover:bg-accent hover:text-ink hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           aria-label={
             unread > 0
               ? `Notificações, ${unread} não lida${unread > 1 ? "s" : ""}`
               : "Notificações"
           }
         >
-          <Bell className="size-5" aria-hidden="true" />
+          <Bell className="size-[18px]" aria-hidden="true" />
           {unread > 0 ? (
             <span
               aria-hidden="true"
-              className="absolute top-1.5 right-1 grid min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] leading-4 font-bold text-white"
+              className="absolute top-1 right-1 grid min-w-[17px] place-items-center rounded-full bg-brand px-1 text-[9px] leading-[17px] font-bold text-white shadow-sm"
             >
               {unreadBadge(unread)}
             </span>
           ) : null}
         </Link>
 
-        <ThemeToggle className="size-11 text-muted hover:text-ink" />
+        <ThemeToggle className="size-10 rounded-xl text-muted hover:bg-accent hover:text-ink" />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="ml-0.5 inline-flex size-11 items-center justify-center rounded-full transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              className="ml-0.5 inline-flex size-10 items-center justify-center rounded-full border border-border/80 bg-surface-2 transition-colors hover:border-brand/40 hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               aria-label={`Menu da conta de ${viewer.name}`}
             >
-              <UserAvatar name={viewer.name} size="lg" />
+              <UserAvatar name={viewer.name} size="md" />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-60">
-            <DropdownMenuLabel className="grid gap-0.5 py-2">
-              <span className="truncate text-[13px] font-semibold">
+          <DropdownMenuContent align="end" className="w-64 rounded-2xl p-2">
+            <DropdownMenuLabel className="grid gap-1 px-3 py-3">
+              <span className="truncate text-[13px] font-semibold text-ink">
                 {viewer.name}
               </span>
               <span className="truncate text-[11px] font-normal text-muted">
@@ -129,7 +146,7 @@ export function Topbar({
             {workspaces.length > 1 ? (
               <>
                 <DropdownMenuSeparator />
-                <DropdownMenuLabel className="text-[11px] font-semibold text-muted">
+                <DropdownMenuLabel className="px-3 text-[10px] font-bold tracking-[.12em] text-faint uppercase">
                   Trocar de espaço
                 </DropdownMenuLabel>
                 {workspaces.map((item) => (
@@ -138,12 +155,20 @@ export function Topbar({
                     <DropdownMenuItem asChild>
                       <button
                         type="submit"
-                        className="min-h-10 w-full cursor-pointer justify-between"
+                        className="min-h-10 w-full cursor-pointer justify-between rounded-xl"
                         aria-current={item.id === activeWorkspaceId ? "true" : undefined}
                       >
-                        <span className="flex min-w-0 items-center gap-2 truncate"><WorkspaceAvatar name={item.name} brandColor={item.brandColor} coverUrl={item.coverUrl} size="sm" />{item.name}</span>
+                        <span className="flex min-w-0 items-center gap-2 truncate">
+                          <WorkspaceAvatar
+                            name={item.name}
+                            brandColor={item.brandColor}
+                            coverUrl={item.coverUrl}
+                            size="sm"
+                          />
+                          {item.name}
+                        </span>
                         {item.id === activeWorkspaceId ? (
-                          <span className="text-[11px] text-brand">atual</span>
+                          <span className="text-[10px] font-semibold text-brand">ATUAL</span>
                         ) : null}
                       </button>
                     </DropdownMenuItem>
@@ -153,12 +178,12 @@ export function Topbar({
             ) : null}
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/configuracoes" className="min-h-10 cursor-pointer">
+              <Link href="/configuracoes" className="min-h-10 cursor-pointer rounded-xl">
                 Perfil e aparência
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/espacos" className="min-h-10 cursor-pointer">
+              <Link href="/espacos" className="min-h-10 cursor-pointer rounded-xl">
                 Espaço e pessoas
               </Link>
             </DropdownMenuItem>
@@ -167,7 +192,7 @@ export function Topbar({
               <DropdownMenuItem asChild>
                 <button
                   type="submit"
-                  className="min-h-10 w-full cursor-pointer text-danger"
+                  className="min-h-10 w-full cursor-pointer rounded-xl text-danger"
                 >
                   Sair da conta
                 </button>
