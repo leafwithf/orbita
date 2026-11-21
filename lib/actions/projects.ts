@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 
 const emojiSchema = z.object({
   projectId: z.uuid("Projeto inválido."),
-  emoji: z.string().trim().min(1, "Escolha um emoji.").max(8, "Emoji inválido."),
+  emoji: z.string().trim().min(1, "Escolha um emoji.").max(32, "Emoji inválido."),
 });
 
 const projectDetailsSchema = z.object({
