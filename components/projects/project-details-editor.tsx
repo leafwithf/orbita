@@ -29,7 +29,7 @@ export function ProjectDetailsEditor({
   );
 
   return (
-    <div className="grid gap-3">
+    <div className="grid w-full basis-full gap-3">
       <Button
         type="button"
         variant="outline"
