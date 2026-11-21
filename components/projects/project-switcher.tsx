@@ -25,7 +25,7 @@ export function ProjectSwitcher({
       <div className="absolute left-0 z-40 mt-2 w-[min(340px,92vw)] max-h-80 overflow-y-auto rounded-lg border border-border bg-surface p-2 shadow-[var(--shadow-2)]">
         <p className="px-2 py-1.5 text-[10px] font-semibold tracking-[0.08em] text-faint uppercase">Projeto atual</p>
         <div className="flex items-center gap-2 rounded-md bg-brand-soft px-2.5 py-2 text-[13px] font-semibold text-ink">
-          <span className="text-lg">{current?.emoji ?? "🚀"}</span>
+          {current?.coverUrl ? <img src={current.coverUrl} alt="" className="size-7 rounded-md object-cover" /> : <span className="text-lg">{current?.emoji ?? "🚀"}</span>}
           <span className="min-w-0 flex-1 truncate">{current?.title ?? "Projeto atual"}</span>
           <span className="text-[10px] font-semibold text-brand">ATUAL</span>
         </div>
@@ -38,7 +38,7 @@ export function ProjectSwitcher({
                 href={`/projetos/${project.id}`}
                 className="flex items-center gap-2 rounded-md px-2.5 py-2 text-[13px] text-ink no-underline transition-colors hover:bg-surface-2 hover:no-underline"
               >
-                <span className="text-lg">{project.emoji || "🚀"}</span>
+                {project.coverUrl ? <img src={project.coverUrl} alt="" className="size-7 rounded-md object-cover" /> : <span className="text-lg">{project.emoji || "🚀"}</span>}
                 <span className="min-w-0 flex-1 truncate">{project.title}</span>
               </Link>
             ))}
