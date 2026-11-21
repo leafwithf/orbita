@@ -94,7 +94,7 @@ export default async function ProjectDetailPage({
   }), listProjectFiles({ workspaceId: workspace.id, projectId: project.id })]);
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-7">
       <div>
         <Link
           href="/projetos"
@@ -119,24 +119,26 @@ export default async function ProjectDetailPage({
         </div>
       ) : null}
 
-      <PageHeader
-        eyebrow={<span className="inline-flex items-center gap-1.5">{project.coverUrl ? <img src={project.coverUrl} alt="" className="size-5 rounded-md object-cover" /> : project.emoji} Projeto</span>}
-        title={project.title}
-        description={project.objective ? <FileMentionText workspaceId={workspace.id} text={project.objective} /> : "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."}
-        actions={
-          <>
-            <ProjectSwitcher currentProjectId={project.id} projects={workspaceProjects} />
-            {canEditProject ? <ProjectDetailsEditor project={project} workspaceId={workspace.id} /> : null}
-            <Link
-              href={`/criar?tipo=tarefa&projeto=${project.id}`}
-              className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
-            >
-              <Plus className="size-4" aria-hidden="true" />
-              Nova tarefa
-            </Link>
-          </>
-        }
-      />
+      <header className="relative overflow-hidden rounded-3xl border border-border bg-surface p-5 sm:p-7">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-28 size-72 rounded-full bg-brand/10 blur-3xl" />
+        <div className="relative flex flex-col gap-5">
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[.18em] text-brand">
+            <span className="grid size-8 place-items-center overflow-hidden rounded-xl border border-border bg-surface-2 text-lg">{project.coverUrl ? <img src={project.coverUrl} alt="" className="size-full object-cover" /> : project.emoji}</span>
+            Projeto
+          </div>
+          <div className="flex flex-col justify-between gap-5 xl:flex-row xl:items-end">
+            <div className="min-w-0 max-w-3xl">
+              <h1 className="break-words text-3xl font-semibold tracking-[-.05em] sm:text-[42px]">{project.title}<span className="text-brand">.</span></h1>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">{project.objective ? <FileMentionText workspaceId={workspace.id} text={project.objective} /> : "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <ProjectSwitcher currentProjectId={project.id} projects={workspaceProjects} />
+              {canEditProject ? <ProjectDetailsEditor project={project} workspaceId={workspace.id} /> : null}
+              <Link href={"/criar?tipo=tarefa&projeto="+project.id} className="inline-flex h-10 items-center gap-2 rounded-xl bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"><Plus className="size-4" aria-hidden="true" /> Nova tarefa</Link>
+            </div>
+          </div>
+        </div>
+      </header>
 
       {canEditProject ? (
         <SectionCard title="Identidade do projeto" description="Use um emoji ou envie uma imagem para identificar o projeto nos cartões, listas e nesta página.">
