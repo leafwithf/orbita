@@ -41,10 +41,13 @@ export default async function WorkspacesPage() {
 
   if (!context.workspace) {
     return (
-      <PageHeader
-        title="Espaços e pessoas"
-        description="Seu espaço ainda não está disponível. Rode as migrações do Supabase para começar."
-      />
+      <div className="rounded-3xl border border-border bg-surface p-6 sm:p-8">
+        <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-brand">Colaboração e acesso</p>
+        <h1 className="mt-3 text-2xl font-semibold tracking-[-.04em]">Espaços e pessoas</h1>
+        <p className="mt-2 max-w-xl text-sm leading-6 text-muted">
+          Seu espaço ainda não está disponível. Rode as migrações do Supabase para começar.
+        </p>
+      </div>
     );
   }
 
