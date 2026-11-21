@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { X } from "lucide-react";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { PaletteProvider } from "@/components/providers/palette-provider";
 import { Sidebar, SidebarContent } from "@/components/layout/sidebar";
 import type {
   SidebarViewer,
@@ -23,6 +24,7 @@ export function AppShell({
   unread = 0,
   workspaces = [],
   activeWorkspaceId = null,
+  userId,
   children,
 }: {
   viewer: SidebarViewer;
@@ -30,11 +32,13 @@ export function AppShell({
   unread?: number;
   workspaces?: TopbarWorkspace[];
   activeWorkspaceId?: string | null;
+  userId: string;
   children: ReactNode;
 }) {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
+    <PaletteProvider userId={userId}>
     <>
       <a
         href="#conteudo"
@@ -91,5 +95,6 @@ export function AppShell({
 
       <MobileNav onOpenMore={() => setNavOpen(true)} />
     </>
+    </PaletteProvider>
   );
 }
