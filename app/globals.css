@@ -285,3 +285,42 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Orbital loading treatment: quiet amber light, never a high-contrast flash. */
+.orbital-skeleton {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+  background: color-mix(in srgb, var(--surface) 82%, var(--brand) 18%);
+  animation: orbital-breathe 1.8s ease-in-out infinite;
+}
+
+.orbital-skeleton::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  transform: translateX(-100%);
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in srgb, var(--brand) 16%, transparent) 48%,
+    transparent 76%
+  );
+  animation: orbital-shimmer 2.2s ease-in-out infinite;
+}
+
+@keyframes orbital-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes orbital-breathe {
+  50% { opacity: 0.72; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbital-skeleton,
+  .orbital-skeleton::after {
+    animation: none;
+  }
+}
