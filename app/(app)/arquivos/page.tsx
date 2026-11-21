@@ -11,6 +11,7 @@ import { StatusChip } from "@/components/patterns/status-chip";
 import { getAppContext } from "@/lib/data/context";
 import { listFiles } from "@/lib/data/files";
 import { formatDatePtBr } from "@/lib/dates";
+import { canEditContent } from "@/modules/workspaces/domain";
 import { cn } from "@/lib/utils";
 import { formatBytes, quotaState } from "@/modules/files/domain";
 
