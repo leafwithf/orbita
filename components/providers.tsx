@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 
 import { Toaster } from "@/components/ui/sonner";
+import { MotionPreferenceProvider } from "@/components/providers/motion-preference";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export function Providers({ children }: { children: ReactNode }) {
@@ -28,6 +29,7 @@ export function Providers({ children }: { children: ReactNode }) {
       enableSystem={true}
       disableTransitionOnChange
     >
+      <MotionPreferenceProvider />
       <QueryClientProvider client={queryClient}>
         <TooltipProvider delayDuration={250}>
           {children}

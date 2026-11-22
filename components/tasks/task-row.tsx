@@ -38,7 +38,7 @@ export function TaskRow({
   return (
     <div
       className={cn(
-        "flex min-w-0 items-start gap-3 px-3 py-3 transition-colors hover:bg-surface-2/65 sm:px-4",
+        "flex min-w-0 items-start gap-3 px-3 py-4 transition-colors hover:bg-surface-2/65 sm:px-4",
         done && "opacity-65",
         className,
       )}

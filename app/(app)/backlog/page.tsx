@@ -38,6 +38,7 @@ export default async function BacklogPage() {
 
   return (
     <div className="grid gap-6">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
       <PageHeader
         eyebrow={`${ideas.length} ${ideas.length === 1 ? "ideia" : "ideias"}`}
         title="Ideias e backlog"
@@ -52,8 +53,9 @@ export default async function BacklogPage() {
           </Link>
         }
       />
+      </section>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(290px,1fr)]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(290px,1fr)]">
         <div className="grid min-w-0 content-start gap-5">
           {ideas.length === 0 ? (
             <EmptyState
@@ -75,7 +77,7 @@ export default async function BacklogPage() {
               {ideas.map((idea) => (
                 <li
                   key={idea.id}
-                  className="rounded-lg border border-border bg-surface p-4 shadow-[var(--shadow-1)]"
+                  className="rounded-[22px] border border-border bg-[linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:p-6"
                 >
                   <div className="flex flex-wrap items-center gap-1.5">
                     <StatusChip

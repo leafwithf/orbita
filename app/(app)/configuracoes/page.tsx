@@ -16,6 +16,7 @@ import { SectionCard } from "@/components/patterns/section-card";
 import { StatusChip } from "@/components/patterns/status-chip";
 import { ProfileForm } from "@/components/settings/profile-form";
 import { ThemePreference } from "@/components/settings/theme-preference";
+import { TourLauncher } from "@/components/onboarding/tour-launcher";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getAppContext } from "@/lib/data/context";
 
@@ -49,11 +50,13 @@ export default async function SettingsPage() {
 
   return (
     <div className="grid gap-6">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
       <PageHeader
         eyebrow="Sua conta"
         title="Configurações"
         description="Perfil, aparência, notificações e seus dados. Nada aqui apaga conteúdo sem confirmação."
       />
+      </section>
 
       {!context.profile ? (
         <div
@@ -73,7 +76,7 @@ export default async function SettingsPage() {
         <div className="-mx-1 overflow-x-auto px-1 pb-1">
           <TabsList
             aria-label="Seções de configuração"
-            className="h-auto min-h-10 w-max bg-surface-2 p-1"
+            className="flex h-auto min-h-12 w-max gap-1 rounded-2xl border border-border bg-surface p-1.5 shadow-[var(--shadow-1)]"
           >
             <TabsTrigger value="perfil" className="min-h-9 px-3">
               Perfil
@@ -141,7 +144,7 @@ export default async function SettingsPage() {
               {NOTIFICATION_PREVIEW.map((item) => (
                 <li
                   key={item.title}
-                  className="flex items-start gap-2.5 rounded-md border border-border bg-surface-2 px-3.5 py-3"
+                  className="flex items-start gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)]"
                 >
                   <Bell
                     className="mt-0.5 size-4 flex-none text-faint"
@@ -183,7 +186,7 @@ export default async function SettingsPage() {
                 Disponível antes do lançamento.
               </span>
             </div>
-            <div className="mt-4 border-t border-border pt-4">
+            <div className="mt-4 rounded-2xl border border-border bg-surface-2/70 p-4">
               <h3 className="flex items-center gap-2 text-[13px] font-semibold">
                 <ArchiveRestore
                   className="size-4 text-brand"
@@ -258,6 +261,13 @@ export default async function SettingsPage() {
           </div>
         </TabsContent>
       </Tabs>
+
+      <SectionCard
+        title="Conhe?a o ?rbita"
+        description="Retome o guia interativo para conhecer as principais ?reas e recursos do aplicativo."
+      >
+        <TourLauncher />
+      </SectionCard>
     </div>
   );
 }

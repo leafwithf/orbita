@@ -48,13 +48,15 @@ export default async function PortfolioPage() {
 
   return (
     <div className="grid gap-6">
-      <PageHeader
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
+<PageHeader
         eyebrow="Privado por padrão"
         title="Portfólio"
         description="Mostre seu trabalho sem abrir o espaço inteiro. Cada projeto publicado tem seu próprio link."
       />
+</section>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,1fr)]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,1fr)]">
         <div className="grid min-w-0 content-start gap-5">
           <SectionCard
             title={`Publicações · ${entries.length}`}
@@ -77,9 +79,9 @@ export default async function PortfolioPage() {
                 }
               />
             ) : (
-              <ul className="divide-y divide-border">
+              <ul className="grid gap-3">
                 {entries.map((entry) => (
-                  <li key={entry.id} className="py-3 first:pt-0 last:pb-0">
+                  <li key={entry.id} className="rounded-[20px] border border-border bg-[linear-gradient(145deg,var(--surface),var(--surface-2))] p-4 shadow-[var(--shadow-1)] sm:p-5">
                     <div className="flex flex-wrap items-center gap-1.5">
                       <StatusChip
                         label={VISIBILITY_LABELS[entry.visibility]}

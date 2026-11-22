@@ -46,7 +46,85 @@ function useMounted() {
   );
 }
 
+type MotionChoice = "automatico" | "completo" | "leve" | "minimo";
+
+const MOTION_OPTIONS: { value: MotionChoice; label: string; description: string }[] = [
+  { value: "automatico", label: "Autom?tico", description: "Adapta os efeitos ao desempenho do dispositivo." },
+  { value: "completo", label: "Completo", description: "Mant?m todas as anima??es e efeitos visuais." },
+  { value: "leve", label: "Leve", description: "Reduz efeitos para economizar bateria e processamento." },
+  { value: "minimo", label: "M?nimo", description: "Reduz anima??es ao essencial." },
+];
+
+const MOTION_STORAGE_KEY = "orbita-motion-preference";
+const MOTION_CHANGE_EVENT = "orbita-motion-change";
+
+function getMotionSnapshot(): MotionChoice {
+  const saved = window.localStorage.getItem(MOTION_STORAGE_KEY);
+  return saved === "completo" || saved === "leve" || saved === "minimo"
+    ? saved
+    : "automatico";
+}
+
+function getMotionServerSnapshot(): MotionChoice {
+  return "automatico";
+}
+
+function subscribeMotion(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(MOTION_CHANGE_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(MOTION_CHANGE_EVENT, callback);
+  };
+}
+
+function applyMotionPreference(value: MotionChoice) {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduced || value === "minimo") {
+    document.documentElement.dataset.motion = "minimo";
+    return;
+  }
+
+  if (value === "completo" || value === "leve") {
+    document.documentElement.dataset.motion = value;
+    return;
+  }
+
+  const nav = navigator as Navigator & {
+    deviceMemory?: number;
+    connection?: { saveData?: boolean };
+  };
+
+  const lowHardware =
+    (typeof nav.hardwareConcurrency === "number" && nav.hardwareConcurrency <= 4) ||
+    (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4) ||
+    nav.connection?.saveData === true;
+
+  document.documentElement.dataset.motion = lowHardware ? "leve" : "completo";
+}
+
+function saveMotionPreference(value: MotionChoice) {
+  if (value === "automatico") {
+    window.localStorage.removeItem(MOTION_STORAGE_KEY);
+  } else {
+    window.localStorage.setItem(MOTION_STORAGE_KEY, value);
+  }
+
+  applyMotionPreference(value);
+  window.dispatchEvent(new Event(MOTION_CHANGE_EVENT));
+}
+
 export function ThemePreference() {
+  const motion = useSyncExternalStore(
+    subscribeMotion,
+    getMotionSnapshot,
+    getMotionServerSnapshot,
+  );
+
+  function changeMotion(value: MotionChoice) {
+    saveMotionPreference(value);
+  }
   const { theme, setTheme } = useTheme();
   const { palette, setPalette } = useOrbitaPalette();
   const mounted = useMounted();
@@ -136,6 +214,47 @@ export function ThemePreference() {
           </div>
         </fieldset>
       </div>
+      <div className="border-t border-border pt-5">
+        <fieldset>
+          <legend className="text-[13px] font-semibold">Prefer?ncia de movimento</legend>
+          <p className="mt-1 text-[12px] leading-relaxed text-muted">
+            Controle a intensidade das anima??es e dos efeitos visuais do ?rbita.
+          </p>
+          <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+            {MOTION_OPTIONS.map((option) => (
+              <label
+                key={option.value}
+                className={cn(
+                  "flex cursor-pointer flex-col gap-2 rounded-xl border bg-surface px-3.5 py-3 transition-colors",
+                  motion === option.value
+                    ? "border-brand ring-2 ring-brand/20"
+                    : "border-border hover:border-border-strong",
+                )}
+              >
+                <span className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="motion-preference"
+                    value={option.value}
+                    checked={motion === option.value}
+                    onChange={() => changeMotion(option.value)}
+                    className="size-4 accent-[var(--brand)]"
+                  />
+                  <span className="text-[13px] font-semibold">{option.label}</span>
+                </span>
+                <span className="text-[11.5px] leading-relaxed text-muted">
+                  {option.description}
+                </span>
+              </label>
+            ))}
+          </div>
+          <p className="mt-2 text-[11px] leading-relaxed text-faint">
+            A prefer?ncia ? salva somente neste dispositivo. A op??o M?nimo tamb?m ? aplicada
+            automaticamente quando o sistema operacional solicita movimento reduzido.
+          </p>
+        </fieldset>
+      </div>
+
       <p className="text-[11.5px] leading-relaxed text-faint">
         A paleta fica salva na sua conta e acompanha você quando entrar em outro dispositivo.
         O modo claro/escuro é uma preferência independente.

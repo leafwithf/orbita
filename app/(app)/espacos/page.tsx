@@ -33,7 +33,7 @@ import { ROLE_DESCRIPTIONS, ROLE_LABELS, WORKSPACE_ROLES } from "@/modules/works
 export const metadata: Metadata = { title: "Espaços e pessoas" };
 
 const KIND_LABELS = { personal: "Pessoal", team: "Equipe", client: "Cliente" } as const;
-const selectClass = "h-11 rounded-md border border-border-strong bg-surface px-2 text-[13px]";
+const selectClass = "min-h-11 rounded-xl border border-border bg-surface-2 px-3 text-sm";
 const secondaryButton =
   "inline-flex min-h-11 items-center rounded-md border border-border-strong bg-surface px-3 text-[12.5px] font-semibold hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 
@@ -60,11 +60,13 @@ export default async function WorkspacesPage() {
 
   return (
     <div className="grid gap-6">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
       <PageHeader
         eyebrow="Colaboração"
         title="Espaços e pessoas"
         description="Seus espaços, quem participa de cada um e o que cada pessoa pode fazer."
       />
+      </section>
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,1fr)]">
         <div className="grid min-w-0 content-start gap-5">
@@ -80,7 +82,7 @@ export default async function WorkspacesPage() {
                   const isSelf = member.userId === context.user.id;
                   const manageable = canManageMember({ actor: workspace.role, target: member.role, isSelf });
                   return (
-                    <li key={member.userId} className="grid gap-3 py-3 first:pt-0 last:pb-0">
+                    <li key={member.userId} className="grid gap-4 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:p-5">
                       <div className="flex flex-wrap items-center gap-3">
                         <UserAvatar name={member.name} size="lg" />
                         <div className="min-w-0 flex-1">
@@ -149,7 +151,7 @@ export default async function WorkspacesPage() {
             <SectionCard title={`Convites pendentes · ${invitations.length}`} description="Links ainda não usados. O link em si só é mostrado na criação.">
               <ul className="divide-y divide-border">
                 {invitations.map((invite) => (
-                  <li key={invite.id} className="flex flex-wrap items-center gap-3 py-3 first:pt-0 last:pb-0">
+                  <li key={invite.id} className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] sm:flex-row sm:items-center">
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[13px] font-medium">
                         {ROLE_LABELS[invite.role]}
@@ -201,7 +203,7 @@ export default async function WorkspacesPage() {
           <SectionCard title={`Seus espaços · ${myWorkspaces.length}`}>
             <ul className="grid gap-2">
               {myWorkspaces.map((item) => (
-                <li key={item.id} className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface-2/60 p-2.5">
+                <li key={item.id} className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-surface p-3 shadow-[var(--shadow-1)] transition hover:border-brand/30">
                   <WorkspaceAvatar name={item.name} brandColor={item.brandColor} coverUrl={item.coverUrl} size="md" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[13px] font-medium">{item.name}</p>

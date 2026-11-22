@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "@fontsource-variable/inter";
+@import "@fontsource-variable/sora";
 
 /* The theme is applied by next-themes through data-theme on <html>. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
@@ -430,5 +431,369 @@
   .orbital-skeleton,
   .orbital-skeleton::after {
     animation: none;
+  }
+}
+
+
+/* =========================================================
+   ORBITA ? SINGULARIDADE / FUNDA??O VISUAL
+   ========================================================= */
+
+:root {
+  --singularity: #05030A;
+  --cosmic-surface: #0E0916;
+  --cosmic-raised: #171026;
+  --cosmic-purple: #6D42C9;
+  --cosmic-purple-deep: #2A1B3D;
+  --accretion-red: #D6261C;
+  --accretion-orange: #F26A1B;
+  --accretion-gold: #FFC857;
+  --accretion-light: #FFF1B0;
+  --cosmic-text: #F5EEE6;
+  --cosmic-muted: #A99FB8;
+}
+
+/* Singularidade: tema escuro padr?o */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #05030A;
+  --surface: #0E0916;
+  --surface-2: #171026;
+  --border: #30213F;
+  --border-strong: #49345D;
+  --text: #F5EEE6;
+  --text-muted: #A99FB8;
+  --text-faint: #887D98;
+
+  --brand: #F26A1B;
+  --brand-hover: #FF8742;
+  --brand-700: #FFC857;
+  --brand-050: #2B170F;
+
+  --sidebar-bg: #08050F;
+  --sidebar-text: #A99FB8;
+  --sidebar-text-strong: #F5EEE6;
+  --sidebar-border: #21162E;
+  --sidebar-hover: #171026;
+  --sidebar-active: #2A1B3D;
+
+  --success: #35B89A;
+  --success-700: #72DCC4;
+  --success-050: #102D28;
+  --warning: #FFC857;
+  --warning-700: #FFE09A;
+  --warning-050: #33270F;
+  --danger: #E34A43;
+  --danger-hover: #F0645D;
+  --danger-700: #FFAAA3;
+  --danger-050: #351512;
+
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--brand);
+  --primary-foreground: #160B08;
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--cosmic-purple-deep);
+  --accent-foreground: #E5D7FF;
+  --destructive: var(--danger);
+  --destructive-foreground: #FFFFFF;
+  --border-token: var(--border);
+  --input: var(--border-strong);
+  --ring-color: var(--brand);
+
+  --ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--brand);
+  --shadow-1: 0 2px 8px rgb(0 0 0 / .24);
+  --shadow-2: 0 8px 24px rgb(0 0 0 / .30);
+  --shadow-3: 0 20px 60px rgb(0 0 0 / .48);
+}
+
+/* Eclipse: tema claro preservado e refinado */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #F6F3FA;
+  --surface: #FFFFFF;
+  --surface-2: #F0ECF5;
+  --border: #E3DCEB;
+  --border-strong: #CFC3DD;
+  --text: #21172B;
+  --text-muted: #655A70;
+  --text-faint: #786D83;
+  --brand: #A84E18;
+  --brand-hover: #893C10;
+  --brand-700: #74320D;
+  --brand-050: #FBEDE3;
+  --sidebar-bg: #171026;
+  --sidebar-text: #C5B9D4;
+  --sidebar-text-strong: #FFFFFF;
+  --sidebar-border: #30213F;
+  --sidebar-hover: #2A1B3D;
+  --sidebar-active: #49306A;
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--brand);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--brand-050);
+  --accent-foreground: var(--brand-700);
+  --destructive: #B42318;
+  --destructive-foreground: #FFFFFF;
+  --border-token: var(--border);
+  --input: var(--border-strong);
+  --ring-color: var(--brand);
+}
+
+/* Dourado continua sendo uma das seis paletas, agora integrado ? identidade. */
+:root[data-theme="dark"][data-palette="amber"] {
+  --brand: #F26A1B;
+  --brand-hover: #FF8742;
+  --brand-700: #FFC857;
+  --brand-050: #2B170F;
+  --sidebar-active: #2A1B3D;
+}
+
+/* Tipografia: Sora para hierarquia, Inter para leitura. */
+body {
+  font-family: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4,
+.font-heading {
+  font-family: "Sora Variable", Sora, "Inter Variable", sans-serif;
+}
+
+/* Ritmo visual e ?reas interativas acess?veis. */
+button, [role="button"], input, select, textarea {
+  accent-color: var(--brand);
+}
+
+:where(button, [role="button"], a, input, select) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(button, [role="button"]) {
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline-color: var(--brand);
+}
+
+/* Movimento adaptativo: os componentes podem consultar data-motion. */
+:root[data-motion="leve"] *,
+:root[data-motion="leve"] *::before,
+:root[data-motion="leve"] *::after {
+  scroll-behavior: auto !important;
+}
+
+:root[data-motion="leve"] .orbital-skeleton,
+:root[data-motion="leve"] .orbital-skeleton::after {
+  animation: none !important;
+}
+
+:root[data-motion="minimo"] *,
+:root[data-motion="minimo"] *::before,
+:root[data-motion="minimo"] *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+:root[data-motion="minimo"] .orbital-skeleton,
+:root[data-motion="minimo"] .orbital-skeleton::after {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+}
+
+
+/* ORBITA STAGE 3 ? COSMIC ATMOSPHERE */
+
+.orbita-cosmos {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 78% 18%, rgba(109, 66, 201, .16), transparent 42%),
+    radial-gradient(ellipse at 72% 28%, rgba(242, 106, 27, .09), transparent 35%),
+    radial-gradient(ellipse at 12% 85%, rgba(42, 27, 61, .2), transparent 45%);
+}
+
+.orbita-cosmos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .34;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.8) 99%, transparent),
+    radial-gradient(1px 1px at 28% 72%, rgba(255,200,87,.8) 99%, transparent),
+    radial-gradient(1px 1px at 48% 32%, rgba(255,255,255,.65) 99%, transparent),
+    radial-gradient(1px 1px at 68% 82%, rgba(255,255,255,.7) 99%, transparent),
+    radial-gradient(1px 1px at 88% 48%, rgba(255,200,87,.7) 99%, transparent);
+  background-size: 360px 300px;
+}
+
+.orbita-black-hole {
+  position: absolute;
+  top: 9vh;
+  right: 5vw;
+  display: block;
+  width: min(42vw, 470px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(109, 66, 201, .16);
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 48%, rgba(109,66,201,.035) 68%, transparent 70%);
+  opacity: .62;
+}
+
+.orbita-black-hole::before {
+  content: "";
+  position: absolute;
+  inset: -7%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 25deg,
+    transparent 0deg,
+    rgba(109,66,201,.1) 45deg,
+    rgba(242,106,27,.88) 88deg,
+    rgba(255,200,87,.9) 112deg,
+    rgba(255,241,176,.65) 126deg,
+    rgba(214,38,28,.72) 150deg,
+    rgba(109,66,201,.22) 205deg,
+    transparent 270deg,
+    transparent 360deg
+  );
+  transform: rotate(-18deg) scaleY(.25);
+  animation: orbita-accretion-rotate 48s linear infinite;
+}
+
+.orbita-black-hole::after {
+  content: "";
+  position: absolute;
+  top: 27.5%;
+  left: 27.5%;
+  width: 45%;
+  height: 45%;
+  border: 1px solid rgba(255,200,87,.58);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #171026 0 12%, #05030a 54%, #000 78%);
+  box-shadow:
+    0 0 0 5px rgba(242,106,27,.09),
+    0 0 26px rgba(242,106,27,.2);
+}
+
+.orbita-app-frame {
+  position: relative;
+  z-index: 1;
+  background-color: transparent !important;
+}
+
+[data-theme="light"] .orbita-cosmos {
+  opacity: .2;
+}
+
+[data-theme="dark"] .orbita-cosmos {
+  opacity: .85;
+}
+
+@keyframes orbita-accretion-rotate {
+  from { transform: rotate(-18deg) scaleY(.25); }
+  to { transform: rotate(342deg) scaleY(.25); }
+}
+
+:root[data-motion="leve"] .orbita-black-hole::before,
+:root[data-motion="minimo"] .orbita-black-hole::before {
+  animation: none;
+}
+
+@media (max-width: 767px) {
+  .orbita-black-hole {
+    top: 11vh;
+    right: -34vw;
+    width: 78vw;
+    opacity: .42;
+  }
+
+  .orbita-cosmos::before {
+    opacity: .22;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbita-black-hole::before {
+    animation: none !important;
+  }
+}
+
+
+/* ORBITA PWA SPLASH */
+.orbita-pwa-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1rem;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(109, 66, 201, 0.18), transparent 42%),
+    #05030A;
+  animation: orbita-pwa-splash-out 900ms ease-out forwards;
+  pointer-events: none;
+}
+
+.orbita-pwa-splash-mark {
+  display: grid;
+  width: 4.5rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid #F26A1B;
+  border-radius: 50%;
+  box-shadow: 0 0 28px rgba(242, 106, 27, 0.3);
+}
+
+.orbita-pwa-splash-mark span {
+  width: 1.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #05030A;
+  box-shadow: 0 0 0 5px #FFC857, 0 0 22px rgba(255, 200, 87, 0.75);
+}
+
+.orbita-pwa-splash-name {
+  color: #F5EEE6;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+}
+
+@keyframes orbita-pwa-splash-out {
+  0%, 72% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbita-pwa-splash {
+    animation-duration: 500ms;
   }
 }

@@ -58,7 +58,7 @@ function NavLink({
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group relative flex min-h-10 items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium no-underline transition-all duration-150",
+        "group relative flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium no-underline transition-all duration-150",
         "text-sidebar-foreground/75 hover:bg-sidebar-accent/80 hover:text-white hover:no-underline",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
         active && "bg-sidebar-accent text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,.035)]",
@@ -215,7 +215,7 @@ export function SidebarContent({
 
       <Button
         asChild
-        className="mt-3 h-10 w-full justify-between rounded-xl bg-brand px-3 text-[12.5px] font-bold text-white shadow-[0_5px_18px_-10px_var(--brand)] hover:bg-brand-hover"
+        className="mt-3 h-11 w-full justify-between rounded-xl bg-brand px-3 text-[12.5px] font-bold text-white shadow-[0_5px_18px_-10px_var(--brand)] hover:bg-brand-hover"
       >
         <Link href="/criar" onClick={onNavigate}>
           <span className="inline-flex items-center gap-2">
@@ -248,7 +248,7 @@ export function SidebarContent({
               type="submit"
               variant="ghost"
               size="icon"
-              className="size-9 rounded-xl text-sidebar-foreground/50 hover:bg-sidebar-accent hover:text-white"
+              className="size-11 rounded-xl text-sidebar-foreground/50 hover:bg-sidebar-accent hover:text-white"
               aria-label="Sair da conta"
               title="Sair da conta"
             >

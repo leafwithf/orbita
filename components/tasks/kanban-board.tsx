@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type DragEvent, type ReactNode } from "react";
+import { useMemo, useRef, useState, type DragEvent, type ReactNode } from "react";
 import {
   ArrowDown,
   ArrowLeft,
@@ -74,8 +74,25 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
     setItems(tasks);
   }
 
-  const column = (status: KanbanStatus, source = items) =>
-    source.filter((task) => task.status === status).sort(byPosition);
+  const columns = useMemo(() => {
+    const grouped: Record<KanbanStatus, KanbanTask[]> = {
+      todo: [],
+      in_progress: [],
+      done: [],
+    };
+
+    for (const task of items) {
+      grouped[task.status].push(task);
+    }
+
+    for (const tasksInColumn of Object.values(grouped)) {
+      tasksInColumn.sort(byPosition);
+    }
+
+    return grouped;
+  }, [items]);
+
+  const column = (status: KanbanStatus) => columns[status];
 
   async function persist(
     task: KanbanTask,
@@ -110,9 +127,13 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
       ...others.slice(safeIndex),
     ];
     const renumbered = rebalance ? rebalancePositions(ordered.length) : [];
+    const orderedIndexById = new Map(
+      ordered.map((entry, index) => [entry.id, index]),
+    );
+
     const next = before.map((entry) => {
-      const at = ordered.findIndex((candidate) => candidate.id === entry.id);
-      if (rebalance && at >= 0) {
+      const at = orderedIndexById.get(entry.id);
+      if (rebalance && at !== undefined) {
         return { ...entry, status, position: renumbered[at] };
       }
       return entry.id === task.id ? { ...entry, status, position } : entry;
@@ -273,7 +294,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
               }}
               onDrop={(event) => dropOnColumn(event, status)}
               className={cn(
-                "flex min-h-[360px] min-w-0 snap-start flex-col rounded-2xl border border-border bg-surface-2/80 p-3 transition-colors sm:p-3.5",
+                "flex min-h-[400px] min-w-0 snap-start flex-col rounded-2xl border border-border bg-surface-2/80 p-3.5 shadow-[var(--shadow-1)] transition-colors sm:p-4",
                 isDropTarget && style.drop,
               )}
             >
@@ -331,7 +352,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                         }}
                         onDrop={(event) => dropOnCard(event, status, task.id)}
                         className={cn(
-                          "list-none rounded-xl border border-border bg-surface p-3.5 shadow-[var(--shadow-1)] transition-[opacity,border-color,box-shadow,transform] hover:border-brand/35 hover:shadow-[var(--shadow-2)] active:cursor-grabbing sm:p-4",
+                          "list-none rounded-xl border border-border bg-surface/95 p-4 shadow-[var(--shadow-1)] transition-[opacity,border-color,box-shadow,transform] hover:border-brand/35 hover:shadow-[var(--shadow-2)] active:cursor-grabbing",
                           draggedTaskId === task.id && "opacity-40",
                           "cursor-grab",
                         )}

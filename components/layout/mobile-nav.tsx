@@ -31,7 +31,7 @@ export function MobileNav({ onOpenMore }: { onOpenMore: () => void }) {
   return (
     <nav
       aria-label="Navegação principal"
-      className="fixed inset-x-3 bottom-3 z-40 mx-auto max-w-[520px] rounded-2xl border border-border/90 bg-surface/95 pb-[env(safe-area-inset-bottom)] shadow-[0_14px_45px_-18px_rgba(0,0,0,.42)] backdrop-blur-2xl lg:hidden"
+      className="fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 mx-auto max-w-[520px] rounded-2xl border border-border/90 bg-surface/95 pb-1 shadow-[0_14px_45px_-18px_rgba(0,0,0,.42)] backdrop-blur-2xl lg:hidden"
     >
       <ul className="grid grid-cols-5 px-1.5">
         {ITEMS.map((item) => {
@@ -46,16 +46,16 @@ export function MobileNav({ onOpenMore }: { onOpenMore: () => void }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative flex min-h-[58px] flex-col items-center justify-center gap-1 px-1 text-[10px] font-semibold no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-brand",
+                  "relative flex min-h-[64px] flex-col items-center justify-center gap-1 px-1 text-[11px] font-semibold no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-brand",
                   active ? "text-brand" : "text-muted hover:text-ink",
                 )}
               >
                 <span className={cn(
-                  "grid size-8 place-items-center rounded-xl transition-[background-color,transform] duration-200",
+                  "grid size-9 place-items-center rounded-xl transition-[background-color,transform] duration-200",
                   active && "bg-brand-soft",
                 )}>
                   <Icon
-                    className={cn("size-[19px]", active && "stroke-[2.3]")}
+                    className={cn("size-5", active && "stroke-[2.3]")}
                     aria-hidden="true"
                   />
                 </span>
@@ -69,11 +69,11 @@ export function MobileNav({ onOpenMore }: { onOpenMore: () => void }) {
           <button
             type="button"
             onClick={onOpenMore}
-            className="flex min-h-[58px] w-full flex-col items-center justify-center gap-1 px-1 text-[10px] font-semibold text-muted transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-brand"
+            className="flex min-h-[64px] w-full flex-col items-center justify-center gap-1 px-1 text-[11px] font-semibold text-muted transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-brand"
             aria-label="Mais opções de navegação"
           >
-            <span className="grid size-8 place-items-center rounded-xl">
-              <MoreHorizontal className="size-[19px]" aria-hidden="true" />
+            <span className="grid size-9 place-items-center rounded-xl">
+              <MoreHorizontal className="size-5" aria-hidden="true" />
             </span>
             <span className="leading-none">Mais</span>
           </button>

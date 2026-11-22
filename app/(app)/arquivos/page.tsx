@@ -35,15 +35,20 @@ export default async function FilesPage() {
   const percent = quota.percent;
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-7">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_22%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
+        <div className="relative z-10">
       <PageHeader
         eyebrow={`${files.length} ${files.length === 1 ? "arquivo" : "arquivos"}`}
         title="Arquivos"
         description="Biblioteca central do espaço: envie cada arquivo uma vez e mencione em qualquer projeto, tarefa ou conversa usando @."
       />
+        </div>
+        <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 size-48 rounded-full border border-brand/20 bg-brand/5 blur-2xl" />
+      </section>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(290px,1fr)]">
-        <div className="grid min-w-0 content-start gap-5">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(290px,1fr)]">
+        <div className="grid min-w-0 content-start gap-6">
           <SectionCard
             title="Biblioteca do espaço"
             description="Envie do computador ou do celular. O arquivo vai direto para o armazenamento e só aparece como pronto depois de conferido."
@@ -59,7 +64,7 @@ export default async function FilesPage() {
                 compact
               />
             ) : (
-              <ul className="divide-y divide-border">
+              <ul className="grid gap-3">
                 {files.map((file) => {
                   const Icon = file.mime.startsWith("image/")
                     ? ImageIcon
@@ -67,9 +72,9 @@ export default async function FilesPage() {
                   return (
                     <li
                       key={file.id}
-                      className="flex items-start gap-3 py-3 first:pt-0 last:pb-0"
+                      className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-surface/85 p-3 shadow-[var(--shadow-1)] transition-colors hover:border-brand/30 sm:flex-row sm:items-center sm:p-4"
                     >
-                      <span className="grid size-9 flex-none place-items-center rounded-md bg-surface-2 text-muted">
+                      <span className="grid size-11 flex-none place-items-center rounded-xl border border-brand/15 bg-brand/10 text-brand">
                         <Icon className="size-4" aria-hidden="true" />
                       </span>
                       <div className="min-w-0 flex-1">
@@ -82,6 +87,7 @@ export default async function FilesPage() {
                           {file.context ? ` · ${file.context}` : ""}
                         </p>
                       </div>
+                      <div className="flex w-full flex-wrap items-center justify-between gap-2 sm:w-auto sm:justify-end">
                       <FileActions
                         fileId={file.id}
                         fileName={file.fileName}
@@ -101,6 +107,7 @@ export default async function FilesPage() {
                         }
                         tone={file.status === "ready" ? "success" : "warning"}
                       />
+                    </div>
                     </li>
                   );
                 })}
@@ -108,7 +115,7 @@ export default async function FilesPage() {
             )}
           </SectionCard>
 
-          <SectionCard title="Como os arquivos funcionam">
+          <SectionCard title="Como funciona a biblioteca" description="Informa??es importantes sobre seguran?a e armazenamento.">
             <ul className="grid gap-3 text-[13px] leading-relaxed text-muted">
               <li className="flex gap-2.5">
                 <Upload className="mt-0.5 size-4 flex-none text-brand" aria-hidden="true" />
@@ -129,10 +136,10 @@ export default async function FilesPage() {
           </SectionCard>
         </div>
 
-        <aside className="grid min-w-0 content-start gap-5">
+        <aside className="grid min-w-0 content-start gap-4">
           <SectionCard title="Cota do espaço">
             <div className="flex items-baseline justify-between gap-3">
-              <span className="text-[22px] leading-none font-semibold tabular-nums">
+              <span className="text-3xl leading-none font-bold tracking-tight tabular-nums">
                 {formatBytes(usage.usedBytes)}
               </span>
               <span className="text-[12px] text-faint">
@@ -145,7 +152,7 @@ export default async function FilesPage() {
               aria-valuemin={0}
               aria-valuemax={100}
               aria-valuenow={percent}
-              className="mt-3 h-2 overflow-hidden rounded-full bg-border"
+              className="mt-4 h-3 overflow-hidden rounded-full bg-border/80"
             >
               <div
                 className={cn(

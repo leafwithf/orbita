@@ -20,7 +20,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className="grid gap-7">
-      <header className="relative overflow-hidden rounded-3xl border border-border bg-surface p-6 sm:p-8">
+      <header className="relative overflow-hidden rounded-3xl border border-border bg-surface/95 p-5 shadow-[var(--shadow-1)] sm:p-7">
         <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-24 size-72 rounded-full bg-brand/10 blur-3xl"/>
         <div className="relative flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div className="max-w-2xl">

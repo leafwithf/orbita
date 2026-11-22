@@ -4,6 +4,8 @@ import { useState, type ReactNode } from "react";
 import { X } from "lucide-react";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { OnboardingTour } from "@/components/onboarding/onboarding-tour";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { PaletteProvider, type OrbitaPalette } from "@/components/providers/palette-provider";
 import { Sidebar, SidebarContent } from "@/components/layout/sidebar";
 import type {
@@ -40,6 +42,9 @@ export function AppShell({
   return (
     <PaletteProvider initialPalette={initialPalette}>
     <>
+      <div className="orbita-cosmos" aria-hidden="true">
+        <span className="orbita-black-hole" />
+      </div>
       <a
         href="#conteudo"
         className="sr-only z-50 rounded-md bg-surface px-4 py-2 text-sm font-semibold text-ink shadow-[var(--shadow-2)] focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
@@ -73,7 +78,7 @@ export function AppShell({
         </SheetContent>
       </Sheet>
 
-      <div className="min-h-dvh bg-background lg:grid lg:grid-cols-[var(--sidebar-w)_minmax(0,1fr)]">
+      <div className="orbita-app-frame min-h-dvh bg-background lg:grid lg:grid-cols-[var(--sidebar-w)_minmax(0,1fr)]">
         <Sidebar viewer={viewer} workspace={workspace} workspaces={workspaces} activeWorkspaceId={activeWorkspaceId} />
         <div className="flex min-w-0 flex-col">
           <Topbar
@@ -94,6 +99,9 @@ export function AppShell({
       </div>
 
       <MobileNav onOpenMore={() => setNavOpen(true)} />
+
+      <InstallPrompt />
+      <OnboardingTour />
     </>
     </PaletteProvider>
   );

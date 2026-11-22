@@ -97,16 +97,16 @@ export default async function TasksPage({
         title="Tarefas"
         description="Atrasada, vence hoje ou sem prazo: cada tarefa mostra o estado por extenso, nunca só por cor."
         actions={
-          <div className="flex flex-wrap gap-2">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
             <Link
               href="/tarefas/quadro"
-              className="inline-flex h-10 items-center gap-2 rounded-md border border-border-strong bg-surface px-3.5 text-[13px] font-semibold text-ink no-underline hover:bg-surface-2 hover:no-underline"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-3.5 sm:w-auto text-[13px] font-semibold text-ink no-underline hover:bg-surface-2 hover:no-underline"
             >
               Ver como quadro
             </Link>
           <Link
             href="/criar?tipo=tarefa"
-            className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand px-3.5 sm:w-auto text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
           >
             <Plus className="size-4" aria-hidden="true" />
             Nova tarefa
@@ -124,7 +124,7 @@ export default async function TasksPage({
               href={`/tarefas?vista=${entry.id}`}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "inline-flex min-h-9 items-center rounded-full border px-3.5 text-[12.5px] font-semibold no-underline transition-colors",
+                "inline-flex min-h-11 items-center rounded-full border px-4 text-[12.5px] font-semibold no-underline transition-colors",
                 active
                   ? "border-brand bg-brand text-white hover:bg-brand-hover hover:no-underline"
                   : "border-border-strong bg-surface text-ink hover:bg-surface-2 hover:no-underline",

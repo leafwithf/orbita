@@ -21,12 +21,12 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center rounded-md border border-dashed border-border-strong bg-surface-2/60 px-5 text-center",
+        "flex flex-col items-center justify-center rounded-2xl border border-dashed border-border-strong bg-surface/85 px-5 text-center shadow-[var(--shadow-1)]",
         compact ? "py-6" : "py-10",
         className,
       )}
     >
-      <span className="mb-3 grid size-11 place-items-center rounded-full bg-brand-soft text-brand">
+      <span className="mb-4 grid size-12 place-items-center rounded-2xl border border-brand/20 bg-brand-soft text-brand shadow-sm">
         <Icon className="size-5" aria-hidden="true" />
       </span>
       <h3 className="text-[15px] font-semibold text-ink">{title}</h3>
@@ -35,7 +35,7 @@ export function EmptyState({
           {description}
         </p>
       ) : null}
-      {action ? <div className="mt-4">{action}</div> : null}
+      {action ? <div className="mt-5 w-full max-w-xs">{action}</div> : null}
     </div>
   );
 }

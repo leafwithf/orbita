@@ -57,7 +57,7 @@ export function Topbar({
         type="button"
         variant="ghost"
         size="icon"
-        className="size-10 shrink-0 rounded-xl text-muted hover:bg-accent lg:hidden"
+        className="size-11 shrink-0 rounded-xl text-muted hover:bg-accent lg:hidden"
         onClick={onOpenNav}
         aria-label="Abrir menu de navegação"
       >
@@ -104,7 +104,7 @@ export function Topbar({
       <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
         <Link
           href="/notificacoes"
-          className="relative inline-flex size-10 items-center justify-center rounded-xl text-muted no-underline transition-colors hover:bg-accent hover:text-ink hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          className="relative inline-flex size-11 items-center justify-center rounded-xl text-muted no-underline transition-colors hover:bg-accent hover:text-ink hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           aria-label={
             unread > 0
               ? `Notificações, ${unread} não lida${unread > 1 ? "s" : ""}`
@@ -122,13 +122,13 @@ export function Topbar({
           ) : null}
         </Link>
 
-        <ThemeToggle className="size-10 rounded-xl text-muted hover:bg-accent hover:text-ink" />
+        <ThemeToggle className="size-11 rounded-xl text-muted hover:bg-accent hover:text-ink" />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="ml-0.5 inline-flex size-10 items-center justify-center rounded-full border border-border/80 bg-surface-2 transition-colors hover:border-brand/40 hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              className="ml-0.5 inline-flex size-11 items-center justify-center rounded-full border border-border/80 bg-surface-2 transition-colors hover:border-brand/40 hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               aria-label={`Menu da conta de ${viewer.name}`}
             >
               <UserAvatar name={viewer.name} size="md" />

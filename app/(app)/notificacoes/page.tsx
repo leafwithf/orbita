@@ -35,6 +35,7 @@ export default async function NotificationsPage() {
 
   return (
     <div className="grid gap-6">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
       <PageHeader
         title="Notificações"
         description="Comentários, atribuições e mudanças nos seus espaços. Só aparece o que diz respeito à sua conta."
@@ -49,6 +50,7 @@ export default async function NotificationsPage() {
           ) : undefined
         }
       />
+      </section>
 
       {items.length === 0 ? (
         <EmptyState
@@ -66,9 +68,9 @@ export default async function NotificationsPage() {
             {unread.length === 0 ? (
               <p className="px-4 py-5 text-sm text-muted">Nenhuma notificação nova.</p>
             ) : (
-              <ul className="divide-y divide-border">
+              <ul className="grid gap-3">
                 {unread.map((item) => (
-                  <li key={item.id} className="flex min-w-0 flex-wrap items-center gap-3 bg-brand/[0.035] px-4 py-3">
+                  <li key={item.id} className="flex min-w-0 items-start gap-3 rounded-2xl border border-brand/30 bg-brand/[0.055] p-4 shadow-[var(--shadow-1)] sm:p-5">
                     <span aria-hidden="true" className="size-2 flex-none rounded-full bg-brand" />
                     <div className="min-w-0 flex-1">
                       <p className="text-[13.5px] font-semibold text-ink">{item.text}</p>
@@ -103,9 +105,9 @@ export default async function NotificationsPage() {
             {read.length === 0 ? (
               <p className="px-4 py-5 text-sm text-muted">As notificações lidas aparecerão aqui.</p>
             ) : (
-              <ul className="divide-y divide-border">
+              <ul className="grid gap-3">
                 {read.map((item) => (
-                  <li key={item.id} className="flex min-w-0 flex-wrap items-center gap-3 px-4 py-3">
+                  <li key={item.id} className="flex min-w-0 items-start gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] sm:p-5">
                     <span aria-hidden="true" className="size-2 flex-none rounded-full bg-transparent" />
                     <div className="min-w-0 flex-1">
                       {item.href ? (

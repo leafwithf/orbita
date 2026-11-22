@@ -35,10 +35,12 @@ export default async function TrashPage() {
 
   return (
     <div className="grid gap-6">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
       <PageHeader
         title="Lixeira"
         description="Itens excluídos ficam aqui e podem ser restaurados. Itens com mais de 30 dias são removidos de vez pela limpeza diária."
       />
+      </section>
 
       {items.length === 0 ? (
         <EmptyState
@@ -48,9 +50,9 @@ export default async function TrashPage() {
         />
       ) : (
         <SectionCard title={`${items.length} ${items.length === 1 ? "item" : "itens"}`} bodyClassName="p-0 sm:p-0">
-          <ul className="divide-y divide-border">
+          <ul className="grid gap-3">
             {items.map((item) => (
-              <li key={`${item.kind}-${item.id}`} className="flex flex-wrap items-center gap-3 px-4 py-3">
+              <li key={`${item.kind}-${item.id}`} className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/35 sm:flex-row sm:items-center">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[13.5px] font-medium">{item.title}</p>
                   <p className="text-[11.5px] text-faint">
@@ -63,7 +65,7 @@ export default async function TrashPage() {
                   <button
                     type="submit"
                     aria-label={`Restaurar ${item.title}`}
-                    className="min-h-11 rounded-md border border-border-strong bg-surface px-3 text-[12.5px] font-semibold hover:bg-surface-2"
+                    className="min-h-11 w-full rounded-xl border border-brand/30 bg-surface px-4 text-sm font-semibold text-ink transition hover:border-brand hover:bg-surface-2 sm:w-auto"
                   >
                     Restaurar
                   </button>

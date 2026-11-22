@@ -68,6 +68,7 @@ export default async function FocusPage() {
 
   return (
     <div className="grid gap-6">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
       <PageHeader
         eyebrow="Uma decisão por vez"
         title="Meu foco"
@@ -80,14 +81,15 @@ export default async function FocusPage() {
           />
         }
       />
+      </section>
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,1fr)]">
         <div className="grid min-w-0 content-start gap-5">
           <section
             aria-labelledby="projeto-principal"
-            className="overflow-hidden rounded-lg border border-brand/25 bg-surface shadow-[var(--shadow-1)]"
+            className="relative isolate overflow-hidden rounded-[28px] border border-brand/30 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_20%,transparent),transparent_58%),linear-gradient(145deg,var(--surface),var(--surface-2))] shadow-[var(--shadow-2)]"
           >
-            <div className="h-1 bg-gradient-to-r from-brand to-[#6f9cf5]" />
+            <div className="h-1.5 bg-gradient-to-r from-brand via-[#f26a1b] to-[#ffc857]" />
             <div className="p-4 sm:p-5">
               {focusProject ? (
                 <>
@@ -128,7 +130,7 @@ export default async function FocusPage() {
                     <ProgressLine progress={focusProject.progress} />
                   </div>
 
-                  <div className="mt-4 rounded-md border border-brand/20 bg-brand-soft px-3.5 py-3">
+                  <div className="mt-5 rounded-2xl border border-brand/30 bg-brand-soft p-4 shadow-[var(--shadow-1)] sm:p-5">
                     <p className="text-[10.5px] font-semibold tracking-[0.06em] text-[var(--brand-700)] uppercase">
                       Seu próximo passo
                     </p>
@@ -315,7 +317,7 @@ export default async function FocusPage() {
                 otherProjects.slice(0, 6).map((project) => (
                   <div
                     key={project.id}
-                    className="flex flex-col gap-2 rounded-md border border-border bg-surface-2 px-3 py-2.5 sm:flex-row sm:items-center"
+                    className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:flex-row sm:items-center"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[12.5px] font-medium">
@@ -352,7 +354,7 @@ export default async function FocusPage() {
                 otherCourses.slice(0, 5).map((course) => (
                   <div
                     key={course.id}
-                    className="flex flex-col gap-2 rounded-md border border-border bg-surface-2 px-3 py-2.5 sm:flex-row sm:items-center"
+                    className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:flex-row sm:items-center"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[12.5px] font-medium">
@@ -397,7 +399,7 @@ export default async function FocusPage() {
                   <Link
                     key={project.id}
                     href={`/projetos/${project.id}`}
-                    className="flex min-h-10 items-center gap-2 rounded-md px-1 text-ink no-underline hover:bg-surface-2 hover:no-underline"
+                    className="flex min-h-12 items-center gap-3 rounded-xl border border-border bg-surface px-3 text-ink no-underline transition hover:border-brand/30 hover:bg-surface-2 hover:no-underline"
                   >
                     <FolderKanban
                       className="size-4 flex-none text-faint"
@@ -415,7 +417,7 @@ export default async function FocusPage() {
                   <Link
                     key={course.id}
                     href="/cursos"
-                    className="flex min-h-10 items-center gap-2 rounded-md px-1 text-ink no-underline hover:bg-surface-2 hover:no-underline"
+                    className="flex min-h-12 items-center gap-3 rounded-xl border border-border bg-surface px-3 text-ink no-underline transition hover:border-brand/30 hover:bg-surface-2 hover:no-underline"
                   >
                     <BookOpen
                       className="size-4 flex-none text-faint"

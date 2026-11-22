@@ -32,8 +32,8 @@ function CourseCard({
     <article
       className={
         isFocus
-          ? "rounded-lg border border-brand/25 bg-surface p-4 shadow-[var(--shadow-1)]"
-          : "rounded-lg border border-border bg-surface p-4 shadow-[var(--shadow-1)]"
+          ? "relative overflow-hidden rounded-[24px] border border-brand/35 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_18%,transparent),transparent_58%),var(--surface)] p-5 shadow-[var(--shadow-2)] sm:p-6"
+          : "rounded-[22px] border border-border bg-surface p-5 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:p-6"
       }
     >
       <div className="flex items-start justify-between gap-3">
@@ -164,6 +164,7 @@ export default async function CoursesPage() {
 
   return (
     <div className="grid gap-6">
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_24%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
       <PageHeader
         eyebrow={`${courses.length} ${courses.length === 1 ? "curso" : "cursos"}`}
         title="Cursos e estudos"
@@ -178,6 +179,7 @@ export default async function CoursesPage() {
           </Link>
         }
       />
+      </section>
 
       {courses.length === 0 ? (
         <EmptyState
@@ -228,7 +230,7 @@ export default async function CoursesPage() {
               >
                 Fila de estudos · {otherCourses.length}
               </h2>
-              <div className="grid min-w-0 gap-3 sm:grid-cols-2">
+              <div className="grid min-w-0 gap-4 sm:grid-cols-2">
                 {otherCourses.map((course) => (
                   <CourseCard
                     key={course.id}

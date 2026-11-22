@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import { ServiceWorkerRegistration } from "@/components/pwa/service-worker-registration";
+import { PwaSplash } from "@/components/pwa/pwa-splash";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
@@ -35,7 +36,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f6f8fc" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+    { media: "(prefers-color-scheme: dark)", color: "#05030A" },
   ],
 };
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
+        <PwaSplash />
         <ServiceWorkerRegistration />
       </body>
     </html>

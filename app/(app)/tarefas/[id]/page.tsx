@@ -40,19 +40,24 @@ export default async function TaskPage({ params }: { params: Promise<{ id: strin
   const statusLabel = KANBAN_COLUMNS.find((column) => column.status === task.status)?.label ?? task.status;
 
   return (
-    <div className="grid gap-6">
-      <Link href="/tarefas/quadro" className="inline-flex min-h-11 items-center gap-1.5 text-[13px] font-semibold text-muted no-underline hover:text-ink hover:no-underline">
+    <div className="grid gap-7">
+      <Link href="/tarefas/quadro" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-surface/80 px-4 text-[13px] font-semibold text-muted no-underline transition-colors hover:border-brand/40 hover:text-ink hover:no-underline">
         <ArrowLeft className="size-4" aria-hidden="true" />
         Voltar ao quadro
       </Link>
 
-      <PageHeader
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_20%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
+        <div className="relative z-10">
+          <PageHeader
         eyebrow={task.projectTitle ?? "Sem projeto"}
         title={task.title}
         description={task.description ? <FileMentionText workspaceId={context.workspace.id} text={task.description} /> : undefined}
-      />
+          />
+        </div>
+      </section>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)]">
+        <div className="order-2 lg:order-1">
         <SectionCard title="Conversa">
           <CommentThread
             workspaceId={context.workspace.id}
@@ -64,9 +69,10 @@ export default async function TaskPage({ params }: { params: Promise<{ id: strin
             canModerate={canManageMembers(role)}
           />
         </SectionCard>
+        </div>
 
-        <aside className="grid content-start gap-5">
-          <SectionCard title="Detalhes">
+        <aside className="order-1 grid content-start gap-5 lg:order-2">
+          <SectionCard title="Detalhes" description="Status, prioridade e responsabilidade desta tarefa.">
             <div className="flex flex-wrap items-center gap-2">
               <StatusChip label={statusLabel} tone={task.status === "done" ? "success" : "neutral"} />
               <StatusChip label={priorityLabel(task.priority)} tone={task.priority === "high" || task.priority === "urgent" ? "danger" : "neutral"} />

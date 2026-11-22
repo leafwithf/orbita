@@ -95,11 +95,11 @@ export default async function ProjectDetailPage({
   }), listProjectFiles({ workspaceId: workspace.id, projectId: project.id })]);
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-7">
       <div>
         <Link
           href="/projetos"
-          className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-muted no-underline hover:text-ink hover:no-underline"
+          className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-surface/80 px-4 text-[13px] font-semibold text-muted no-underline transition-colors hover:border-brand/40 hover:text-ink hover:no-underline"
         >
           <ArrowLeft className="size-3.5" aria-hidden="true" />
           Voltar para projetos
@@ -120,7 +120,9 @@ export default async function ProjectDetailPage({
         </div>
       ) : null}
 
-      <PageHeader
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-brand/25 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_20%,transparent),transparent_55%),linear-gradient(145deg,var(--surface),var(--surface-2))] p-5 shadow-[var(--shadow-2)] sm:p-8">
+        <div className="relative z-10">
+          <PageHeader
         eyebrow={<span className="inline-flex items-center gap-1.5">{project.coverUrl ? <Image src={project.coverUrl} alt="" width={20} height={20} sizes="20px" className="size-5 rounded-md object-cover" /> : project.emoji} Projeto</span>}
         title={project.title}
         description={project.objective ? <FileMentionText workspaceId={workspace.id} text={project.objective} /> : "Sem objetivo escrito ainda. Um objetivo ajuda a decidir o que fica de fora."}
@@ -137,7 +139,9 @@ export default async function ProjectDetailPage({
             </Link>
           </>
         }
-      />
+          />
+        </div>
+      </section>
 
       {canEditProject ? (
         <SectionCard title="Identidade do projeto" description="Use um emoji ou envie uma imagem para identificar o projeto nos cartões, listas e nesta página.">
@@ -145,7 +149,8 @@ export default async function ProjectDetailPage({
         </SectionCard>
       ) : null}
 
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="rounded-2xl border border-border bg-surface/80 p-3 shadow-[var(--shadow-1)] sm:p-4">
+        <div className="flex flex-wrap items-center gap-2">
         <StatusChip label={projectStageLabel(project.stage)} tone="brand" />
         <StatusChip
           label={PROJECT_STATUS_LABELS[project.status]}
@@ -162,10 +167,11 @@ export default async function ProjectDetailPage({
             Início em {formatDatePtBr(project.startDate)}
           </span>
         ) : null}
+        </div>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)]">
-        <div className="grid min-w-0 content-start gap-5">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)]">
+        <div className="grid min-w-0 content-start gap-6">
           <SectionCard title="Progresso">
             <ProgressLine progress={project.progress} />
             <p className="mt-3 text-[12px] leading-relaxed text-faint">
@@ -270,7 +276,7 @@ export default async function ProjectDetailPage({
           </SectionCard>
         </div>
 
-        <aside className="grid min-w-0 content-start gap-5">
+        <aside className="grid min-w-0 content-start gap-4">
           <SectionCard title="Sobre o projeto">
             <dl className="grid gap-3 text-[13px]">
               <div>
