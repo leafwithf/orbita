@@ -8,7 +8,7 @@ export function TourLauncher() {
   return (
     <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
       <p className="max-w-xl text-[12.5px] leading-relaxed text-muted">
-        Revise a navega??o, conhe?a os recursos e descubra como organizar seu trabalho.
+        Revise a navegação, conheça os recursos e descubra como organizar seu trabalho.
       </p>
       <Button
         type="button"

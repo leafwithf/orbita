@@ -49,10 +49,10 @@ function useMounted() {
 type MotionChoice = "automatico" | "completo" | "leve" | "minimo";
 
 const MOTION_OPTIONS: { value: MotionChoice; label: string; description: string }[] = [
-  { value: "automatico", label: "Autom?tico", description: "Adapta os efeitos ao desempenho do dispositivo." },
-  { value: "completo", label: "Completo", description: "Mant?m todas as anima??es e efeitos visuais." },
+  { value: "automatico", label: "Automático", description: "Adapta os efeitos ao desempenho do dispositivo." },
+  { value: "completo", label: "Completo", description: "Mantém todas as animações e efeitos visuais." },
   { value: "leve", label: "Leve", description: "Reduz efeitos para economizar bateria e processamento." },
-  { value: "minimo", label: "M?nimo", description: "Reduz anima??es ao essencial." },
+  { value: "minimo", label: "Mínimo", description: "Reduz animações ao essencial." },
 ];
 
 const MOTION_STORAGE_KEY = "orbita-motion-preference";
@@ -216,9 +216,9 @@ export function ThemePreference() {
       </div>
       <div className="border-t border-border pt-5">
         <fieldset>
-          <legend className="text-[13px] font-semibold">Prefer?ncia de movimento</legend>
+          <legend className="text-[13px] font-semibold">Preferência de movimento</legend>
           <p className="mt-1 text-[12px] leading-relaxed text-muted">
-            Controle a intensidade das anima??es e dos efeitos visuais do ?rbita.
+            Controle a intensidade das animações e dos efeitos visuais do Órbita.
           </p>
           <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
             {MOTION_OPTIONS.map((option) => (
@@ -249,7 +249,7 @@ export function ThemePreference() {
             ))}
           </div>
           <p className="mt-2 text-[11px] leading-relaxed text-faint">
-            A prefer?ncia ? salva somente neste dispositivo. A op??o M?nimo tamb?m ? aplicada
+            A preferência é salva somente neste dispositivo. A opção Mínimo também é aplicada
             automaticamente quando o sistema operacional solicita movimento reduzido.
           </p>
         </fieldset>

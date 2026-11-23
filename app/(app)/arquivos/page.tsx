@@ -115,7 +115,7 @@ export default async function FilesPage() {
             )}
           </SectionCard>
 
-          <SectionCard title="Como funciona a biblioteca" description="Informa??es importantes sobre seguran?a e armazenamento.">
+          <SectionCard title="Como funciona a biblioteca" description="Informações importantes sobre segurança e armazenamento.">
             <ul className="grid gap-3 text-[13px] leading-relaxed text-muted">
               <li className="flex gap-2.5">
                 <Upload className="mt-0.5 size-4 flex-none text-brand" aria-hidden="true" />

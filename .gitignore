@@ -55,3 +55,6 @@ next-env.d.ts
 
 # pacotes de conferência
 *.zip
+
+# backups do redesign
+.backup-orbita/

@@ -6,7 +6,7 @@ function Block({ className = "" }: { className?: string }) {
 
 export default function WorkspacesLoading() {
   return (
-    <div aria-label="Carregando espa?os e pessoas" aria-busy="true" className="grid min-w-0 gap-6">
+    <div aria-label="Carregando espaços e pessoas" aria-busy="true" className="grid min-w-0 gap-6">
       <header className="grid gap-3">
         <Block className="h-3 w-28" />
         <Block className="h-8 w-64 max-w-full" />

@@ -6,7 +6,7 @@ function Block({ className = "" }: { className?: string }) {
 
 export default function HistoryLoading() {
   return (
-    <div aria-label="Carregando hist?rico" aria-busy="true" className="grid min-w-0 gap-6">
+    <div aria-label="Carregando histórico" aria-busy="true" className="grid min-w-0 gap-6">
       <header className="grid gap-3"><Block className="h-8 w-40" /><Block className="h-4 w-80 max-w-full" /></header>
       <section className="overflow-hidden rounded-xl border border-border bg-surface">
         <div className="border-b border-border p-4"><Block className="h-4 w-40" /></div>

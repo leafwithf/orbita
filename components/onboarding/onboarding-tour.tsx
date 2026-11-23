@@ -29,52 +29,52 @@ const OPEN_EVENT = "orbita:open-tour";
 const steps = [
   {
     icon: Compass,
-    title: "Bem-vindo ao ?rbita",
+    title: "Bem-vindo ao Órbita",
     description:
-      "Seu espa?o para organizar trabalho, projetos e ideias. O objetivo ? deixar tudo importante vis?vel sem transformar sua rotina em uma lista intermin?vel.",
-    detail: "Vamos conhecer sete partes do aplicativo. Voc? pode avan?ar no seu ritmo.",
+      "Seu espaço para organizar trabalho, projetos e ideias. O objetivo ? deixar tudo importante visível sem transformar sua rotina em uma lista interminável.",
+    detail: "Vamos conhecer sete partes do aplicativo. Você pode avançar no seu ritmo.",
   },
   {
     icon: LayoutDashboard,
     title: "Seu painel de controle",
     description:
-      "O painel re?ne uma vis?o geral da sua atividade, tarefas importantes e atalhos para continuar de onde parou.",
+      "O painel reúne uma visão geral da sua atividade, tarefas importantes e atalhos para continuar de onde parou.",
     detail: "Use o painel como ponto de partida para organizar o dia.",
   },
   {
     icon: FolderKanban,
     title: "Projetos e tarefas",
     description:
-      "Separe seu trabalho em projetos e transforme objetivos em tarefas menores. Cada tarefa pode ter informa??es, prazos e acompanhamento pr?prios.",
+      "Separe seu trabalho em projetos e transforme objetivos em tarefas menores. Cada tarefa pode ter informações, prazos e acompanhamento próprios.",
     detail: "Acesse Projetos e Tarefas pelo menu principal.",
   },
   {
     icon: Target,
-    title: "Quadro e organiza??o",
+    title: "Quadro e organização",
     description:
-      "No quadro Kanban, acompanhe o andamento das tarefas por etapas. Mova os cart?es conforme o trabalho evolui.",
-    detail: "No celular, deslize entre as colunas e use os controles dos cart?es.",
+      "No quadro Kanban, acompanhe o andamento das tarefas por etapas. Mova os cartões conforme o trabalho evolui.",
+    detail: "No celular, deslize entre as colunas e use os controles dos cartões.",
   },
   {
     icon: Lightbulb,
     title: "Foco e produtividade",
     description:
-      "A ?rea de Foco ajuda a escolher o que merece aten??o agora, reunindo seu pr?ximo passo e uma fila de atividades.",
+      "A área de Foco ajuda a escolher o que merece atenção agora, reunindo seu próximo passo e uma fila de atividades.",
     detail: "Escolha uma prioridade por vez para manter clareza.",
   },
   {
     icon: FolderKanban,
-    title: "Arquivos e portf?lio",
+    title: "Arquivos e portfólio",
     description:
-      "Organize arquivos no espa?o de trabalho e escolha quais projetos deseja apresentar no portf?lio.",
-    detail: "Publica??es s?o separadas do conte?do privado e podem ser revogadas.",
+      "Organize arquivos no espaço de trabalho e escolha quais projetos deseja apresentar no portfólio.",
+    detail: "Publicações são separadas do conteúdo privado e podem ser revogadas.",
   },
   {
     icon: Settings2,
-    title: "Seu espa?o, suas regras",
+    title: "Seu espaço, suas regras",
     description:
-      "Em Configura??es, personalize a apar?ncia, confira seus dados e ajuste as prefer?ncias de acessibilidade.",
-    detail: "Pronto! Voc? pode reabrir este guia quando quiser, pelas Configura??es.",
+      "Em Configurações, personalize a aparência, confira seus dados e ajuste as preferências de acessibilidade.",
+    detail: "Pronto! Você pode reabrir este guia quando quiser, pelas Configurações.",
   },
 ];
 
@@ -174,7 +174,7 @@ export function OnboardingTour() {
           </div>
           <div className="flex items-center justify-between gap-3">
             <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand">
-              Guia do ?rbita
+              Guia do Órbita
             </span>
             <span className="text-xs tabular-nums text-muted">
               Etapa {stepIndex + 1} de {steps.length}
@@ -203,7 +203,7 @@ export function OnboardingTour() {
         </DialogHeader>
 
         <div className="rounded-2xl border border-border bg-surface/80 p-4">
-          <p className="text-[12px] font-semibold text-ink">Dica r?pida</p>
+          <p className="text-[12px] font-semibold text-ink">Dica rápida</p>
           <p className="mt-1 text-[12.5px] leading-relaxed text-muted">
             {current.detail}
           </p>
@@ -241,7 +241,7 @@ export function OnboardingTour() {
               </>
             ) : (
               <>
-                Pr?xima etapa
+                Próxima etapa
                 <ArrowRight aria-hidden="true" />
               </>
             )}

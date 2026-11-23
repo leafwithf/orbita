@@ -263,8 +263,8 @@ export default async function SettingsPage() {
       </Tabs>
 
       <SectionCard
-        title="Conhe?a o ?rbita"
-        description="Retome o guia interativo para conhecer as principais ?reas e recursos do aplicativo."
+        title="Conheça o Órbita"
+        description="Retome o guia interativo para conhecer as principais áreas e recursos do aplicativo."
       >
         <TourLauncher />
       </SectionCard>

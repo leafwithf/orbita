@@ -6,7 +6,7 @@ function Block({ className = "" }: { className?: string }) {
 
 export default function SettingsLoading() {
   return (
-    <div aria-label="Carregando configura??es" aria-busy="true" className="grid min-w-0 gap-6">
+    <div aria-label="Carregando configurações" aria-busy="true" className="grid min-w-0 gap-6">
       <header className="grid gap-3">
         <Block className="h-3 w-24" />
         <Block className="h-8 w-52" />

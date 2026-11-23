@@ -68,7 +68,7 @@ export function InstallPrompt() {
       try {
         window.localStorage.setItem(INSTALLED_KEY, "true");
       } catch {
-        // A instala??o j? foi conclu?da pelo navegador.
+        // A instalação já foi concluída pelo navegador.
       }
     }
 
@@ -88,7 +88,7 @@ export function InstallPrompt() {
     try {
       window.localStorage.setItem(DISMISSED_KEY, String(Date.now()));
     } catch {
-      // A prefer?ncia permanece v?lida durante esta sess?o.
+      // A preferência permanece válida durante esta sessão.
     }
   }
 
@@ -118,7 +118,7 @@ export function InstallPrompt() {
   return (
     <aside
       role="region"
-      aria-label="Instalar aplicativo ?rbita"
+      aria-label="Instalar aplicativo Órbita"
       className="fixed inset-x-3 bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-40 mx-auto flex max-w-lg items-center gap-3 rounded-2xl border border-brand/30 bg-surface/95 p-4 shadow-[var(--shadow-2)] backdrop-blur-md lg:inset-x-auto lg:right-5 lg:bottom-5"
     >
       <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand/15 text-brand">
@@ -131,11 +131,11 @@ export function InstallPrompt() {
 
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-ink">
-          {showIosHint ? "Leve o ?rbita com voc?" : "Instale o ?rbita"}
+          {showIosHint ? "Leve o Órbita com você" : "Instale o Órbita"}
         </p>
         <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
           {showIosHint
-            ? "No Safari, toque em Compartilhar e depois em Adicionar ? Tela de In?cio."
+            ? "No Safari, toque em Compartilhar e depois em Adicionar à Tela de Início."
             : "Acesse seus projetos e tarefas como um aplicativo."}
         </p>
       </div>
@@ -153,7 +153,7 @@ export function InstallPrompt() {
       <button
         type="button"
         onClick={dismissPrompt}
-        aria-label="Fechar aviso de instala??o"
+        aria-label="Fechar aviso de instalação"
         className="grid size-11 shrink-0 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-accent hover:text-ink"
       >
         <X className="size-5" aria-hidden="true" />

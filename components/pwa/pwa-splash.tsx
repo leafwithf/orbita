@@ -28,7 +28,7 @@ export function PwaSplash() {
       <div className="orbita-pwa-splash-mark">
         <span />
       </div>
-      <span className="orbita-pwa-splash-name">?RBITA</span>
+      <span className="orbita-pwa-splash-name">ÓRBITA</span>
     </div>
   );
 }

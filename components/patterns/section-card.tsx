@@ -26,7 +26,7 @@ export function SectionCard({
       id={id}
       aria-labelledby={titleId}
       className={cn(
-        "flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-[var(--shadow-1)] transition-[border-color,box-shadow] duration-200",
+        "orbita-panel flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-[var(--shadow-1)] transition-[border-color,box-shadow] duration-200",
         className,
       )}
     >

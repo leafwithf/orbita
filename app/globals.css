@@ -436,7 +436,7 @@
 
 
 /* =========================================================
-   ORBITA ? SINGULARIDADE / FUNDA??O VISUAL
+   ORBITA — SINGULARIDADE / FUNDAÇÃO VISUAL
    ========================================================= */
 
 :root {
@@ -453,7 +453,7 @@
   --cosmic-muted: #A99FB8;
 }
 
-/* Singularidade: tema escuro padr?o */
+/* Singularidade: tema escuro padrão */
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #05030A;
@@ -556,7 +556,7 @@
   --ring-color: var(--brand);
 }
 
-/* Dourado continua sendo uma das seis paletas, agora integrado ? identidade. */
+/* Dourado continua sendo uma das seis paletas, agora integrado à identidade. */
 :root[data-theme="dark"][data-palette="amber"] {
   --brand: #F26A1B;
   --brand-hover: #FF8742;
@@ -575,7 +575,7 @@ h1, h2, h3, h4,
   font-family: "Sora Variable", Sora, "Inter Variable", sans-serif;
 }
 
-/* Ritmo visual e ?reas interativas acess?veis. */
+/* Ritmo visual e áreas interativas acessíveis. */
 button, [role="button"], input, select, textarea {
   accent-color: var(--brand);
 }
@@ -625,7 +625,7 @@ button, [role="button"], input, select, textarea {
 }
 
 
-/* ORBITA STAGE 3 ? COSMIC ATMOSPHERE */
+/* ORBITA STAGE 3 — COSMIC ATMOSPHERE */
 
 .orbita-cosmos {
   position: fixed;
@@ -797,3 +797,165 @@ button, [role="button"], input, select, textarea {
     animation-duration: 500ms;
   }
 }
+
+/* =========================================================
+   ORBITA PASSO 1 — ACABAMENTO PREMIUM
+   Regras: so transform/opacity animam; brilho = sombra estatica
+   em pseudo-elemento cuja opacity varia.
+   ========================================================= */
+
+:root {
+  --ease-orbita: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Paineis: borda em degrade sutil roxo -> laranja (estatica, sem custo) */
+.orbita-panel {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--cosmic-purple) 42%, var(--border)),
+        var(--border) 40%,
+        color-mix(in srgb, var(--accretion-orange) 34%, var(--border))
+      )
+      border-box;
+}
+
+/* Botao principal: degrade quente + brilho que so varia a opacity */
+[data-theme="dark"] [data-slot="button"][data-variant="default"] {
+  position: relative;
+  isolation: isolate;
+  background-image: linear-gradient(135deg, #f26a1b 0%, #ffc857 100%);
+  color: #160b08;
+}
+
+[data-theme="dark"] [data-slot="button"][data-variant="default"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 8px 24px -6px rgba(242, 106, 27, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-orbita);
+}
+
+[data-theme="dark"] [data-slot="button"][data-variant="default"]:hover::after,
+[data-theme="dark"] [data-slot="button"][data-variant="default"]:focus-visible::after {
+  opacity: 1;
+}
+
+/* Botao central "+" da navegacao mobile */
+.orbita-fab {
+  position: relative;
+  isolation: isolate;
+  color: #160b08;
+  background: linear-gradient(135deg, #f26a1b 0%, #ffc857 100%);
+  border: 3px solid var(--surface);
+  transition: transform 200ms var(--ease-orbita);
+}
+
+.orbita-fab::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 8px 26px -2px rgba(242, 106, 27, 0.65);
+  pointer-events: none;
+  animation: orbita-glow 3.2s ease-in-out infinite;
+}
+
+.orbita-fab:active {
+  transform: scale(0.94);
+}
+
+@keyframes orbita-glow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+/* Mini buraco negro (usado nas telas vazias) */
+.orbita-singularity {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--s, 64px);
+  aspect-ratio: 1;
+}
+
+.orbita-singularity::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -30%;
+  left: -30%;
+  height: 46%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 38%,
+    rgba(255, 241, 176, 0.9) 44%,
+    #ffc857 52%,
+    #f26a1b 64%,
+    #d6261c 76%,
+    rgba(109, 66, 201, 0.55) 90%,
+    transparent 100%
+  );
+  transform: translateY(-50%) rotate(-16deg);
+}
+
+.orbita-singularity-core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 62%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 200, 87, 0.6);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #171026 0 12%, #05030a 55%, #000 80%);
+  box-shadow:
+    0 0 0 3px rgba(242, 106, 27, 0.1),
+    0 0 22px rgba(242, 106, 27, 0.28);
+  color: #ffc857;
+}
+
+/* Entrada escalonada (use a classe no pai: <div class="orbita-stagger">) */
+.orbita-stagger > * {
+  animation: orbita-rise 460ms var(--ease-orbita) both;
+}
+.orbita-stagger > :nth-child(2) { animation-delay: 50ms; }
+.orbita-stagger > :nth-child(3) { animation-delay: 100ms; }
+.orbita-stagger > :nth-child(4) { animation-delay: 150ms; }
+.orbita-stagger > :nth-child(5) { animation-delay: 200ms; }
+.orbita-stagger > :nth-child(6) { animation-delay: 250ms; }
+.orbita-stagger > :nth-child(7) { animation-delay: 300ms; }
+.orbita-stagger > :nth-child(8) { animation-delay: 350ms; }
+
+@keyframes orbita-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Niveis de movimento */
+:root[data-motion="leve"] .orbita-stagger > *,
+:root[data-motion="minimo"] .orbita-stagger > * {
+  animation: none;
+}
+
+:root[data-motion="leve"] .orbita-fab::after,
+:root[data-motion="minimo"] .orbita-fab::after {
+  animation: none;
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbita-stagger > *,
+  .orbita-fab::after {
+    animation: none;
+  }
+}
+

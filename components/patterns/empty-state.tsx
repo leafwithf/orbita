@@ -26,8 +26,14 @@ export function EmptyState({
         className,
       )}
     >
-      <span className="mb-4 grid size-12 place-items-center rounded-2xl border border-brand/20 bg-brand-soft text-brand shadow-sm">
-        <Icon className="size-5" aria-hidden="true" />
+      <span
+        aria-hidden="true"
+        className="orbita-singularity mb-5"
+        style={{ "--s": compact ? "56px" : "68px" } as React.CSSProperties}
+      >
+        <span className="orbita-singularity-core">
+          <Icon className="size-4" />
+        </span>
       </span>
       <h3 className="text-[15px] font-semibold text-ink">{title}</h3>
       {description ? (
