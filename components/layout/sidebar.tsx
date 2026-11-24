@@ -61,13 +61,13 @@ function NavLink({
         "group relative flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium no-underline transition-all duration-150",
         "text-sidebar-foreground/75 hover:bg-sidebar-accent/80 hover:text-white hover:no-underline",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
-        active && "bg-sidebar-accent text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,.035)]",
+        active && "orbita-nav-active bg-sidebar-accent text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,.035)]",
       )}
     >
       {active ? (
         <span
           aria-hidden="true"
-          className="absolute top-2.5 bottom-2.5 left-0 w-[3px] rounded-r-full bg-brand"
+          className="orbita-nav-bar absolute top-2.5 bottom-2.5 left-0 w-[3px] rounded-r-full bg-brand"
         />
       ) : null}
       <Icon
@@ -222,7 +222,7 @@ export function SidebarContent({
             <Plus className="size-4" aria-hidden="true" />
             Criar novo
           </span>
-          <span className="text-[10px] font-semibold text-white/65">＋</span>
+          <ArrowUpRight className="size-3.5 opacity-70" aria-hidden="true" />
         </Link>
       </Button>
 
@@ -268,7 +268,7 @@ export function Sidebar(props: {
   activeWorkspaceId?: string | null;
 }) {
   return (
-    <aside className="sticky top-0 hidden h-dvh overflow-y-auto border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:block">
+    <aside className="orbita-sidebar sticky top-0 hidden h-dvh overflow-y-auto border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:block">
       <SidebarContent {...props} />
     </aside>
   );

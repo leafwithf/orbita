@@ -959,3 +959,131 @@ button, [role="button"], input, select, textarea {
   }
 }
 
+/* =========================================================
+   ORBITA PASSO 2 — PAINEL, ANEL DE PROGRESSO E SIDEBAR
+   ========================================================= */
+
+/* Propriedade registrada: permite preencher o anel de 0 ate o valor.
+   (unica excecao a regra "so transform/opacity": elemento pequeno, uma vez,
+   desligado nos niveis de movimento leve e minimo) */
+@property --p {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+:root {
+  --ring-track: color-mix(in srgb, var(--text, #f5eee6) 10%, transparent);
+}
+
+/* Cabecalho do dashboard: nevoa roxa/laranja bem discreta atras do texto */
+.orbita-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 88% 50%, rgba(109, 66, 201, 0.2), transparent 55%),
+    radial-gradient(ellipse at 96% 62%, rgba(242, 106, 27, 0.12), transparent 45%);
+}
+
+/* Anel de progresso: roxo -> laranja -> amarelo, entrando para o centro */
+.orbita-ring {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 92px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -90deg,
+    #6d42c9 0%,
+    #f26a1b calc(var(--p) * 0.62%),
+    #ffc857 calc(var(--p) * 1%),
+    var(--ring-track) 0
+  );
+  animation: orbita-ring-in 900ms var(--ease-orbita, ease-out) both;
+}
+
+.orbita-ring::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.orbita-ring-value {
+  position: relative;
+  font-family: "Sora Variable", Sora, "Inter Variable", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.orbita-ring-value small {
+  margin-left: 1px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+@keyframes orbita-ring-in {
+  from { --p: 0; }
+}
+
+:root[data-motion="leve"] .orbita-ring,
+:root[data-motion="minimo"] .orbita-ring {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbita-ring { animation: none; }
+}
+
+/* Botao de chamada (links com bg-brand): degrade quente + brilho por opacity */
+.orbita-cta {
+  position: relative;
+  isolation: isolate;
+  background-image: linear-gradient(135deg, #f26a1b 0%, #ffc857 100%);
+  color: #160b08;
+}
+
+.orbita-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 8px 24px -6px rgba(242, 106, 27, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-orbita, ease-out);
+}
+
+.orbita-cta:hover::after,
+.orbita-cta:focus-visible::after {
+  opacity: 1;
+}
+
+/* Sidebar: item ativo com luz roxa que se dissolve e barra quente */
+.orbita-nav-active {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--cosmic-purple) 38%, transparent),
+    transparent 88%
+  );
+}
+
+.orbita-nav-bar {
+  background: linear-gradient(180deg, #ffc857, #f26a1b);
+}
+
+[data-theme="dark"] .orbita-sidebar {
+  background: linear-gradient(180deg, #0b0714 0%, #08050f 55%, #0f0a1a 100%);
+  border-right-color: color-mix(in srgb, var(--cosmic-purple) 30%, var(--sidebar-border));
+}
+
