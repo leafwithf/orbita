@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, type DragEvent, type ReactNode } from "react";
+import { useMemo, useRef, useState, type CSSProperties, type DragEvent, type ReactNode } from "react";
 import {
   ArrowDown,
   ArrowLeft,
@@ -36,19 +36,19 @@ const byPosition = (a: KanbanTask, b: KanbanTask) => a.position - b.position;
 
 const COLUMN_STYLES: Record<KanbanStatus, { marker: string; count: string; drop: string }> = {
   todo: {
-    marker: "bg-slate-400",
-    count: "bg-slate-500/10 text-slate-500 dark:text-slate-300",
-    drop: "border-slate-400/50 bg-slate-400/5",
+    marker: "bg-[#6d42c9] shadow-[0_0_10px_rgba(109,66,201,.7)]",
+    count: "bg-[#6d42c9]/15 text-[#5b34b0] dark:text-[#a78bfa]",
+    drop: "border-[#6d42c9]/70 bg-[#6d42c9]/10",
   },
   in_progress: {
-    marker: "bg-brand",
-    count: "bg-brand/10 text-brand",
-    drop: "border-brand/60 bg-brand/5",
+    marker: "bg-[#f26a1b] shadow-[0_0_10px_rgba(242,106,27,.75)]",
+    count: "bg-[#f26a1b]/15 text-[#b84a0c] dark:text-[#ff8a3d]",
+    drop: "border-[#f26a1b]/70 bg-[#f26a1b]/10",
   },
   done: {
-    marker: "bg-success",
-    count: "bg-success/10 text-success",
-    drop: "border-success/50 bg-success/5",
+    marker: "bg-[#ffc857] shadow-[0_0_10px_rgba(255,200,87,.75)]",
+    count: "bg-[#ffc857]/20 text-[#8a5a00] dark:text-[#ffc857]",
+    drop: "border-[#ffc857]/70 bg-[#ffc857]/10",
   },
 };
 
@@ -93,6 +93,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   }, [items]);
 
   const column = (status: KanbanStatus) => columns[status];
+  const donePct = items.length ? Math.round((columns.done.length / items.length) * 100) : 0;
 
   async function persist(
     task: KanbanTask,
@@ -262,6 +263,25 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
   return (
     <div className="min-w-0">
       <p className="sr-only" role="status" aria-live="polite">{announcement}</p>
+      <div className="orbita-panel mb-4 flex flex-wrap items-center gap-4 rounded-2xl p-4">
+        <div
+          className="orbita-ring orbita-ring-sm"
+          role="img"
+          aria-label={`${donePct}% concluido`}
+          style={{ "--p": donePct } as CSSProperties}
+        >
+          <span className="orbita-ring-value">{donePct}<small>%</small></span>
+        </div>
+        <div className="min-w-0 flex-1 basis-40">
+          <p className="text-[10px] font-semibold tracking-[.16em] text-brand uppercase">Resumo do quadro</p>
+          <p className="mt-1 text-sm font-semibold">{columns.done.length} de {items.length} tarefas concluidas</p>
+        </div>
+        <dl className="flex flex-wrap gap-2 text-center">
+          <div className="rounded-xl bg-surface-2 px-3 py-1.5"><dt className="text-[10px] text-muted">A fazer</dt><dd className="text-base font-semibold tabular-nums">{columns.todo.length}</dd></div>
+          <div className="rounded-xl bg-surface-2 px-3 py-1.5"><dt className="text-[10px] text-muted">Em andamento</dt><dd className="text-base font-semibold tabular-nums">{columns.in_progress.length}</dd></div>
+          <div className="rounded-xl bg-surface-2 px-3 py-1.5"><dt className="text-[10px] text-muted">Concluidas</dt><dd className="text-base font-semibold tabular-nums">{columns.done.length}</dd></div>
+        </dl>
+      </div>
       <div className="mb-3 flex items-center justify-between gap-3 text-[11px] text-muted">
         <span className="inline-flex items-center gap-1.5">
           <GripVertical className="size-3.5" aria-hidden="true" />
@@ -282,6 +302,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
             <section
               key={status}
               aria-labelledby={`col-${status}`}
+              data-orbit={status}
               onDragOver={(event) => {
                 event.preventDefault();
                 event.dataTransfer.dropEffect = "move";
@@ -294,7 +315,7 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
               }}
               onDrop={(event) => dropOnColumn(event, status)}
               className={cn(
-                "flex min-h-[400px] min-w-0 snap-start flex-col rounded-2xl border border-border bg-surface-2/80 p-3.5 shadow-[var(--shadow-1)] transition-colors sm:p-4",
+                "orbita-orbit flex min-h-[400px] min-w-0 snap-start flex-col rounded-2xl border border-border bg-surface-2/80 p-3.5 shadow-[var(--shadow-1)] transition-colors sm:p-4",
                 isDropTarget && style.drop,
               )}
             >
@@ -352,8 +373,8 @@ export function KanbanBoard({ tasks }: { tasks: KanbanTask[] }) {
                         }}
                         onDrop={(event) => dropOnCard(event, status, task.id)}
                         className={cn(
-                          "list-none rounded-xl border border-border bg-surface/95 p-4 shadow-[var(--shadow-1)] transition-[opacity,border-color,box-shadow,transform] hover:border-brand/35 hover:shadow-[var(--shadow-2)] active:cursor-grabbing",
-                          draggedTaskId === task.id && "opacity-40",
+                          "orbita-kcard list-none rounded-xl border border-border bg-surface/95 p-4 shadow-[var(--shadow-1)] transition-[opacity,border-color,box-shadow,transform] hover:-translate-y-0.5 hover:shadow-[var(--shadow-2)] active:cursor-grabbing",
+                          draggedTaskId === task.id && "opacity-40 scale-[.97] rotate-1",
                           "cursor-grab",
                         )}
                       >

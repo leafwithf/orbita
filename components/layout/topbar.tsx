@@ -52,7 +52,7 @@ export function Topbar({
   const workspaceColor = activeWorkspace?.brandColor ?? workspace?.brandColor ?? "#d6a64b";
 
   return (
-    <header className="sticky top-0 z-30 flex h-[68px] items-center gap-3 border-b border-border/80 bg-surface/85 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
+    <header className="orbita-topbar sticky top-0 z-30 flex h-[68px] items-center gap-3 border-b border-border/80 bg-surface/85 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
       <Button
         type="button"
         variant="ghost"
@@ -115,7 +115,7 @@ export function Topbar({
           {unread > 0 ? (
             <span
               aria-hidden="true"
-              className="absolute top-1 right-1 grid min-w-[17px] place-items-center rounded-full bg-brand px-1 text-[9px] leading-[17px] font-bold text-white shadow-sm"
+              className="orbita-badge-hot absolute top-1 right-1 grid min-w-[17px] place-items-center rounded-full bg-brand px-1 text-[9px] leading-[17px] font-bold text-white shadow-sm"
             >
               {unreadBadge(unread)}
             </span>

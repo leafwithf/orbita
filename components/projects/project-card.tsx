@@ -24,12 +24,13 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
   return (
     <Link
       href={`/projetos/${project.id}`}
-      className="group flex min-w-0 flex-col rounded-2xl border border-border bg-surface p-4 text-ink no-underline shadow-[var(--shadow-1)] transition-[transform,border-color,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand/35 hover:bg-surface-2 hover:shadow-[var(--shadow-2)] hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:p-5"
+      data-stage={project.stage}
+      className="orbita-panel orbita-project group flex min-w-0 flex-col rounded-2xl border border-border bg-surface p-4 text-ink no-underline shadow-[var(--shadow-1)] transition-[transform,border-color,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand/35 hover:bg-surface-2 hover:shadow-[var(--shadow-2)] hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:p-5"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
           <span
-            className="grid size-11 flex-none place-items-center overflow-hidden rounded-xl border border-border bg-surface-2 text-[23px]"
+            className="orbita-orbit-badge grid size-11 flex-none place-items-center overflow-hidden rounded-full border border-border bg-surface-2 text-[23px]"
             aria-hidden="true"
           >
             {project.coverUrl ? <Image src={project.coverUrl} alt="" width={44} height={44} sizes="44px" className="size-full object-cover" /> : project.emoji ?? "🚀"}

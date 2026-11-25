@@ -1087,3 +1087,124 @@ button, [role="button"], input, select, textarea {
   border-right-color: color-mix(in srgb, var(--cosmic-purple) 30%, var(--sidebar-border));
 }
 
+/* =========================================================
+   ORBITA PASSO 3 - KANBAN, PROJETOS, TAREFAS E TOPBAR
+   ========================================================= */
+
+.orbita-ring-sm {
+  width: 60px;
+}
+.orbita-ring-sm::before {
+  inset: 6px;
+}
+.orbita-ring-sm .orbita-ring-value {
+  font-size: 15px;
+}
+.orbita-ring-sm .orbita-ring-value small {
+  font-size: 9px;
+}
+
+.orbita-orbit {
+  --orbit: #6d42c9;
+  position: relative;
+  background-image: radial-gradient(
+    120% 60% at 50% 0%,
+    color-mix(in srgb, var(--orbit) 9%, transparent),
+    transparent 70%
+  );
+}
+.orbita-orbit[data-orbit="in_progress"] {
+  --orbit: #f26a1b;
+}
+.orbita-orbit[data-orbit="done"] {
+  --orbit: #ffc857;
+}
+.orbita-orbit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 12%;
+  left: 12%;
+  height: 2px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, transparent, var(--orbit), transparent);
+  box-shadow: 0 0 14px 1px var(--orbit);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.orbita-kcard {
+  animation: orbita-drop 360ms var(--ease-orbita, ease-out) backwards;
+}
+.orbita-kcard:hover {
+  border-color: color-mix(in srgb, var(--orbit, #f26a1b) 55%, var(--border));
+}
+@keyframes orbita-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+}
+:root[data-motion="leve"] .orbita-kcard,
+:root[data-motion="minimo"] .orbita-kcard {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbita-kcard {
+    animation: none;
+  }
+}
+
+.orbita-project {
+  --stage: #6d42c9;
+}
+.orbita-project[data-stage="design"],
+.orbita-project[data-stage="build"],
+.orbita-project[data-stage="review"] {
+  --stage: #f26a1b;
+}
+.orbita-project[data-stage="launch"],
+.orbita-project[data-stage="follow_up"] {
+  --stage: #ff9d2e;
+}
+.orbita-project[data-stage="done"] {
+  --stage: #ffc857;
+}
+.orbita-orbit-badge {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 3.5px var(--stage, #6d42c9),
+    0 0 16px -2px var(--stage, #6d42c9);
+}
+
+.orbita-task-hot::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #ffc857, #d6261c);
+}
+
+.orbita-topbar::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(109, 66, 201, 0.6),
+    rgba(242, 106, 27, 0.55),
+    transparent
+  );
+}
+.orbita-badge-hot {
+  background-image: linear-gradient(135deg, #f26a1b, #d6261c);
+  color: #fff;
+}
