@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Projetos" };
 
 export default async function ProjectsPage() {
   const context = await getAppContext();
-  if (!context.workspace) return <div className="rounded-3xl border border-border bg-surface p-7"><h1 className="text-2xl font-semibold">Projetos</h1><p className="mt-2 text-sm text-muted">Seu espaço ainda não está disponível. Confira as configurações para começar.</p></div>;
+  if (!context.workspace) return <div className="orbita-panel rounded-3xl border border-border bg-surface p-7"><h1 className="text-2xl font-semibold">Projetos</h1><p className="mt-2 text-sm text-muted">Seu espaço ainda não está disponível. Confira as configurações para começar.</p></div>;
 
   const projects = await listProjects({ workspaceId: context.workspace.id, today: context.today });
   const active = projects.filter(project => project.status === "active");
@@ -20,7 +20,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className="grid gap-7">
-      <header className="relative overflow-hidden rounded-3xl border border-border bg-surface/95 p-5 shadow-[var(--shadow-1)] sm:p-7">
+      <header className="orbita-panel relative overflow-hidden rounded-3xl border border-border bg-surface/95 p-5 shadow-[var(--shadow-1)] sm:p-7">
         <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-24 size-72 rounded-full bg-brand/10 blur-3xl"/>
         <div className="relative flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
@@ -45,7 +45,7 @@ export default async function ProjectsPage() {
         {paused.length ? <section className="grid gap-4" aria-labelledby="paused-projects"><div className="flex items-center gap-2"><span className="grid size-8 place-items-center rounded-xl bg-surface-2 text-muted"><PauseCircle className="size-4"/></span><div><h2 id="paused-projects" className="text-base font-semibold">Em pausa</h2><p className="text-xs text-muted">Projetos que podem ser retomados</p></div></div><div className="grid min-w-0 gap-3 md:grid-cols-2 2xl:grid-cols-3">{paused.map(project=><ProjectCard key={project.id} project={project}/>)}</div></section> : null}
         {completed.length ? <section className="grid gap-4" aria-labelledby="completed-projects"><div className="flex items-center gap-2"><span className="grid size-8 place-items-center rounded-xl bg-[var(--success-050)] text-[var(--success-700)]"><CheckCircle2 className="size-4"/></span><div><h2 id="completed-projects" className="text-base font-semibold">Concluídos</h2><p className="text-xs text-muted">Entregas finalizadas e registradas</p></div></div><div className="grid min-w-0 gap-3 md:grid-cols-2 2xl:grid-cols-3">{completed.map(project=><ProjectCard key={project.id} project={project}/>)}</div></section> : null}
       </div>}
-      <Link href="/tarefas/quadro" className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-surface px-5 py-4 text-sm no-underline transition hover:border-brand/40 hover:bg-surface-2"><span><span className="block font-semibold text-ink">Acompanhe suas entregas no Kanban</span><span className="mt-1 block text-xs text-muted">Veja tarefas e andamento em um quadro visual.</span></span><ArrowUpRight className="size-5 shrink-0 text-brand"/></Link>
+      <Link href="/tarefas/quadro" className="orbita-panel flex items-center justify-between gap-3 rounded-2xl border border-border bg-surface px-5 py-4 text-sm no-underline transition hover:border-brand/40 hover:bg-surface-2"><span><span className="block font-semibold text-ink">Acompanhe suas entregas no Kanban</span><span className="mt-1 block text-xs text-muted">Veja tarefas e andamento em um quadro visual.</span></span><ArrowUpRight className="size-5 shrink-0 text-brand"/></Link>
     </div>
   );
 }

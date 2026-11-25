@@ -13,7 +13,7 @@ export default function TasksLoading() {
         <div className="flex flex-wrap gap-2">{[0, 1, 2, 3].map((item) => <Block key={item} className="h-9 w-24 rounded-full" />)}</div>
       </header>
       {[0, 1].map((section) => (
-        <section key={section} className="overflow-hidden rounded-xl border border-border bg-surface">
+        <section key={section} className="orbita-panel overflow-hidden rounded-xl border border-border bg-surface">
           <div className="border-b border-border p-4"><Block className="h-4 w-40" /></div>
           <div className="divide-y divide-border">
             {[0, 1, 2].map((item) => (

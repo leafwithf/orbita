@@ -125,7 +125,7 @@ export default async function WelcomePage() {
 
         <section
           aria-labelledby="onboarding-titulo"
-          className="rounded-lg border border-border bg-surface p-5 shadow-[var(--shadow-2)] sm:p-6"
+          className="orbita-panel rounded-lg border border-border bg-surface p-5 shadow-[var(--shadow-2)] sm:p-6"
         >
           <h2
             id="onboarding-titulo"

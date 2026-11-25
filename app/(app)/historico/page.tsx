@@ -60,7 +60,7 @@ export default async function HistoryPage() {
               );
               const href = (HREF[event.entityType] ?? (() => "/"))(event.entityId);
               return (
-                <li key={event.id} className="flex min-w-0 flex-col gap-2 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/35 sm:flex-row sm:items-center sm:gap-3">
+                <li key={event.id} className="orbita-panel flex min-w-0 flex-col gap-2 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/35 sm:flex-row sm:items-center sm:gap-3">
                   <Link href={href} className="min-w-0 text-sm font-medium leading-relaxed text-ink no-underline hover:text-brand hover:underline">
                     {text}
                   </Link>

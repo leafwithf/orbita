@@ -52,7 +52,7 @@ export function Topbar({
   const workspaceColor = activeWorkspace?.brandColor ?? workspace?.brandColor ?? "#d6a64b";
 
   return (
-    <header className="orbita-topbar sticky top-0 z-30 flex h-[68px] items-center gap-3 border-b border-border/80 bg-surface/85 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
+    <header className="orbita-topbar sticky top-0 z-30 flex h-[68px] items-center gap-3 border-b border-border/80 bg-surface/95 px-4 sm:px-6 lg:px-8 lg:backdrop-blur-xl">
       <Button
         type="button"
         variant="ghost"

@@ -72,7 +72,7 @@ export default async function FilesPage() {
                   return (
                     <li
                       key={file.id}
-                      className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-surface/85 p-3 shadow-[var(--shadow-1)] transition-colors hover:border-brand/30 sm:flex-row sm:items-center sm:p-4"
+                      className="orbita-panel flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-surface/85 p-3 shadow-[var(--shadow-1)] transition-colors hover:border-brand/30 sm:flex-row sm:items-center sm:p-4"
                     >
                       <span className="grid size-11 flex-none place-items-center rounded-xl border border-brand/15 bg-brand/10 text-brand">
                         <Icon className="size-4" aria-hidden="true" />

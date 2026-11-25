@@ -1208,3 +1208,50 @@ button, [role="button"], input, select, textarea {
   background-image: linear-gradient(135deg, #f26a1b, #d6261c);
   color: #fff;
 }
+
+/* =========================================================
+   ORBITA PASSO 4 - ACABAMENTO FINAL (formularios, abas, janelas)
+   ========================================================= */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, #6d42c9 55%, transparent) transparent;
+}
+
+/* Abas: item ativo com luz roxa e laranja */
+[data-slot="tabs-trigger"][data-state="active"] {
+  background-image: linear-gradient(
+    135deg,
+    color-mix(in srgb, #6d42c9 30%, transparent),
+    color-mix(in srgb, #f26a1b 22%, transparent)
+  );
+}
+
+/* Campos: foco com anel laranja (troca instantanea, sem animar sombra) */
+[data-slot="input"]:focus-visible,
+[data-slot="textarea"]:focus-visible,
+[data-slot="select-trigger"]:focus-visible {
+  border-color: #f26a1b;
+  box-shadow: 0 0 0 3px rgba(242, 106, 27, 0.22);
+}
+
+/* Janelas, menus e seletores: borda com tom roxo */
+[data-slot="dialog-content"],
+[data-slot="sheet-content"],
+[data-slot="select-content"],
+[data-slot="dropdown-menu-content"],
+[data-slot="popover-content"] {
+  border-color: color-mix(in srgb, var(--cosmic-purple) 38%, var(--border));
+}
+
+/* Barras de progresso: roxo -> laranja -> amarelo */
+[data-slot="progress-indicator"] {
+  background-image: linear-gradient(90deg, #6d42c9, #f26a1b, #ffc857);
+}
+
+/* Paineis que sao links: reacao ao passar o mouse */
+a.orbita-panel:hover {
+  filter: brightness(1.07);
+}
+
+/* ORBITA PASSO 5 - revisao final e desempenho aplicada */

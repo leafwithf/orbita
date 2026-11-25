@@ -52,7 +52,7 @@ export default async function TrashPage() {
         <SectionCard title={`${items.length} ${items.length === 1 ? "item" : "itens"}`} bodyClassName="p-0 sm:p-0">
           <ul className="grid gap-3">
             {items.map((item) => (
-              <li key={`${item.kind}-${item.id}`} className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/35 sm:flex-row sm:items-center">
+              <li key={`${item.kind}-${item.id}`} className="orbita-panel flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/35 sm:flex-row sm:items-center">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[13.5px] font-medium">{item.title}</p>
                   <p className="text-[11.5px] text-faint">

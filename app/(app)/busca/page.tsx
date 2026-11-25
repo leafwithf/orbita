@@ -101,7 +101,7 @@ export default async function SearchPage({
                   <li key={`${hit.entityType}-${hit.id}`}>
                     <Link
                       href={HREF[hit.entityType](hit.id)}
-                      className="block rounded-2xl border border-border bg-surface p-4 no-underline shadow-[var(--shadow-1)] transition hover:border-brand/40 hover:bg-surface-2 hover:no-underline"
+                      className="orbita-panel block rounded-2xl border border-border bg-surface p-4 no-underline shadow-[var(--shadow-1)] transition hover:border-brand/40 hover:bg-surface-2 hover:no-underline"
                     >
                       <span className="block text-[14px] font-medium text-ink">
                         {hit.title}

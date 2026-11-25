@@ -202,7 +202,7 @@ export function OnboardingTour() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="rounded-2xl border border-border bg-surface/80 p-4">
+        <div className="orbita-panel rounded-2xl border border-border bg-surface/80 p-4">
           <p className="text-[12px] font-semibold text-ink">Dica rápida</p>
           <p className="mt-1 text-[12.5px] leading-relaxed text-muted">
             {current.detail}

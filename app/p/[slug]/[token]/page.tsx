@@ -31,7 +31,7 @@ export default async function PublicPortfolioPage({
     <main className="mx-auto grid min-h-dvh w-full max-w-2xl content-start gap-6 px-4 py-10">
       <BrandLockup />
 
-      <article className="grid gap-5 rounded-lg border border-border bg-surface p-5 sm:p-7">
+      <article className="orbita-panel grid gap-5 rounded-lg border border-border bg-surface p-5 sm:p-7">
         <header className="grid gap-2">
           <p className="text-[12px] font-semibold tracking-wide text-brand uppercase">
             {projectStageLabel(item.stage)}

@@ -76,7 +76,7 @@ export default async function SettingsPage() {
         <div className="-mx-1 overflow-x-auto px-1 pb-1">
           <TabsList
             aria-label="Seções de configuração"
-            className="flex h-auto min-h-12 w-max gap-1 rounded-2xl border border-border bg-surface p-1.5 shadow-[var(--shadow-1)]"
+            className="orbita-panel flex h-auto min-h-12 w-max gap-1 rounded-2xl border border-border bg-surface p-1.5 shadow-[var(--shadow-1)]"
           >
             <TabsTrigger value="perfil" className="min-h-9 px-3">
               Perfil
@@ -144,7 +144,7 @@ export default async function SettingsPage() {
               {NOTIFICATION_PREVIEW.map((item) => (
                 <li
                   key={item.title}
-                  className="flex items-start gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)]"
+                  className="orbita-panel flex items-start gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)]"
                 >
                   <Bell
                     className="mt-0.5 size-4 flex-none text-faint"

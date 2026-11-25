@@ -33,7 +33,7 @@ function Shell({ children }: { children: ReactNode }) {
   return (
     <main className="mx-auto grid min-h-dvh w-full max-w-md content-center gap-6 px-4 py-10">
       <BrandLockup />
-      <div className="rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-1)]">{children}</div>
+      <div className="orbita-panel rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-1)]">{children}</div>
     </main>
   );
 }

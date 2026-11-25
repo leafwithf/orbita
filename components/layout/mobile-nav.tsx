@@ -74,7 +74,7 @@ export function MobileNav({ onOpenMore }: { onOpenMore: () => void }) {
   return (
     <nav
       aria-label="Navegação principal"
-      className="orbita-panel fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 mx-auto max-w-[520px] rounded-2xl pb-1 shadow-[0_14px_45px_-18px_rgba(0,0,0,.55)] backdrop-blur-2xl lg:hidden"
+      className="orbita-panel fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 mx-auto max-w-[520px] rounded-2xl pb-1 shadow-[0_14px_45px_-18px_rgba(0,0,0,.55)] lg:hidden"
     >
       <ul className="grid grid-cols-6 px-1">
         {LEFT.map((item) => (

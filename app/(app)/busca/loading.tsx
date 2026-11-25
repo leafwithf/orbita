@@ -17,7 +17,7 @@ export default function SearchLoading() {
       </div>
       <div className="grid gap-5">
         {[0, 1, 2].map((group) => (
-          <section key={group} className="overflow-hidden rounded-xl border border-border bg-surface">
+          <section key={group} className="orbita-panel overflow-hidden rounded-xl border border-border bg-surface">
             <div className="border-b border-border p-4"><Block className="h-4 w-36" /></div>
             {[0, 1, 2].map((item) => (
               <div key={item} className="grid gap-2 border-b border-border p-4 last:border-0">

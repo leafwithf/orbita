@@ -12,7 +12,7 @@ export default function NotificationsLoading() {
         <Block className="h-4 w-72 max-w-full" />
       </header>
       {[0, 1].map((section) => (
-        <section key={section} className="overflow-hidden rounded-xl border border-border bg-surface">
+        <section key={section} className="orbita-panel overflow-hidden rounded-xl border border-border bg-surface">
           <div className="grid gap-2 border-b border-border p-4">
             <Block className="h-4 w-36" />
             <Block className="h-3 w-64 max-w-full" />

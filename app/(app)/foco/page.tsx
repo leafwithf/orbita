@@ -317,7 +317,7 @@ export default async function FocusPage() {
                 otherProjects.slice(0, 6).map((project) => (
                   <div
                     key={project.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:flex-row sm:items-center"
+                    className="orbita-panel flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:flex-row sm:items-center"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[12.5px] font-medium">
@@ -354,7 +354,7 @@ export default async function FocusPage() {
                 otherCourses.slice(0, 5).map((course) => (
                   <div
                     key={course.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:flex-row sm:items-center"
+                    className="orbita-panel flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:flex-row sm:items-center"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[12.5px] font-medium">

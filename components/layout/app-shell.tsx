@@ -4,8 +4,7 @@ import { useState, type ReactNode } from "react";
 import { X } from "lucide-react";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
-import { OnboardingTour } from "@/components/onboarding/onboarding-tour";
-import { InstallPrompt } from "@/components/pwa/install-prompt";
+import dynamic from "next/dynamic";
 import { PaletteProvider, type OrbitaPalette } from "@/components/providers/palette-provider";
 import { Sidebar, SidebarContent } from "@/components/layout/sidebar";
 import type {
@@ -19,6 +18,15 @@ import {
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet";
+
+const OnboardingTour = dynamic(
+  () => import("@/components/onboarding/onboarding-tour").then((m) => m.OnboardingTour),
+  { ssr: false },
+);
+const InstallPrompt = dynamic(
+  () => import("@/components/pwa/install-prompt").then((m) => m.InstallPrompt),
+  { ssr: false },
+);
 
 export function AppShell({
   viewer,

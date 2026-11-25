@@ -15,7 +15,7 @@ export default function SettingsLoading() {
       <div className="flex gap-2 overflow-hidden border-b border-border pb-2">
         {[0, 1, 2, 3].map((item) => <Block key={item} className="h-10 w-24 shrink-0 rounded-lg" />)}
       </div>
-      <section className="grid gap-5 rounded-xl border border-border bg-surface p-4 sm:p-6">
+      <section className="orbita-panel grid gap-5 rounded-xl border border-border bg-surface p-4 sm:p-6">
         <div className="grid gap-2"><Block className="h-5 w-32" /><Block className="h-3 w-64 max-w-full" /></div>
         {[0, 1, 2].map((item) => (
           <div key={item} className="grid gap-2 border-t border-border pt-4">

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function OfflinePage() {
   return (
     <main className="grid min-h-dvh place-items-center bg-background px-4 py-10">
-      <div className="w-full max-w-md rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-2)] sm:p-8">
+      <div className="orbita-panel w-full max-w-md rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-2)] sm:p-8">
         <span className="inline-grid size-11 place-items-center rounded-[12px] bg-gradient-to-br from-[#2c6be0] to-[#1d4fb8] text-white">
           <LogoMark className="size-6" />
         </span>

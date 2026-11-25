@@ -82,7 +82,7 @@ export default async function WorkspacesPage() {
                   const isSelf = member.userId === context.user.id;
                   const manageable = canManageMember({ actor: workspace.role, target: member.role, isSelf });
                   return (
-                    <li key={member.userId} className="grid gap-4 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:p-5">
+                    <li key={member.userId} className="orbita-panel grid gap-4 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] transition hover:border-brand/30 sm:p-5">
                       <div className="flex flex-wrap items-center gap-3">
                         <UserAvatar name={member.name} size="lg" />
                         <div className="min-w-0 flex-1">
@@ -151,7 +151,7 @@ export default async function WorkspacesPage() {
             <SectionCard title={`Convites pendentes · ${invitations.length}`} description="Links ainda não usados. O link em si só é mostrado na criação.">
               <ul className="divide-y divide-border">
                 {invitations.map((invite) => (
-                  <li key={invite.id} className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] sm:flex-row sm:items-center">
+                  <li key={invite.id} className="orbita-panel flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] sm:flex-row sm:items-center">
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[13px] font-medium">
                         {ROLE_LABELS[invite.role]}
@@ -203,7 +203,7 @@ export default async function WorkspacesPage() {
           <SectionCard title={`Seus espaços · ${myWorkspaces.length}`}>
             <ul className="grid gap-2">
               {myWorkspaces.map((item) => (
-                <li key={item.id} className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-surface p-3 shadow-[var(--shadow-1)] transition hover:border-brand/30">
+                <li key={item.id} className="orbita-panel flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-surface p-3 shadow-[var(--shadow-1)] transition hover:border-brand/30">
                   <WorkspaceAvatar name={item.name} brandColor={item.brandColor} coverUrl={item.coverUrl} size="md" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[13px] font-medium">{item.name}</p>

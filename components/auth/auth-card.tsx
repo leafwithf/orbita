@@ -26,7 +26,10 @@ export function AuthCard({
         <BrandLockup compact />
       </Link>
 
-      <div className="rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-1)] sm:p-8">
+      <div className="orbita-panel relative rounded-2xl p-6 shadow-[var(--shadow-1)] sm:p-8">
+        <span aria-hidden="true" className="orbita-singularity mb-6" style={{ "--s": "56px" } as React.CSSProperties}>
+          <span className="orbita-singularity-core" />
+        </span>
         {eyebrow ? (
           <p className="mb-2 text-[11px] font-semibold tracking-[0.12em] text-brand uppercase">
             {eyebrow}

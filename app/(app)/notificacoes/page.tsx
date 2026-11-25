@@ -107,7 +107,7 @@ export default async function NotificationsPage() {
             ) : (
               <ul className="grid gap-3">
                 {read.map((item) => (
-                  <li key={item.id} className="flex min-w-0 items-start gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] sm:p-5">
+                  <li key={item.id} className="orbita-panel flex min-w-0 items-start gap-3 rounded-2xl border border-border bg-surface p-4 shadow-[var(--shadow-1)] sm:p-5">
                     <span aria-hidden="true" className="size-2 flex-none rounded-full bg-transparent" />
                     <div className="min-w-0 flex-1">
                       {item.href ? (

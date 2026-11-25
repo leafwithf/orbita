@@ -149,7 +149,7 @@ export default async function ProjectDetailPage({
         </SectionCard>
       ) : null}
 
-      <div className="rounded-2xl border border-border bg-surface/80 p-3 shadow-[var(--shadow-1)] sm:p-4">
+      <div className="orbita-panel rounded-2xl border border-border bg-surface/80 p-3 shadow-[var(--shadow-1)] sm:p-4">
         <div className="flex flex-wrap items-center gap-2">
         <StatusChip label={projectStageLabel(project.stage)} tone="brand" />
         <StatusChip

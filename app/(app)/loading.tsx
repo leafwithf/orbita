@@ -22,7 +22,7 @@ export default function WorkspaceLoading() {
         {Array.from({ length: 3 }, (_, index) => (
           <div
             key={index}
-            className="grid gap-3 rounded-xl border border-border bg-surface p-4"
+            className="orbita-panel grid gap-3 rounded-xl border border-border bg-surface p-4"
           >
             <div className="flex items-center gap-3">
               <SkeletonBlock className="size-10 rounded-xl" />
@@ -39,7 +39,7 @@ export default function WorkspaceLoading() {
       </div>
 
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1.5fr)_minmax(260px,1fr)]">
-        <div className="grid gap-3 rounded-xl border border-border bg-surface p-4">
+        <div className="orbita-panel grid gap-3 rounded-xl border border-border bg-surface p-4">
           <SkeletonBlock className="h-4 w-32" />
           {Array.from({ length: 4 }, (_, index) => (
             <div key={index} className="flex items-center gap-3 py-2">
@@ -52,7 +52,7 @@ export default function WorkspaceLoading() {
             </div>
           ))}
         </div>
-        <div className="grid content-start gap-3 rounded-xl border border-border bg-surface p-4">
+        <div className="orbita-panel grid content-start gap-3 rounded-xl border border-border bg-surface p-4">
           <SkeletonBlock className="h-4 w-36" />
           <SkeletonBlock className="h-20 w-full rounded-lg" />
           <SkeletonBlock className="h-10 w-full rounded-lg" />
