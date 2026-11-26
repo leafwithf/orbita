@@ -156,9 +156,9 @@ export function ThemePreference() {
               >
                 <span
                   className="grid size-9 flex-none place-items-center rounded-full"
-                  style={{ backgroundColor: option.color }}
+                  style={{ backgroundImage: option.gradient, backgroundColor: option.color }}
                 >
-                  {checked ? <Check className="size-4 text-white" aria-hidden="true" /> : null}
+                  {checked ? <Check className="size-4 text-[#1a1210]" aria-hidden="true" /> : null}
                 </span>
                 <span className="min-w-0">
                   <span className="block text-[12.5px] font-semibold">{option.label}</span>
