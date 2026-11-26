@@ -32,7 +32,7 @@ export function EntryActions({ entryId }: { entryId: string }) {
             <button
               type="submit"
               disabled={pending}
-              className="min-h-11 rounded-md bg-brand px-3 text-[13px] font-semibold text-white hover:bg-brand-hover disabled:opacity-60"
+              className="orbita-cta min-h-11 rounded-md bg-brand px-3 text-[13px] font-semibold text-white hover:bg-brand-hover disabled:opacity-60"
             >
               {pending ? "Trocando…" : "Confirmar troca"}
             </button>

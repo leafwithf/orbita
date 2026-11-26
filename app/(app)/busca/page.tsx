@@ -68,7 +68,7 @@ export default async function SearchPage({
         />
         <button
           type="submit"
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-brand px-6 text-sm font-semibold text-white shadow-[var(--shadow-1)] transition hover:bg-brand-hover"
+          className="orbita-cta inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-brand px-6 text-sm font-semibold text-white shadow-[var(--shadow-1)] transition hover:bg-brand-hover"
         >
           <Search className="size-4" aria-hidden="true" />
           Buscar

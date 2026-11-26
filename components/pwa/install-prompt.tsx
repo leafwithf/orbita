@@ -144,7 +144,7 @@ export function InstallPrompt() {
         <button
           type="button"
           onClick={() => void installApp()}
-          className="min-h-11 shrink-0 rounded-xl bg-brand px-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          className="orbita-cta min-h-11 shrink-0 rounded-xl bg-brand px-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
         >
           Instalar
         </button>

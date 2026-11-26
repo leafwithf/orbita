@@ -87,7 +87,7 @@ export function ProjectEmptyCard() {
       </p>
       <Link
         href="/criar?tipo=projeto"
-        className="mt-4 inline-flex h-10 items-center gap-2 rounded-xl bg-brand px-4 text-[13px] font-semibold text-white no-underline transition hover:-translate-y-0.5 hover:bg-brand-hover hover:no-underline"
+        className="orbita-cta mt-4 inline-flex h-10 items-center gap-2 rounded-xl bg-brand px-4 text-[13px] font-semibold text-white no-underline transition hover:-translate-y-0.5 hover:bg-brand-hover hover:no-underline"
       >
         Criar meu primeiro projeto
         <ArrowUpRight className="size-4" aria-hidden="true" />

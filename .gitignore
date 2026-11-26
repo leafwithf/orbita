@@ -58,3 +58,5 @@ next-env.d.ts
 
 # backups do redesign
 .backup-orbita/
+.vercel
+.env*

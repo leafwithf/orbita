@@ -13,7 +13,7 @@ export default function OfflinePage() {
   return (
     <main className="grid min-h-dvh place-items-center bg-background px-4 py-10">
       <div className="orbita-panel w-full max-w-md rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-2)] sm:p-8">
-        <span className="inline-grid size-11 place-items-center rounded-[12px] bg-gradient-to-br from-[#2c6be0] to-[#1d4fb8] text-white">
+        <span className="inline-grid size-11 place-items-center rounded-[12px] bg-gradient-to-br from-[#E58B5A] to-[#E9CB8B] text-[#1A1210]">
           <LogoMark className="size-6" />
         </span>
 
@@ -39,7 +39,7 @@ export default function OfflinePage() {
         <div className="mt-5 flex flex-wrap gap-2">
           <Link
             href="/"
-            className="inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+            className="orbita-cta inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
           >
             <RefreshCw className="size-4" aria-hidden="true" />
             Tentar novamente

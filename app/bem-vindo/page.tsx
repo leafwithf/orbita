@@ -66,7 +66,7 @@ export default async function WelcomePage() {
           className="inline-flex items-center gap-2.5 text-ink no-underline"
           aria-label="ÓRBITA"
         >
-          <span className="grid size-9 place-items-center rounded-[10px] bg-gradient-to-br from-[#2c6be0] to-[#1d4fb8] text-white">
+          <span className="grid size-9 place-items-center rounded-[10px] bg-gradient-to-br from-[#E58B5A] to-[#E9CB8B] text-[#1A1210]">
             <LogoMark className="size-5" />
           </span>
           <span className="grid leading-tight">

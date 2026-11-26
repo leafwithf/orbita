@@ -38,7 +38,7 @@ export default async function ResetPasswordPage() {
             Por segurança, este endereço só funciona com um link de recuperação
             válido. Se o link expirou, peça outro.
           </p>
-          <Button asChild className="h-11 w-full bg-brand text-white">
+          <Button asChild className="orbita-cta h-11 w-full bg-brand text-white">
             <Link href="/recuperar-senha">Pedir novo link</Link>
           </Button>
         </div>

@@ -34,7 +34,7 @@ export function RecoveryForm() {
       <Button
         type="submit"
         disabled={pending}
-        className="mt-1 h-11 w-full bg-brand text-[15px] font-semibold text-white hover:bg-brand-hover"
+        className="orbita-cta mt-1 h-11 w-full bg-brand text-[15px] font-semibold text-white hover:bg-brand-hover"
       >
         {pending ? (
           <>

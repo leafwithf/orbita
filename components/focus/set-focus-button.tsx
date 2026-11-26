@@ -110,7 +110,7 @@ export function SetFocusButton({
             <Button
               type="submit"
               disabled={pending}
-              className="min-h-10 bg-brand text-white hover:bg-brand-hover"
+              className="orbita-cta min-h-10 bg-brand text-white hover:bg-brand-hover"
             >
               {pending ? (
                 <>

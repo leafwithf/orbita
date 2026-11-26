@@ -38,8 +38,8 @@ export function LogoMark({ className, title }: LogoMarkProps) {
         stroke="currentColor"
         strokeWidth="2.15"
       />
-      <circle cx="24" cy="24" r="7.1" fill="#080d16" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="24" cy="24" r="3.1" fill="#020409" />
+      <circle cx="24" cy="24" r="7.1" fill="#0C0A12" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="24" cy="24" r="3.1" fill="#000000" />
       <circle cx="36.2" cy="15.1" r="2" fill="currentColor" />
       <path d="M10.2 17.1 7.8 14.7M38 32.8l2.2 2.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" opacity=".8" />
     </svg>
@@ -55,7 +55,7 @@ export function BrandLockup({
 }) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
-      <span className="grid size-9 place-items-center rounded-[11px] border border-[#d6a45f]/25 bg-gradient-to-br from-[#202b3d] to-[#080d16] text-[#e5b76e] shadow-[0_5px_18px_rgb(0_0_0/0.28),inset_0_1px_0_rgb(255_255_255/0.08)]">
+      <span className="grid size-9 place-items-center rounded-[11px] border border-[#8B7BD8]/45 bg-gradient-to-br from-[#1B1726] to-[#0C0A12] text-[#E9CB8B] shadow-[0_5px_18px_rgb(0_0_0/0.4),0_0_22px_rgb(229_139_90/0.18),inset_0_1px_0_rgb(255_255_255/0.08)]">
         <LogoMark className="size-[25px]" />
       </span>
       <span className="grid leading-tight">
@@ -63,7 +63,7 @@ export function BrandLockup({
           ÓRBITA
         </span>
         {!compact ? (
-          <span className="text-[11px] tracking-[0.02em] text-[#9aa7bc]">
+          <span className="text-[11px] tracking-[0.02em] text-[#A79FB5]">
             seu espaço de trabalho
           </span>
         ) : null}

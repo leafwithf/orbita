@@ -18,7 +18,7 @@ export function UserAvatar({ name, className, size = "md" }: AvatarProps) {
     <span
       aria-hidden="true"
       className={cn(
-        "inline-grid flex-none place-items-center rounded-full border border-black/5 bg-[#dce7fb] font-bold text-[#24457e]",
+        "inline-grid flex-none place-items-center rounded-full border border-black/5 bg-[#2B2542] font-bold text-[#E9CB8B]",
         SIZES[size],
         className,
       )}

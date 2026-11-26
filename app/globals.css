@@ -440,51 +440,51 @@
    ========================================================= */
 
 :root {
-  --singularity: #05030A;
-  --cosmic-surface: #0E0916;
-  --cosmic-raised: #171026;
-  --cosmic-purple: #6D42C9;
-  --cosmic-purple-deep: #2A1B3D;
-  --accretion-red: #D6261C;
-  --accretion-orange: #F26A1B;
-  --accretion-gold: #FFC857;
-  --accretion-light: #FFF1B0;
-  --cosmic-text: #F5EEE6;
-  --cosmic-muted: #A99FB8;
+  --singularity: #0C0A12;
+  --cosmic-surface: #14111C;
+  --cosmic-raised: #1B1726;
+  --cosmic-purple: #8B7BD8;
+  --cosmic-purple-deep: #2B2542;
+  --accretion-red: #D9707A;
+  --accretion-orange: #E58B5A;
+  --accretion-gold: #E9CB8B;
+  --accretion-light: #F3E2B8;
+  --cosmic-text: #ECE6F0;
+  --cosmic-muted: #A79FB5;
 }
 
 /* Singularidade: tema escuro padrão */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #05030A;
-  --surface: #0E0916;
-  --surface-2: #171026;
-  --border: #30213F;
-  --border-strong: #49345D;
-  --text: #F5EEE6;
-  --text-muted: #A99FB8;
-  --text-faint: #887D98;
+  --bg: #0C0A12;
+  --surface: #14111C;
+  --surface-2: #1B1726;
+  --border: #2C2638;
+  --border-strong: #433A55;
+  --text: #ECE6F0;
+  --text-muted: #A79FB5;
+  --text-faint: #8A8298;
 
-  --brand: #F26A1B;
-  --brand-hover: #FF8742;
-  --brand-700: #FFC857;
-  --brand-050: #2B170F;
+  --brand: #E58B5A;
+  --brand-hover: #EBA070;
+  --brand-700: #E9CB8B;
+  --brand-050: #2A1D17;
 
-  --sidebar-bg: #08050F;
-  --sidebar-text: #A99FB8;
-  --sidebar-text-strong: #F5EEE6;
-  --sidebar-border: #21162E;
-  --sidebar-hover: #171026;
-  --sidebar-active: #2A1B3D;
+  --sidebar-bg: #100D17;
+  --sidebar-text: #A79FB5;
+  --sidebar-text-strong: #ECE6F0;
+  --sidebar-border: #231D2E;
+  --sidebar-hover: #1B1726;
+  --sidebar-active: #2B2542;
 
   --success: #35B89A;
   --success-700: #72DCC4;
   --success-050: #102D28;
-  --warning: #FFC857;
+  --warning: #E9CB8B;
   --warning-700: #FFE09A;
   --warning-050: #33270F;
-  --danger: #E34A43;
-  --danger-hover: #F0645D;
+  --danger: #E0605A;
+  --danger-hover: #E97872;
   --danger-700: #FFAAA3;
   --danger-050: #351512;
 
@@ -495,13 +495,13 @@
   --popover: var(--surface);
   --popover-foreground: var(--text);
   --primary: var(--brand);
-  --primary-foreground: #160B08;
+  --primary-foreground: #1A1210;
   --secondary: var(--surface-2);
   --secondary-foreground: var(--text);
   --muted: var(--surface-2);
   --muted-foreground: var(--text-muted);
   --accent: var(--cosmic-purple-deep);
-  --accent-foreground: #E5D7FF;
+  --accent-foreground: #E0D8F5;
   --destructive: var(--danger);
   --destructive-foreground: #FFFFFF;
   --border-token: var(--border);
@@ -525,15 +525,15 @@
   --text: #21172B;
   --text-muted: #655A70;
   --text-faint: #786D83;
-  --brand: #A84E18;
-  --brand-hover: #893C10;
-  --brand-700: #74320D;
+  --brand: #B0562A;
+  --brand-hover: #8E4420;
+  --brand-700: #7A3A19;
   --brand-050: #FBEDE3;
-  --sidebar-bg: #171026;
+  --sidebar-bg: #1B1726;
   --sidebar-text: #C5B9D4;
   --sidebar-text-strong: #FFFFFF;
-  --sidebar-border: #30213F;
-  --sidebar-hover: #2A1B3D;
+  --sidebar-border: #2C2638;
+  --sidebar-hover: #2B2542;
   --sidebar-active: #49306A;
   --background: var(--bg);
   --foreground: var(--text);
@@ -558,11 +558,11 @@
 
 /* Dourado continua sendo uma das seis paletas, agora integrado à identidade. */
 :root[data-theme="dark"][data-palette="amber"] {
-  --brand: #F26A1B;
-  --brand-hover: #FF8742;
-  --brand-700: #FFC857;
-  --brand-050: #2B170F;
-  --sidebar-active: #2A1B3D;
+  --brand: #E58B5A;
+  --brand-hover: #EBA070;
+  --brand-700: #E9CB8B;
+  --brand-050: #2A1D17;
+  --sidebar-active: #2B2542;
 }
 
 /* Tipografia: Sora para hierarquia, Inter para leitura. */
@@ -634,9 +634,9 @@ button, [role="button"], input, select, textarea {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 78% 18%, rgba(109, 66, 201, .16), transparent 42%),
-    radial-gradient(ellipse at 72% 28%, rgba(242, 106, 27, .09), transparent 35%),
-    radial-gradient(ellipse at 12% 85%, rgba(42, 27, 61, .2), transparent 45%);
+    radial-gradient(ellipse at 78% 18%, rgba(139, 123, 216, 0.12), transparent 42%),
+    radial-gradient(ellipse at 72% 28%, rgba(229, 139, 90, 0.06), transparent 35%),
+    radial-gradient(ellipse at 12% 85%, rgba(43, 37, 66, 0.2), transparent 45%);
 }
 
 .orbita-cosmos::before {
@@ -646,10 +646,10 @@ button, [role="button"], input, select, textarea {
   opacity: .34;
   background-image:
     radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.8) 99%, transparent),
-    radial-gradient(1px 1px at 28% 72%, rgba(255,200,87,.8) 99%, transparent),
+    radial-gradient(1px 1px at 28% 72%, rgba(233, 203, 139, 0.58) 99%, transparent),
     radial-gradient(1px 1px at 48% 32%, rgba(255,255,255,.65) 99%, transparent),
     radial-gradient(1px 1px at 68% 82%, rgba(255,255,255,.7) 99%, transparent),
-    radial-gradient(1px 1px at 88% 48%, rgba(255,200,87,.7) 99%, transparent);
+    radial-gradient(1px 1px at 88% 48%, rgba(233, 203, 139, 0.5) 99%, transparent);
   background-size: 360px 300px;
 }
 
@@ -660,9 +660,9 @@ button, [role="button"], input, select, textarea {
   display: block;
   width: min(42vw, 470px);
   aspect-ratio: 1;
-  border: 1px solid rgba(109, 66, 201, .16);
+  border: 1px solid rgba(139, 123, 216, 0.12);
   border-radius: 50%;
-  background: radial-gradient(circle, transparent 48%, rgba(109,66,201,.035) 68%, transparent 70%);
+  background: radial-gradient(circle, transparent 48%, rgba(139, 123, 216, 0.03) 68%, transparent 70%);
   opacity: .62;
 }
 
@@ -674,12 +674,12 @@ button, [role="button"], input, select, textarea {
   background: conic-gradient(
     from 25deg,
     transparent 0deg,
-    rgba(109,66,201,.1) 45deg,
-    rgba(242,106,27,.88) 88deg,
-    rgba(255,200,87,.9) 112deg,
-    rgba(255,241,176,.65) 126deg,
-    rgba(214,38,28,.72) 150deg,
-    rgba(109,66,201,.22) 205deg,
+    rgba(139, 123, 216, 0.07) 45deg,
+    rgba(229, 139, 90, 0.63) 88deg,
+    rgba(233, 203, 139, 0.65) 112deg,
+    rgba(243, 226, 184, 0.47) 126deg,
+    rgba(217, 112, 122, 0.52) 150deg,
+    rgba(139, 123, 216, 0.16) 205deg,
     transparent 270deg,
     transparent 360deg
   );
@@ -694,12 +694,12 @@ button, [role="button"], input, select, textarea {
   left: 27.5%;
   width: 45%;
   height: 45%;
-  border: 1px solid rgba(255,200,87,.58);
+  border: 1px solid rgba(233, 203, 139, 0.42);
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #171026 0 12%, #05030a 54%, #000 78%);
+  background: radial-gradient(circle at 35% 30%, #1B1726 0 12%, #0C0A12 54%, #000 78%);
   box-shadow:
-    0 0 0 5px rgba(242,106,27,.09),
-    0 0 26px rgba(242,106,27,.2);
+    0 0 0 5px rgba(229, 139, 90, 0.06),
+    0 0 26px rgba(229, 139, 90, 0.14);
 }
 
 .orbita-app-frame {
@@ -756,8 +756,8 @@ button, [role="button"], input, select, textarea {
   justify-items: center;
   gap: 1rem;
   background:
-    radial-gradient(ellipse at 50% 45%, rgba(109, 66, 201, 0.18), transparent 42%),
-    #05030A;
+    radial-gradient(ellipse at 50% 45%, rgba(139, 123, 216, 0.13), transparent 42%),
+    #0C0A12;
   animation: orbita-pwa-splash-out 900ms ease-out forwards;
   pointer-events: none;
 }
@@ -767,21 +767,21 @@ button, [role="button"], input, select, textarea {
   width: 4.5rem;
   aspect-ratio: 1;
   place-items: center;
-  border: 2px solid #F26A1B;
+  border: 2px solid #E58B5A;
   border-radius: 50%;
-  box-shadow: 0 0 28px rgba(242, 106, 27, 0.3);
+  box-shadow: 0 0 28px rgba(229, 139, 90, 0.22);
 }
 
 .orbita-pwa-splash-mark span {
   width: 1.5rem;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #05030A;
-  box-shadow: 0 0 0 5px #FFC857, 0 0 22px rgba(255, 200, 87, 0.75);
+  background: #0C0A12;
+  box-shadow: 0 0 0 5px #E9CB8B, 0 0 22px rgba(233, 203, 139, 0.54);
 }
 
 .orbita-pwa-splash-name {
-  color: #F5EEE6;
+  color: #ECE6F0;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.28em;
@@ -826,8 +826,8 @@ button, [role="button"], input, select, textarea {
 [data-theme="dark"] [data-slot="button"][data-variant="default"] {
   position: relative;
   isolation: isolate;
-  background-image: linear-gradient(135deg, #f26a1b 0%, #ffc857 100%);
-  color: #160b08;
+  background-image: linear-gradient(135deg, #E58B5A 0%, #E9CB8B 100%);
+  color: #1A1210;
 }
 
 [data-theme="dark"] [data-slot="button"][data-variant="default"]::after {
@@ -836,7 +836,7 @@ button, [role="button"], input, select, textarea {
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  box-shadow: 0 8px 24px -6px rgba(242, 106, 27, 0.6);
+  box-shadow: 0 8px 24px -6px rgba(229, 139, 90, 0.43);
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms var(--ease-orbita);
@@ -851,8 +851,8 @@ button, [role="button"], input, select, textarea {
 .orbita-fab {
   position: relative;
   isolation: isolate;
-  color: #160b08;
-  background: linear-gradient(135deg, #f26a1b 0%, #ffc857 100%);
+  color: #1A1210;
+  background: linear-gradient(135deg, #E58B5A 0%, #E9CB8B 100%);
   border: 3px solid var(--surface);
   transition: transform 200ms var(--ease-orbita);
 }
@@ -863,7 +863,7 @@ button, [role="button"], input, select, textarea {
   inset: -3px;
   z-index: -1;
   border-radius: inherit;
-  box-shadow: 0 8px 26px -2px rgba(242, 106, 27, 0.65);
+  box-shadow: 0 8px 26px -2px rgba(229, 139, 90, 0.47);
   pointer-events: none;
   animation: orbita-glow 3.2s ease-in-out infinite;
 }
@@ -898,11 +898,11 @@ button, [role="button"], input, select, textarea {
   background: radial-gradient(
     ellipse at center,
     transparent 38%,
-    rgba(255, 241, 176, 0.9) 44%,
-    #ffc857 52%,
-    #f26a1b 64%,
-    #d6261c 76%,
-    rgba(109, 66, 201, 0.55) 90%,
+    rgba(243, 226, 184, 0.65) 44%,
+    #E9CB8B 52%,
+    #E58B5A 64%,
+    #D9707A 76%,
+    rgba(139, 123, 216, 0.4) 90%,
     transparent 100%
   );
   transform: translateY(-50%) rotate(-16deg);
@@ -914,13 +914,13 @@ button, [role="button"], input, select, textarea {
   place-items: center;
   width: 62%;
   aspect-ratio: 1;
-  border: 1px solid rgba(255, 200, 87, 0.6);
+  border: 1px solid rgba(233, 203, 139, 0.43);
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #171026 0 12%, #05030a 55%, #000 80%);
+  background: radial-gradient(circle at 35% 30%, #1B1726 0 12%, #0C0A12 55%, #000 80%);
   box-shadow:
-    0 0 0 3px rgba(242, 106, 27, 0.1),
-    0 0 22px rgba(242, 106, 27, 0.28);
-  color: #ffc857;
+    0 0 0 3px rgba(229, 139, 90, 0.07),
+    0 0 22px rgba(229, 139, 90, 0.2);
+  color: #E9CB8B;
 }
 
 /* Entrada escalonada (use a classe no pai: <div class="orbita-stagger">) */
@@ -973,7 +973,7 @@ button, [role="button"], input, select, textarea {
 }
 
 :root {
-  --ring-track: color-mix(in srgb, var(--text, #f5eee6) 10%, transparent);
+  --ring-track: color-mix(in srgb, var(--text, #ECE6F0) 10%, transparent);
 }
 
 /* Cabecalho do dashboard: nevoa roxa/laranja bem discreta atras do texto */
@@ -983,8 +983,8 @@ button, [role="button"], input, select, textarea {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 88% 50%, rgba(109, 66, 201, 0.2), transparent 55%),
-    radial-gradient(ellipse at 96% 62%, rgba(242, 106, 27, 0.12), transparent 45%);
+    radial-gradient(ellipse at 88% 50%, rgba(139, 123, 216, 0.14), transparent 55%),
+    radial-gradient(ellipse at 96% 62%, rgba(229, 139, 90, 0.09), transparent 45%);
 }
 
 /* Anel de progresso: roxo -> laranja -> amarelo, entrando para o centro */
@@ -998,9 +998,9 @@ button, [role="button"], input, select, textarea {
   border-radius: 50%;
   background: conic-gradient(
     from -90deg,
-    #6d42c9 0%,
-    #f26a1b calc(var(--p) * 0.62%),
-    #ffc857 calc(var(--p) * 1%),
+    #8B7BD8 0%,
+    #E58B5A calc(var(--p) * 0.62%),
+    #E9CB8B calc(var(--p) * 1%),
     var(--ring-track) 0
   );
   animation: orbita-ring-in 900ms var(--ease-orbita, ease-out) both;
@@ -1048,8 +1048,8 @@ button, [role="button"], input, select, textarea {
 .orbita-cta {
   position: relative;
   isolation: isolate;
-  background-image: linear-gradient(135deg, #f26a1b 0%, #ffc857 100%);
-  color: #160b08;
+  background-image: linear-gradient(135deg, #E58B5A 0%, #E9CB8B 100%);
+  color: #1A1210;
 }
 
 .orbita-cta::after {
@@ -1058,7 +1058,7 @@ button, [role="button"], input, select, textarea {
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  box-shadow: 0 8px 24px -6px rgba(242, 106, 27, 0.6);
+  box-shadow: 0 8px 24px -6px rgba(229, 139, 90, 0.43);
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms var(--ease-orbita, ease-out);
@@ -1079,11 +1079,11 @@ button, [role="button"], input, select, textarea {
 }
 
 .orbita-nav-bar {
-  background: linear-gradient(180deg, #ffc857, #f26a1b);
+  background: linear-gradient(180deg, #E9CB8B, #E58B5A);
 }
 
 [data-theme="dark"] .orbita-sidebar {
-  background: linear-gradient(180deg, #0b0714 0%, #08050f 55%, #0f0a1a 100%);
+  background: linear-gradient(180deg, #0b0714 0%, #100D17 55%, #0f0a1a 100%);
   border-right-color: color-mix(in srgb, var(--cosmic-purple) 30%, var(--sidebar-border));
 }
 
@@ -1105,7 +1105,7 @@ button, [role="button"], input, select, textarea {
 }
 
 .orbita-orbit {
-  --orbit: #6d42c9;
+  --orbit: #8B7BD8;
   position: relative;
   background-image: radial-gradient(
     120% 60% at 50% 0%,
@@ -1114,10 +1114,10 @@ button, [role="button"], input, select, textarea {
   );
 }
 .orbita-orbit[data-orbit="in_progress"] {
-  --orbit: #f26a1b;
+  --orbit: #E58B5A;
 }
 .orbita-orbit[data-orbit="done"] {
-  --orbit: #ffc857;
+  --orbit: #E9CB8B;
 }
 .orbita-orbit::before {
   content: "";
@@ -1137,7 +1137,7 @@ button, [role="button"], input, select, textarea {
   animation: orbita-drop 360ms var(--ease-orbita, ease-out) backwards;
 }
 .orbita-kcard:hover {
-  border-color: color-mix(in srgb, var(--orbit, #f26a1b) 55%, var(--border));
+  border-color: color-mix(in srgb, var(--orbit, #E58B5A) 55%, var(--border));
 }
 @keyframes orbita-drop {
   from {
@@ -1156,25 +1156,25 @@ button, [role="button"], input, select, textarea {
 }
 
 .orbita-project {
-  --stage: #6d42c9;
+  --stage: #8B7BD8;
 }
 .orbita-project[data-stage="design"],
 .orbita-project[data-stage="build"],
 .orbita-project[data-stage="review"] {
-  --stage: #f26a1b;
+  --stage: #E58B5A;
 }
 .orbita-project[data-stage="launch"],
 .orbita-project[data-stage="follow_up"] {
-  --stage: #ff9d2e;
+  --stage: #E8A96A;
 }
 .orbita-project[data-stage="done"] {
-  --stage: #ffc857;
+  --stage: #E9CB8B;
 }
 .orbita-orbit-badge {
   box-shadow:
     0 0 0 2px var(--surface),
-    0 0 0 3.5px var(--stage, #6d42c9),
-    0 0 16px -2px var(--stage, #6d42c9);
+    0 0 0 3.5px var(--stage, #8B7BD8),
+    0 0 16px -2px var(--stage, #8B7BD8);
 }
 
 .orbita-task-hot::before {
@@ -1185,7 +1185,7 @@ button, [role="button"], input, select, textarea {
   left: 0;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(180deg, #ffc857, #d6261c);
+  background: linear-gradient(180deg, #E9CB8B, #D9707A);
 }
 
 .orbita-topbar::after {
@@ -1199,13 +1199,13 @@ button, [role="button"], input, select, textarea {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(109, 66, 201, 0.6),
-    rgba(242, 106, 27, 0.55),
+    rgba(139, 123, 216, 0.43),
+    rgba(229, 139, 90, 0.4),
     transparent
   );
 }
 .orbita-badge-hot {
-  background-image: linear-gradient(135deg, #f26a1b, #d6261c);
+  background-image: linear-gradient(135deg, #E58B5A, #D9707A);
   color: #fff;
 }
 
@@ -1215,15 +1215,15 @@ button, [role="button"], input, select, textarea {
 
 html {
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, #6d42c9 55%, transparent) transparent;
+  scrollbar-color: color-mix(in srgb, #8B7BD8 55%, transparent) transparent;
 }
 
 /* Abas: item ativo com luz roxa e laranja */
 [data-slot="tabs-trigger"][data-state="active"] {
   background-image: linear-gradient(
     135deg,
-    color-mix(in srgb, #6d42c9 30%, transparent),
-    color-mix(in srgb, #f26a1b 22%, transparent)
+    color-mix(in srgb, #8B7BD8 30%, transparent),
+    color-mix(in srgb, #E58B5A 22%, transparent)
   );
 }
 
@@ -1231,8 +1231,8 @@ html {
 [data-slot="input"]:focus-visible,
 [data-slot="textarea"]:focus-visible,
 [data-slot="select-trigger"]:focus-visible {
-  border-color: #f26a1b;
-  box-shadow: 0 0 0 3px rgba(242, 106, 27, 0.22);
+  border-color: #E58B5A;
+  box-shadow: 0 0 0 3px rgba(229, 139, 90, 0.16);
 }
 
 /* Janelas, menus e seletores: borda com tom roxo */
@@ -1246,7 +1246,7 @@ html {
 
 /* Barras de progresso: roxo -> laranja -> amarelo */
 [data-slot="progress-indicator"] {
-  background-image: linear-gradient(90deg, #6d42c9, #f26a1b, #ffc857);
+  background-image: linear-gradient(90deg, #8B7BD8, #E58B5A, #E9CB8B);
 }
 
 /* Paineis que sao links: reacao ao passar o mouse */
@@ -1255,3 +1255,62 @@ a.orbita-panel:hover {
 }
 
 /* ORBITA PASSO 5 - revisao final e desempenho aplicada */
+
+/* =========================================================
+   ORBITA PASSO 6 - TAREFA CONCLUIDA, COMENTARIOS E UPLOAD
+   ========================================================= */
+
+.orbita-check-done {
+  position: relative;
+  animation: orbita-pop 380ms var(--ease-orbita, ease-out) both;
+}
+
+.orbita-check-done::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 2px solid #E9CB8B;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: orbita-burst 560ms ease-out both;
+}
+
+@keyframes orbita-pop {
+  0% { transform: scale(.6); }
+  60% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+@keyframes orbita-burst {
+  0% { opacity: .9; transform: scale(.6); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+
+.orbita-dropzone {
+  background-image: radial-gradient(
+    90% 120% at 50% 0%,
+    color-mix(in srgb, #8B7BD8 10%, transparent),
+    transparent 70%
+  );
+  transition: transform 200ms var(--ease-orbita, ease-out),
+    border-color 200ms,
+    background-color 200ms;
+}
+
+:root[data-motion="leve"] .orbita-check-done,
+:root[data-motion="leve"] .orbita-check-done::after,
+:root[data-motion="minimo"] .orbita-check-done,
+:root[data-motion="minimo"] .orbita-check-done::after {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbita-check-done,
+  .orbita-check-done::after {
+    animation: none;
+  }
+}
+
+/* ORBITA PASSO 7 - identidade, login e botoes aplicados */
+
+/* ORBITA PASSO 9 - paleta suave aplicada */

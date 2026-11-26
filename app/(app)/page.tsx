@@ -55,7 +55,7 @@ export default async function OverviewPage() {
         <p className="text-xs font-semibold tracking-[.18em] text-brand uppercase">Órbita · espaço</p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight">Olá, {name}</h1>
         <p className="mt-2 max-w-xl text-sm leading-6 text-muted">Seu espaço ainda não está disponível. Confira as configurações e as migrações do banco.</p>
-        <Link href="/configuracoes" className="mt-6 inline-flex h-11 items-center rounded-xl bg-brand px-5 text-sm font-semibold text-white no-underline">Abrir configurações</Link>
+        <Link href="/configuracoes" className="orbita-cta mt-6 inline-flex h-11 items-center rounded-xl bg-brand px-5 text-sm font-semibold text-white no-underline">Abrir configurações</Link>
       </section>
     );
   }

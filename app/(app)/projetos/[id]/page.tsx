@@ -132,7 +132,7 @@ export default async function ProjectDetailPage({
             {canEditProject ? <ProjectDetailsEditor project={project} workspaceId={workspace.id} /> : null}
             <Link
               href={`/criar?tipo=tarefa&projeto=${project.id}`}
-              className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+              className="orbita-cta inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
             >
               <Plus className="size-4" aria-hidden="true" />
               Nova tarefa
@@ -218,7 +218,7 @@ export default async function ProjectDetailPage({
                   action={
                     <Link
                       href={`/criar?tipo=tarefa&projeto=${project.id}`}
-                      className="inline-flex h-10 items-center rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+                      className="orbita-cta inline-flex h-10 items-center rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
                     >
                       Criar primeira tarefa
                     </Link>

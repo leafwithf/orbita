@@ -106,7 +106,7 @@ export function CommentThread({
             return (
               <li key={comment.id} className="flex gap-3">
                 <UserAvatar name={comment.authorName} size="lg" />
-                <div className="min-w-0 flex-1 rounded-md border border-border bg-surface p-3 text-ink">
+                <div className="orbita-panel min-w-0 flex-1 rounded-xl border border-border bg-surface p-3 text-ink">
                   <div className="flex flex-wrap items-baseline gap-x-2">
                     <span className="text-[13px] font-semibold">{mine ? "Você" : comment.authorName}</span>
                     <time dateTime={comment.createdAt} className="text-[11.5px] text-faint">
@@ -129,7 +129,7 @@ export function CommentThread({
                         rows={3}
                       />
                       <div className="flex gap-2">
-                        <button type="button" onClick={() => saveEdit(comment.id)} className="min-h-11 rounded-md bg-brand px-3 text-[12.5px] font-semibold text-white hover:bg-brand-hover">
+                        <button type="button" onClick={() => saveEdit(comment.id)} className="orbita-cta min-h-11 rounded-md bg-brand px-3 text-[12.5px] font-semibold text-white hover:bg-brand-hover">
                           Salvar
                         </button>
                         <button type="button" onClick={() => setEditing(null)} className="min-h-11 rounded-md border border-border-strong px-3 text-[12.5px] font-semibold hover:bg-surface-2">

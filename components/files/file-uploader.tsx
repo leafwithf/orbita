@@ -147,8 +147,8 @@ export function FileUploader({ workspaceId, projectId }: { workspaceId: string; 
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
         className={cn(
-          "rounded-lg border border-dashed border-border-strong p-5 text-center",
-          dragging && "border-brand bg-brand-soft",
+          "orbita-dropzone rounded-xl border border-dashed border-border-strong p-6 text-center",
+          dragging && "border-[#E58B5A] bg-[#E58B5A]/10 scale-[1.01]",
         )}
       >
         <Upload className="mx-auto size-6 text-brand" aria-hidden="true" />
@@ -173,7 +173,7 @@ export function FileUploader({ workspaceId, projectId }: { workspaceId: string; 
         <button
           type="button"
           onClick={() => input.current?.click()}
-          className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 text-[13px] font-semibold text-white hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          className="orbita-cta mt-3 inline-flex min-h-11 items-center gap-2 rounded-md bg-brand px-4 text-[13px] font-semibold text-white hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         >
           <Upload className="size-4" aria-hidden="true" />
           Escolher arquivos
@@ -185,7 +185,7 @@ export function FileUploader({ workspaceId, projectId }: { workspaceId: string; 
           {uploads.map((item) => {
             const active = ACTIVE.includes(item.phase);
             return (
-              <li key={item.key} className="rounded-md border border-border bg-surface p-3">
+              <li key={item.key} className="orbita-panel rounded-xl border border-border bg-surface p-3">
                 <div className="flex items-center gap-2">
                   <p className="min-w-0 flex-1 truncate text-[13px] font-medium">{item.file.name}</p>
                   <span className="text-[11.5px] text-faint">{formatBytes(item.file.size)}</span>

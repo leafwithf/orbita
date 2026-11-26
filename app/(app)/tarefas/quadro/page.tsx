@@ -21,7 +21,7 @@ export default async function KanbanPage() {
   return (
     <div className="grid min-w-0 gap-6">
       <header className="orbita-panel relative overflow-hidden rounded-3xl border border-border bg-surface/95 p-5 shadow-[var(--shadow-1)] sm:p-7">
-        <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-28 size-80 rounded-full bg-brand/10 blur-3xl"/>
+        <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-28 size-80 rounded-full bg-[radial-gradient(circle,rgba(139, 123, 216, 0.2),transparent_68%)]"/>
         <div className="relative flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
             <p className="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[.2em] text-brand uppercase"><Sparkles className="size-3.5"/> Fluxo de trabalho</p>
@@ -30,7 +30,7 @@ export default async function KanbanPage() {
           </div>
           <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
             <Link href="/tarefas" className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-4 sm:w-auto text-sm font-semibold text-ink no-underline transition hover:bg-surface-2"><ListChecks className="size-4"/> Lista</Link>
-            <Link href="/criar?tipo=tarefa" className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand px-4 sm:w-auto text-sm font-semibold text-white no-underline shadow-[0_8px_24px_-12px_var(--brand)] transition hover:-translate-y-0.5 hover:bg-brand-hover"><Plus className="size-4"/> Nova tarefa</Link>
+            <Link href="/criar?tipo=tarefa" className="orbita-cta inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand px-4 sm:w-auto text-sm font-semibold text-white no-underline shadow-[0_8px_24px_-12px_var(--brand)] transition hover:-translate-y-0.5 hover:bg-brand-hover"><Plus className="size-4"/> Nova tarefa</Link>
           </div>
         </div>
         <div className="relative mt-7 grid grid-cols-3 gap-3 border-t border-border pt-5 sm:max-w-xl sm:gap-5">
@@ -40,7 +40,7 @@ export default async function KanbanPage() {
         </div>
       </header>
 
-      {tasks.length === 0 ? <div className="rounded-3xl border border-dashed border-border-strong bg-surface p-6 sm:p-9"><EmptyState icon={ListChecks} title="Seu quadro está pronto" description="Crie a primeira tarefa e acompanhe cada etapa até a conclusão." action={<Link href="/criar?tipo=tarefa" className="inline-flex h-10 items-center gap-2 rounded-xl bg-brand px-4 text-sm font-semibold text-white no-underline"><Plus className="size-4"/> Criar primeira tarefa</Link>}/></div> : <KanbanBoard tasks={tasks}/>}
+      {tasks.length === 0 ? <div className="rounded-3xl border border-dashed border-border-strong bg-surface p-6 sm:p-9"><EmptyState icon={ListChecks} title="Seu quadro está pronto" description="Crie a primeira tarefa e acompanhe cada etapa até a conclusão." action={<Link href="/criar?tipo=tarefa" className="orbita-cta inline-flex h-10 items-center gap-2 rounded-xl bg-brand px-4 text-sm font-semibold text-white no-underline"><Plus className="size-4"/> Criar primeira tarefa</Link>}/></div> : <KanbanBoard tasks={tasks}/>}
       <div className="orbita-panel flex flex-col justify-between gap-2 rounded-2xl border border-border bg-surface px-5 py-4 sm:flex-row sm:items-center"><p className="text-xs leading-5 text-muted">Tarefas concluídas permanecem no quadro por 14 dias e depois seguem para o histórico.</p><Link href="/historico" className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-brand no-underline">Ver histórico <ArrowUpRight className="size-3.5"/></Link></div>
     </div>
   );

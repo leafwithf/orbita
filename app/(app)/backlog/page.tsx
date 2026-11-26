@@ -46,7 +46,7 @@ export default async function BacklogPage() {
         actions={
           <Link
             href="/criar?tipo=ideia"
-            className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+            className="orbita-cta inline-flex h-10 items-center gap-2 rounded-md bg-brand px-3.5 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
           >
             <Plus className="size-4" aria-hidden="true" />
             Nova ideia
@@ -65,7 +65,7 @@ export default async function BacklogPage() {
               action={
                 <Link
                   href="/criar?tipo=ideia"
-                  className="inline-flex h-10 items-center gap-2 rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+                  className="orbita-cta inline-flex h-10 items-center gap-2 rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
                 >
                   <Plus className="size-4" aria-hidden="true" />
                   Registrar primeira ideia

@@ -44,7 +44,7 @@ export default async function FilesPage() {
         description="Biblioteca central do espaço: envie cada arquivo uma vez e mencione em qualquer projeto, tarefa ou conversa usando @."
       />
         </div>
-        <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 size-48 rounded-full border border-brand/20 bg-brand/5 blur-2xl" />
+        <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 size-48 rounded-full border border-brand/20 bg-[radial-gradient(circle,rgba(139, 123, 216, 0.18),transparent_68%)]" />
       </section>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(290px,1fr)]">

@@ -49,7 +49,7 @@ export function Topbar({
   const pathname = usePathname();
   const title = currentPageLabel(pathname);
   const activeWorkspace = workspaces.find((item) => item.id === activeWorkspaceId);
-  const workspaceColor = activeWorkspace?.brandColor ?? workspace?.brandColor ?? "#d6a64b";
+  const workspaceColor = activeWorkspace?.brandColor ?? workspace?.brandColor ?? "#E58B5A";
 
   return (
     <header className="orbita-topbar sticky top-0 z-30 flex h-[68px] items-center gap-3 border-b border-border/80 bg-surface/95 px-4 sm:px-6 lg:px-8 lg:backdrop-blur-xl">

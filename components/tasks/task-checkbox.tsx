@@ -77,7 +77,7 @@ export function TaskCheckbox({
         aria-hidden="true"
         className={cn(
           "grid size-5 place-items-center rounded-full border-[1.5px] border-border-strong bg-surface transition-colors group-hover:border-success",
-          checked && "border-success bg-success text-white",
+          checked && "orbita-check-done border-[#E9CB8B] bg-[#E9CB8B] text-[#1A1210]",
         )}
       >
         {saving ? (

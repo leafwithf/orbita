@@ -79,7 +79,7 @@ export default async function InvitePage({
           Entre na sua conta ou crie uma para ver o espaço e aceitar o convite.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
-          <Link href={`/login?proximo=${next}`} className="inline-flex min-h-11 items-center rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline">
+          <Link href={`/login?proximo=${next}`} className="orbita-cta inline-flex min-h-11 items-center rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline">
             Entrar
           </Link>
           <Link href={`/criar-conta?proximo=${next}`} className="inline-flex min-h-11 items-center rounded-md border border-border-strong px-4 text-[13px] font-semibold text-ink no-underline hover:bg-surface-2 hover:no-underline">
@@ -134,7 +134,7 @@ export default async function InvitePage({
           <input type="hidden" name="token" value={token} />
           <button
             type="submit"
-            className="inline-flex min-h-11 items-center rounded-md bg-brand px-5 text-[14px] font-semibold text-white hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            className="orbita-cta inline-flex min-h-11 items-center rounded-md bg-brand px-5 text-[14px] font-semibold text-white hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
             Aceitar convite
           </button>

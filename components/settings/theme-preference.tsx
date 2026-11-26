@@ -148,7 +148,7 @@ export function ThemePreference() {
                 aria-pressed={checked}
                 onClick={() => setPalette(option.id)}
                 className={cn(
-                  "flex min-h-[68px] items-center gap-3 rounded-xl border px-3 py-3 text-left transition-all",
+                  "flex min-h-[68px] items-center gap-3 rounded-xl border px-3 py-3 text-left transition-[background-color,border-color,color]",
                   checked
                     ? "border-brand bg-brand/5 ring-2 ring-brand/20"
                     : "border-border bg-surface hover:border-border-strong hover:bg-surface-2",

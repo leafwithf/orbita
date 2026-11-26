@@ -36,19 +36,19 @@ const byPosition = (a: KanbanTask, b: KanbanTask) => a.position - b.position;
 
 const COLUMN_STYLES: Record<KanbanStatus, { marker: string; count: string; drop: string }> = {
   todo: {
-    marker: "bg-[#6d42c9] shadow-[0_0_10px_rgba(109,66,201,.7)]",
-    count: "bg-[#6d42c9]/15 text-[#5b34b0] dark:text-[#a78bfa]",
-    drop: "border-[#6d42c9]/70 bg-[#6d42c9]/10",
+    marker: "bg-[#8B7BD8] shadow-[0_0_10px_rgba(139, 123, 216, 0.5)]",
+    count: "bg-[#8B7BD8]/15 text-[#5B4B9A] dark:text-[#B8AAF0]",
+    drop: "border-[#8B7BD8]/70 bg-[#8B7BD8]/10",
   },
   in_progress: {
-    marker: "bg-[#f26a1b] shadow-[0_0_10px_rgba(242,106,27,.75)]",
-    count: "bg-[#f26a1b]/15 text-[#b84a0c] dark:text-[#ff8a3d]",
-    drop: "border-[#f26a1b]/70 bg-[#f26a1b]/10",
+    marker: "bg-[#E58B5A] shadow-[0_0_10px_rgba(229, 139, 90, 0.54)]",
+    count: "bg-[#E58B5A]/15 text-[#B0562A] dark:text-[#EBA070]",
+    drop: "border-[#E58B5A]/70 bg-[#E58B5A]/10",
   },
   done: {
-    marker: "bg-[#ffc857] shadow-[0_0_10px_rgba(255,200,87,.75)]",
-    count: "bg-[#ffc857]/20 text-[#8a5a00] dark:text-[#ffc857]",
-    drop: "border-[#ffc857]/70 bg-[#ffc857]/10",
+    marker: "bg-[#E9CB8B] shadow-[0_0_10px_rgba(233, 203, 139, 0.54)]",
+    count: "bg-[#E9CB8B]/20 text-[#8A6A2A] dark:text-[#E9CB8B]",
+    drop: "border-[#E9CB8B]/70 bg-[#E9CB8B]/10",
   },
 };
 

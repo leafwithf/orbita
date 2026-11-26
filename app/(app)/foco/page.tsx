@@ -89,7 +89,7 @@ export default async function FocusPage() {
             aria-labelledby="projeto-principal"
             className="relative isolate overflow-hidden rounded-[28px] border border-brand/30 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--brand)_20%,transparent),transparent_58%),linear-gradient(145deg,var(--surface),var(--surface-2))] shadow-[var(--shadow-2)]"
           >
-            <div className="h-1.5 bg-gradient-to-r from-brand via-[#f26a1b] to-[#ffc857]" />
+            <div className="h-1.5 bg-gradient-to-r from-brand via-[#E58B5A] to-[#E9CB8B]" />
             <div className="p-4 sm:p-5">
               {focusProject ? (
                 <>
@@ -141,7 +141,7 @@ export default async function FocusPage() {
                       </p>
                       <Link
                         href={`/projetos/${focusProject.id}`}
-                        className="inline-flex h-9 flex-none items-center justify-center gap-1.5 rounded-md bg-brand px-3 text-[12.5px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+                        className="orbita-cta inline-flex h-9 flex-none items-center justify-center gap-1.5 rounded-md bg-brand px-3 text-[12.5px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
                       >
                         Começar
                         <ArrowRight className="size-3.5" aria-hidden="true" />
@@ -167,7 +167,7 @@ export default async function FocusPage() {
                       ) : (
                         <Link
                           href="/criar?tipo=projeto"
-                          className="inline-flex h-10 items-center rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
+                          className="orbita-cta inline-flex h-10 items-center rounded-md bg-brand px-4 text-[13px] font-semibold text-white no-underline hover:bg-brand-hover hover:no-underline"
                         >
                           Criar meu primeiro projeto
                         </Link>
